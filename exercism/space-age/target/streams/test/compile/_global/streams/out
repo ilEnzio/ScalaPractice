@@ -1,0 +1,42 @@
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/kellycho/Exercism/scala/space-age/project/target/.sbt-compilation-infos/space-age-test/.sbt-idea-lock ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:7:34: overloaded method value should with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (endWithWord: org.scalatest.words.EndWithWord)(implicit ev: Int <:< String)SpaceAgeTest.this.ResultOfEndWithWordForString <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (startWithWord: org.scalatest.words.StartWithWord)(implicit ev: Int <:< String)SpaceAgeTest.this.ResultOfStartWithWordForString <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (includeWord: org.scalatest.words.IncludeWord)(implicit ev: Int <:< String)SpaceAgeTest.this.ResultOfIncludeWordForString <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (notExist: org.scalatest.words.ResultOfNotExist)(implicit existence: org.scalatest.enablers.Existence[Int])org.scalatest.Assertion <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (existWord: org.scalatest.words.ExistWord)(implicit existence: org.scalatest.enablers.Existence[Int])org.scalatest.Assertion <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (containWord: org.scalatest.words.ContainWord)org.scalatest.words.ResultOfContainWord[Int] <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (haveWord: org.scalatest.words.HaveWord)SpaceAgeTest.this.ResultOfHaveWordForExtent[Int] <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (beWord: org.scalatest.words.BeWord)SpaceAgeTest.this.ResultOfBeWordForAny[Int] <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (inv: org.scalactic.TripleEqualsSupport.TripleEqualsInvocationOnSpread[Int])(implicit ev: Numeric[Int])org.scalatest.Assertion <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  [U](inv: org.scalactic.TripleEqualsSupport.TripleEqualsInvocation[U])(implicit constraint: org.scalactic.CanEqual[Int,U])org.scalatest.Assertion <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (notWord: org.scalatest.words.NotWord)org.scalatest.words.ResultOfNotWordForAny[Int] <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  [TYPECLASS1[_], TYPECLASS2[_]](rightMatcherFactory2: org.scalatest.matchers.MatcherFactory2[Int,TYPECLASS1,TYPECLASS2])(implicit typeClass1: TYPECLASS1[Int], implicit typeClass2: TYPECLASS2[Int])org.scalatest.Assertion <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  [TYPECLASS1[_]](rightMatcherFactory1: org.scalatest.matchers.MatcherFactory1[Int,TYPECLASS1])(implicit typeClass1: TYPECLASS1[Int])org.scalatest.Assertion <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (rightMatcherX1: org.scalatest.matchers.Matcher[Int])org.scalatest.Assertion[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (org.scalatest.matchers.Matcher[Double])[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onEarth(1000000000) should be (31.69 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:12:14: value onMercury is not a member of object SpaceAge[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onMercury(2134835688) should be (280.88 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:17:14: value onVenus is not a member of object SpaceAge[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onVenus(189839836) should be (9.78 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:22:14: value onMars is not a member of object SpaceAge[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onMars(2.329871239E9) should be (39.25 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:27:14: value onJupiter is not a member of object SpaceAge[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onJupiter(901876382) should be (2.41 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:32:14: value onSaturn is not a member of object SpaceAge[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onSaturn(3.0E9) should be (3.23 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:37:14: value onUranus is not a member of object SpaceAge[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onUranus(3.210123456E9) should be (1.21 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/space-age/src/test/scala/SpaceAgeTest.scala:42:14: value onNeptune is not a member of object SpaceAge[0m
+[0m[[0m[31merror[0m] [0m[0m    SpaceAge.onNeptune(8.210123456E9) should be (1.58 +- 0.01)[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m8 errors found[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/kellycho/Exercism/scala/space-age/project/target/.sbt-compilation-infos/space-age-test/.sbt-idea-lock.[0m
