@@ -1,7 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/grade-school/src/main/scala/GradeSchool.scala:24:3: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : Unit[0m
-[0m[[0m[31merror[0m] [0m[0m required: School.this.DB[0m
-[0m[[0m[31merror[0m] [0m[0m    (which expands to)  scala.collection.immutable.Map[Int,Seq[String]][0m
-[0m[[0m[31merror[0m] [0m[0m  }[0m
-[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/grade-school/src/main/scala/GradeSchool.scala:28:22: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : (Seq[String], Seq[String])[0m
+[0m[[0m[31merror[0m] [0m[0m required: (Int, Seq[String])[0m
+[0m[[0m[31merror[0m] [0m[0m    db = db + (db(4) -> db(4).sorted)[0m
+[0m[[0m[31merror[0m] [0m[0m                     ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
