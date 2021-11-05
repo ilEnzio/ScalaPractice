@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/grade-school/src/main/scala/GradeSchool.scala:24:3: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Unit[0m
+[0m[[0m[31merror[0m] [0m[0m required: School.this.DB[0m
+[0m[[0m[31merror[0m] [0m[0m    (which expands to)  scala.collection.immutable.Map[Int,Seq[String]][0m
+[0m[[0m[31merror[0m] [0m[0m  }[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
