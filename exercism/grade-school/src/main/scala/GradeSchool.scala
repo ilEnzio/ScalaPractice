@@ -5,20 +5,20 @@ case class School (var db: Map[Int, Seq[String]] = Map())  {
 
 
   def add(name: String, g: Int) = {
-    val temp =  this.db.getOrElse(g, Seq()) :+ name
-    db = db + (g -> temp)
+    val temp =  db.getOrElse(g, Seq()) :+ name // Refactor this for sure
+    db = db + (g -> temp)                           //
 
   }
 
 //  def db: DB = Map()
 
   def grade(g: Int): Seq[String] = {
-    this.db.getOrElse(g, Seq())
+    db.getOrElse(g, Seq())
   }
 
   def sorted: DB = {
     db.keys.foreach(i => db = db + (i -> db(i).sorted))
-    val finalDB = ListMap(this.db.toSeq.sortBy(_._1):_*)
+    val finalDB = ListMap(db.toSeq.sortBy(_._1):_*) // what is happening here?
     finalDB
   }
 }
