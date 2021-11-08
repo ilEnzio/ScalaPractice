@@ -52,7 +52,6 @@ object Advanced extends App {
   // future, try, and option are called Monads
 
 
-
   Thread.sleep(2000)
 
 
@@ -61,7 +60,7 @@ object Advanced extends App {
    */
 
   // #1: implicit arguments
-  def aMethodWithIMplicitArgs(implicit arg: Int) = arg +1
+  def aMethodWithIMplicitArgs(implicit arg: Int) = arg +1 // rather than an int, think of using a monoid/semi-group, etc
   implicit val myImplicit = 46
   println(aMethodWithIMplicitArgs)
 
