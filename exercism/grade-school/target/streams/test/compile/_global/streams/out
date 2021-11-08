@@ -1,5 +1,2 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Exercism/scala/grade-school/src/test/scala/GradeSchoolTest.scala:5:16: not enough arguments for constructor School: (db: Map[Int,Seq[String]])School.[0m
-[0m[[0m[31merror[0m] [0m[0mUnspecified value parameter db.[0m
-[0m[[0m[31merror[0m] [0m[0m  val school = new School[0m
-[0m[[0m[31merror[0m] [0m[0m               ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/kellycho/Exercism/scala/grade-school/project/target/.sbt-compilation-infos/grade-school-test/.sbt-idea-lock ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/kellycho/Exercism/scala/grade-school/project/target/.sbt-compilation-infos/grade-school-test/.sbt-idea-lock.[0m
