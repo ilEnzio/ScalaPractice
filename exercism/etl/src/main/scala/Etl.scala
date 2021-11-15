@@ -5,18 +5,31 @@ object Etl {
   // )
   // to Map(a -> 1, e -> 1...
 
-//  def transform(oldMap: Map[Int, Seq[String]]): Map[String, Int]= {
-//    for {
-//      k <- oldMap.keys
-//      v <- oldMap.values
+  def transform(oldMap: Map[Int, Seq[String]]): Map[String, Int]= {
+
+    val newMap: Map[String, Int] = Map.empty
+
+    for {
+      (k, v) <- oldMap
+      letter <- v
+    } yield {
+      letter.toLowerCase -> k
+    }
+
+    // akshayd29's solution
+//    object Etl {
+//      def transform(input: Map[Int, Seq[String]]): Map[String, Int] = {
+//        input.flatMap(x => x._2.map(y => (y.toLowerCase -> x._1)))
+//      }
 //    }
-//  }
-def main(args: Array[String]): Unit = {
-  val test = Map(1 -> Seq("A", "E", "I", "O", "U"))
 
-  val keyTest = test.keys
+    /**
+     * val newMap: Map[String, Int] = Map.empty
+     * for ( (v -> k) <- oldMap.keys
+     */
+  }
 
-  println(keyTest)
-}
+
+
 }
 
