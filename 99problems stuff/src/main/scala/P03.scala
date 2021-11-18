@@ -10,10 +10,15 @@ object P03 {
 //  res0: Option[Int] = Some(2)
 
   def getKth[A](k: Int ,l: List[A]): Option[A] =  {
-    val validInput = k < l.length - 1 && k >= 0
+    val validInput = k >= 0 && k < l.length - 1
     if (validInput) Some(l(k)) else None
 
   }
+
+  def getKth_v2[A](k: Int, l: List[A]): Option[A] = ???
+    // make a helper function that has acc that keeps track
+    // of the element counter
+    // if I rewrite this then I can change Penultimate
 
   def main(args: Array[String]): Unit = {
 
