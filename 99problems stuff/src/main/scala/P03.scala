@@ -14,7 +14,7 @@ object P03 {
     if (validInput) Some(l(k)) else None
 
   }
-
+// TODO: Reimplement using recursion to traverse the list
   def getKth_v2[A](k: Int, l: List[A]): Option[A] = ???
     // make a helper function that has acc that keeps track
     // of the element counter
