@@ -9,7 +9,7 @@ object P05 {
 //
 //  res0: List[Int] = List(8, 5, 3, 2, 1, 1)
 def revList[A](l: List[A], acc: List[A] = List() ): List[A] = l match {
-  case List() => acc
+  case Nil => acc
   case h :: t => revList(t, h :: acc )
 }
 
