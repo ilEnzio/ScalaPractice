@@ -46,7 +46,7 @@ object P06 {
     println(isPalindrome(test2EleIsPal))
 
     println()
-    
+
     //v2 tests
     // TODO: Ask Questions == vs EQ.  Is == always value equality? Or
     // do I need to check or make assumptions about == ?
