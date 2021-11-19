@@ -26,7 +26,8 @@ object P06 {
   }
 
   def isPalindrome_v2[A](l: List[A]): Boolean = {
-    P05.revList(l) == l
+//    revList(l) == l
+    revList(l).equals(l)
   }
 
   def main(args: Array[String]): Unit = {
@@ -45,9 +46,13 @@ object P06 {
     println(isPalindrome(test2EleIsPal))
 
     println()
+    
     //v2 tests
     // TODO: Ask Questions == vs EQ.  Is == always value equality? Or
     // do I need to check or make assumptions about == ?
+    // I switched to equals, just in case?
+    // TODO: Also am I tranversing the whole list to get the item at the last index?
+
     println(isPalindrome_v2(testList))
     println(isPalindrome_v2(testEmpty))
     println(isPalindrome_v2(test1Ele))
