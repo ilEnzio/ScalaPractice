@@ -11,10 +11,10 @@ object P01 {
   //
   //  res1: Option[Int] = None
 
-  def findLast[A](list: List[A]): Option[A] = list match {
-    case x if (x == List.empty) => None
+  def findLast[A](l: List[A]): Option[A] = l match {
+    case Nil => None
     case List(x) => Some(x)
-    case x :: xs => findLast(xs)
+    case _ :: xs => findLast(xs)
   }
 
 

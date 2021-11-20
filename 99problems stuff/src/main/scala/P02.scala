@@ -9,11 +9,13 @@ object P02 {
 //  res0: Option[Int] = Some(5)
 
   def findPenultimate[A](l: List[A]): Option[A] = l match {
-  case x if (x == List.empty) => None
+  case Nil => None
   case List(_) => None
-  case h :: _ :: t if (t == Nil) => Some(h)
+  case h :: _ :: Nil => Some(h)
   case _ :: t => findPenultimate(t)
 }
+
+  // not as good a solution; the indexing does traverse the entire list
 
   def findPenultimate_v2[A](l: List[A]): Option[A] = l match {
     case x if (x == List()) => None

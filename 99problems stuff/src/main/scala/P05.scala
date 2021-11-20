@@ -8,10 +8,17 @@ object P05 {
 //    scala> reverse(List(1, 1, 2, 3, 5, 8))
 //
 //  res0: List[Int] = List(8, 5, 3, 2, 1, 1)
-def revList[A](l: List[A], acc: List[A] = List() ): List[A] = l match {
-  case Nil => acc
-  case h :: t => revList(t, h :: acc )
-}
+//  def revList[A](l: List[A], acc: List[A] = List() ): List[A] = l match {
+//    case Nil => acc
+//    case h :: t => revList(t, h :: acc )
+//  }
+  def revList[A](l: List[A]): List[A] = {
+    def doRevList[A](l: List[A], acc: List[A] = Nil): List[A] = l match {
+      case Nil => acc
+      case h :: t => doRevList(t, h :: acc )
+    }
+    doRevList(l)
+  }
 
   def main(args: Array[String]): Unit = {
 
