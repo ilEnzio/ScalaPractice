@@ -4,17 +4,16 @@ object SquareDance {
 
   object Calc {
     def square(x: Double): Double = x * x
-
-
     def cube(x: Double): Double = x * square(x)
   }
 
   object Calc2 {
+    // method overloading - use the same name; different signature
     def square(x: Double): Double = x * x
     def square(x: Int): Int = x * x
 
-    def cube(x: Int): Int = x * square(x)
     def cube(x: Double): Double = x * square(x)
+    def cube(x: Int): Int = x * square(x)
 
   }
 
