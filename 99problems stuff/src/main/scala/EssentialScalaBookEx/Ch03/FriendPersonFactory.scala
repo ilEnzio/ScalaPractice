@@ -2,8 +2,8 @@ package EssentialScalaBookEx.Ch03
 
 object FriendPersonFactory {
 
-  class Person(val firstName: String, val lastName: String) {
-
+  case class Person(firstName: String, lastName: String) {
+    def name = s"$firstName $lastName"
   }
 
   object Person {

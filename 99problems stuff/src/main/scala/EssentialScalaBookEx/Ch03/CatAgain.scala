@@ -6,7 +6,15 @@ object CatAgain {
   }
 
   object ChipShop {
-    def willServe(c: Cat): Boolean = c.food.toLowerCase() == "chips"
+//    def willServe(c: Cat): Boolean = c.food.toLowerCase() == "chips"
+//    def willServe(c: Cat): Boolean = c.food.toLowerCase match {
+//      case "chips" => true
+//      case _ => false
+
+    def willServe(c: Cat): Boolean = c match {
+      case Cat(_, _, "Chips") => true
+      case Cat(_, _, _) => false
+    }
   }
 
   def main(args: Array[String]): Unit = {

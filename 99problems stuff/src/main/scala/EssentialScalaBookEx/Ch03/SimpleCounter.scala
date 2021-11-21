@@ -2,16 +2,16 @@ package EssentialScalaBookEx.Ch03
 
 object SimpleCounter {
 
-  class Counter(val n: Int){
+  case class Counter(n: Int = 0){
 
     def count: Int = n
 
-    def inc(k: Int = 1): Counter = new Counter(n + k)
+    def inc(k: Int = 1): Counter = copy(n + k)
 
-    def dec(k: Int = 1): Counter = new Counter(n - k)
+    def dec(k: Int = 1): Counter = copy(n - k)
 
     def adjust(adder: Adder): Counter =
-      new Counter(adder(n))
+      this.copy(adder(n))
 
   }
 
@@ -21,12 +21,12 @@ object SimpleCounter {
 
   def main(args: Array[String]): Unit = {
 
-    val testCounter1 = new Counter(2)
-    val testCounter2 = new Counter(11)
+    val testCounter1 = Counter(2)
+    val testCounter2 = Counter(11)
 
-    assert(testCounter1.inc().count == new Counter(3).count)
-    assert(testCounter1.dec().count == new Counter(1).count)
-    assert(testCounter2.inc().inc().dec().dec().dec().count == new Counter(10).count)
+    assert(testCounter1.inc() == Counter(3))
+    assert(testCounter1.dec().count == Counter(1).count)
+    assert(testCounter2.inc().inc().dec().dec().dec().count == Counter(10).count)
 
     assert(testCounter1.inc(5).count == 7)
     assert(testCounter2.dec(2).count == 9)

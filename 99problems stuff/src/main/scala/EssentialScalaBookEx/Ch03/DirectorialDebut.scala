@@ -3,9 +3,9 @@ package EssentialScalaBookEx.Ch03
 object DirectorialDebut {
 
   case class Director(
-    val firstName: String,
-    val lastName: String,
-    val yearOfBirth: Int) {
+    firstName: String,
+    lastName: String,
+    yearOfBirth: Int) {
 
     def name: String = s"$firstName $lastName"
 
@@ -27,8 +27,8 @@ object DirectorialDebut {
       if (d1.yearOfBirth <= d2.yearOfBirth) d1 else d2
   }
 
-  case class Film (val name: String, val yearOfRelease: Int,
-              val imdbRating: Double, val director: Director) {
+  case class Film (name: String, val yearOfRelease: Int,
+              imdbRating: Double, val director: Director) {
 
     def directorAge: Int = yearOfRelease - director.yearOfBirth
     def isDirectedBy(aDirector: Director) = director == aDirector
@@ -61,17 +61,25 @@ object DirectorialDebut {
     }
   }
 
-  val eastwood          = new Director("Clint", "Eastwood", 1930)
-  val mcTiernan         = new Director("John", "McTiernan", 1951)
-  val nolan             = new Director("Christopher", "Nolan", 1970)
-  val someBody          = new Director("Just", "Some Body", 1990)
+  case object Dad{
+    def rate(f: Film): Double = f match {
+      case Film(_, _, _, Director("Clint", "Eastwood", 1930)) => 10.0
+      case Film(_, _, _, Director("John", "McTiernan", 1951)) => 7.0
+      case _ => 3.0
+    }
+  }
 
-  val memento           = new Film("Memento", 2000, 8.5, nolan)
-  val darkKnight        = new Film("Dark Knight", 2008, 9.0, nolan)
-  val inception         = new Film("Inception", 2010, 8.8, nolan)
+  val eastwood          = Director("Clint", "Eastwood", 1930)
+  val mcTiernan         = Director("John", "McTiernan", 1951)
+  val nolan             = Director("Christopher", "Nolan", 1970)
+  val someBody          = Director("Just", "Some Body", 1990)
 
-  val highPlainsDrifter = new Film("High Plains Drifter", 1973, 7.7, eastwood)
-  val outlawJoseyWales  = new Film("The Outlaw Josey Wales", 1976, 7.9, eastwood)
+  val memento           = Film("Memento", 2000, 8.5, nolan)
+  val darkKnight        = Film("Dark Knight", 2008, 9.0, nolan)
+  val inception         = Film("Inception", 2010, 8.8, nolan)
+
+  val highPlainsDrifter = Film("High Plains Drifter", 1973, 7.7, eastwood)
+  val outlawJoseyWales  = Film("The Outlaw Josey Wales", 1976, 7.9, eastwood)
   val unforgiven        = new Film("Unforgiven", 1992, 8.3, eastwood)
   val granTorino        = new Film("Gran Torino", 2008, 8.2, eastwood)
   val invictus          = new Film("Invictus", 2009, 7.4, eastwood)
@@ -109,5 +117,9 @@ object DirectorialDebut {
 
     assert(Film.oldestDirectorAtTheTime(darkKnight, dieHard) == nolan)
 
+    // test Dad object and rate method
+    assert(Dad.rate(dieHard) == 7.0)
+    assert(Dad.rate(darkKnight) == 3.0)
+    assert(Dad.rate(unforgiven) == 10.0)
   }
 }
