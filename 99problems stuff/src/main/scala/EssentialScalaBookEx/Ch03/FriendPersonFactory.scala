@@ -1,0 +1,26 @@
+package EssentialScalaBookEx.Ch03
+
+object FriendPersonFactory {
+
+  class Person(val firstName: String, val lastName: String) {
+
+  }
+
+  object Person {
+    def apply(name: String): Person = {
+      val wholeName = name.split(" ")
+      new Person(wholeName(0), wholeName(1))
+    }
+  }
+  def main(args: Array[String]): Unit = {
+
+    val testPerson = Person("Il Enzio")
+
+    println(testPerson.firstName)
+    println(testPerson.lastName)
+    assert(testPerson.firstName == "Il")
+    assert(testPerson.lastName == "Enzio")
+
+  }
+
+}
