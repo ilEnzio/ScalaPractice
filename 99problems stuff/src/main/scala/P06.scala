@@ -26,8 +26,17 @@ object P06 {
   }
 
   def isPalindrome_v2[A](l: List[A]): Boolean = {
-//    revList(l) == l
-    revList(l).equals(l)
+    revList(l) == l
+  }
+
+  // I think I could do a v3 using a vector
+  def isPalindrome_v3[A](l: List[A]): Boolean = {
+    val vl = l.toVector
+    def doIsPal[A](v: Vector[A]): Boolean =
+      if (v.length <= 1) true
+      else if (v.head != v.last) false
+      else doIsPal(v.drop(1).dropRight(1))
+    doIsPal(vl)
   }
 
   def main(args: Array[String]): Unit = {
@@ -38,7 +47,7 @@ object P06 {
     val test2EleNotPal = List(2, 5)
     val test2EleIsPal = List(2,2)
 
-  // v1 tests
+    // v1 tests
     println(isPalindrome(testList))
     println(isPalindrome(testEmpty))
     println(isPalindrome(test1Ele))
@@ -48,16 +57,25 @@ object P06 {
     println()
 
     //v2 tests
-    // TODO: Ask Questions == vs EQ.  Is == always value equality? Or
-    // do I need to check or make assumptions about == ?
-    // I switched to equals, just in case?
-    // TODO: Also am I tranversing the whole list to get the item at the last index?
-
     println(isPalindrome_v2(testList))
     println(isPalindrome_v2(testEmpty))
     println(isPalindrome_v2(test1Ele))
     println(isPalindrome_v2(test2EleNotPal))
     println(isPalindrome_v2(test2EleIsPal))
+
+    assert(isPalindrome_v2(testList) == true)
+    assert(isPalindrome_v2(testEmpty) == true)
+    assert((isPalindrome_v2(test1Ele) == true))
+    assert(isPalindrome_v2(test2EleNotPal) == false)
+    assert(isPalindrome_v2(test2EleIsPal) == true)
+
+    //v3 test
+    assert(isPalindrome_v3(testList) == true)
+    assert(isPalindrome_v3(testEmpty) == true)
+    assert((isPalindrome_v3(test1Ele) == true))
+    assert(isPalindrome_v3(test2EleNotPal) == false)
+    assert(isPalindrome_v3(test2EleIsPal) == true)
+
   }
 
 }

@@ -33,7 +33,7 @@ object SquareDance {
     assert(Calc2.square(2.0) == 4.0)
     assert(Calc2.square(3.0) == 9.0)
     assert(Calc2.square(-2.0) == 4.0)
-    
+
 
   }
 
