@@ -2,10 +2,13 @@ package EssentialScalaBookEx.Ch03
 
 object CatAgain {
 
-  class Cat (name: String, colour: String, food: String) {
+  class Cat (name: String, colour: String, val food: String) {
     override def toString: String = s"$name, $colour, $food"
   }
 
+  object ChipShop {
+    def willServe(c: Cat): Boolean = c.food.toLowerCase() == "chips"
+  }
 
   def main(args: Array[String]): Unit = {
 
@@ -16,7 +19,10 @@ object CatAgain {
     println(os)
     println(henderson)
     println(quentin)
-    
+
+    assert(ChipShop.willServe(os) == false)
+    assert(ChipShop.willServe(henderson) == true)
+
 
 
   }
