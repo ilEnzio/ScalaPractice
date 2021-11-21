@@ -1,24 +1,31 @@
 object P03 {
 
-//  P03 (*) Find the Kth element of a list.
-//  By convention, the first element in the list is element 0.
-//
-//  Example:
-//
-//    scala> nth(2, List(1, 1, 2, 3, 5, 8))
-//
-//  res0: Option[Int] = Some(2)
+  //  P03 (*) Find the Kth element of a list.
+  //  By convention, the first element in the list is element 0.
+  //
+  //  Example:
+  //
+  //    scala> nth(2, List(1, 1, 2, 3, 5, 8))
+  //
+  //  res0: Option[Int] = Some(2)
 
   def getKth[A](k: Int ,l: List[A]): Option[A] =  {
     val validInput = k >= 0 && k < l.length - 1
     if (validInput) Some(l(k)) else None
 
   }
-// TODO: Reimplement using recursion to traverse the list
-  def getKth_v2[A](k: Int, l: List[A]): Option[A] = ???
-    // make a helper function that has acc that keeps track
-    // of the element counter
-    // if I rewrite this then I can change Penultimate
+
+  def getKth_v2[A](k: Int, l: List[A]): Option[A] = {
+    val validInput = k >= 0 && k < l.length - 1
+
+    def doGetKth( l: List[A], acc: Int = 0): Option[A] =
+      l match {
+        case Nil => None
+        case h :: _ if (k == acc) => Some(h)
+        case _ :: t => doGetKth(t, acc + 1)
+      }
+    if (validInput) doGetKth(l) else None
+  }
 
   def main(args: Array[String]): Unit = {
 
@@ -29,6 +36,12 @@ object P03 {
     println(getKth(2, testEmpty))
     println(getKth(2, test1ele))
     println(getKth(-1, testList))
+
+    // test for v 2
+    assert(getKth_v2(2, testList) == Some(2) )
+    assert(getKth_v2(2, testEmpty) == None)
+    assert(getKth_v2(2, test1ele) == None)
+    assert(getKth_v2(-1, testList) == None)
   }
 
 }
