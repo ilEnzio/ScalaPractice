@@ -8,6 +8,7 @@ object DirectorialDebut {
     val yearOfBirth: Int) {
 
     def name: String = s"$firstName $lastName"
+
     def copy(
       firstName: String = this.firstName,
       lastName: String = this.lastName,
@@ -18,11 +19,21 @@ object DirectorialDebut {
 
   }
 
+  object Director{
+    def apply(firstName: String, lastname: String, yearOfBirth: Int): Director =
+      new Director(firstName, lastname, yearOfBirth)
+
+    def older(d1: Director, d2: Director): Director =
+      if (d1.yearOfBirth <= d2.yearOfBirth) d1 else d2
+  }
+
   class Film (val name: String, val yearOfRelease: Int,
               val imdbRating: Double, val director: Director) {
 
     def directorAge: Int = yearOfRelease - director.yearOfBirth
     def isDirectedBy(aDirector: Director) = director == aDirector
+
+
     def copy(
       name: String = this.name,
       yearOfRelease:Int = this.yearOfRelease,
@@ -32,6 +43,22 @@ object DirectorialDebut {
 
     override def toString: String = s"$name, $yearOfRelease, $imdbRating, by $director"
 
+  }
+
+  object Film {
+    def apply(
+      name: String,
+      yearOfRelease: Int,
+      imdbRating: Double,
+      director: Director): Film =
+      new Film(name, yearOfRelease, imdbRating, director)
+
+    def highestRating(f1: Film, f2: Film): Double = {
+      if (f1.imdbRating >= f2.imdbRating) f1.imdbRating else f2.imdbRating
+    }
+    def oldestDirectorAtTheTime(f1: Film, f2: Film): Director = {
+      if (f1.directorAge >= f2.directorAge) f1.director else f2.director
+    }
   }
 
   val eastwood          = new Director("Clint", "Eastwood", 1930)
@@ -67,6 +94,20 @@ object DirectorialDebut {
     println(dieHard.copy(name = "DieHarder") )
     assert(dieHard.copy(name = "DieHarder").name == testFilm.name)
     assert(dieHard.copy(yearOfRelease = 2018).yearOfRelease == testFilm2.yearOfRelease)
+
+
+    // test director.older
+    println(eastwood.yearOfBirth, mcTiernan.yearOfBirth)
+    assert(Director.older(eastwood, mcTiernan) == eastwood)
+
+    // test highestRating
+    assert(Film.highestRating(darkKnight, dieHard) == 9)
+
+    // test oldestDirectorAtTheTime
+    println(s"Nolan age for Dark Knight: ${darkKnight.directorAge}")
+    println(s"McTiernan age for Die Hard: ${dieHard.directorAge}")
+
+    assert(Film.oldestDirectorAtTheTime(darkKnight, dieHard) == nolan)
 
   }
 }
