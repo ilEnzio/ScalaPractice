@@ -2,20 +2,20 @@ package EssentialScalaBookEx.Ch03
 
 object DirectorialDebut {
 
-  class Director(
+  case class Director(
     val firstName: String,
     val lastName: String,
     val yearOfBirth: Int) {
 
     def name: String = s"$firstName $lastName"
 
-    def copy(
-      firstName: String = this.firstName,
-      lastName: String = this.lastName,
-      yearOfBirth: Int = this.yearOfBirth): Director =
-      new Director(firstName, lastName, yearOfBirth)
+//    def copy(
+//      firstName: String = this.firstName,
+//      lastName: String = this.lastName,
+//      yearOfBirth: Int = this.yearOfBirth): Director =
+//      new Director(firstName, lastName, yearOfBirth)
 
-    override def toString: String = s"$name (b. $yearOfBirth)"
+//    override def toString: String = s"$name (b. $yearOfBirth)"
 
   }
 
@@ -27,21 +27,21 @@ object DirectorialDebut {
       if (d1.yearOfBirth <= d2.yearOfBirth) d1 else d2
   }
 
-  class Film (val name: String, val yearOfRelease: Int,
+  case class Film (val name: String, val yearOfRelease: Int,
               val imdbRating: Double, val director: Director) {
 
     def directorAge: Int = yearOfRelease - director.yearOfBirth
     def isDirectedBy(aDirector: Director) = director == aDirector
 
 
-    def copy(
-      name: String = this.name,
-      yearOfRelease:Int = this.yearOfRelease,
-      imdbRating: Double = this.imdbRating,
-      director: Director = this.director): Film =
-      new Film(name, yearOfRelease, imdbRating, director)
-
-    override def toString: String = s"$name, $yearOfRelease, $imdbRating, by $director"
+//    def copy(
+//      name: String = this.name,
+//      yearOfRelease:Int = this.yearOfRelease,
+//      imdbRating: Double = this.imdbRating,
+//      director: Director = this.director): Film =
+//      new Film(name, yearOfRelease, imdbRating, director)
+//
+//    override def toString: String = s"$name, $yearOfRelease, $imdbRating, by $director"
 
   }
 

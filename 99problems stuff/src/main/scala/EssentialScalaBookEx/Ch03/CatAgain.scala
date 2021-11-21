@@ -2,8 +2,7 @@ package EssentialScalaBookEx.Ch03
 
 object CatAgain {
 
-  class Cat (name: String, colour: String, val food: String) {
-    override def toString: String = s"$name, $colour, $food"
+  case class Cat (name: String, colour: String, val food: String) {
   }
 
   object ChipShop {
