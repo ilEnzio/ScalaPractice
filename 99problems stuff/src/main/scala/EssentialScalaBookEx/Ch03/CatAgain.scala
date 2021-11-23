@@ -2,7 +2,7 @@ package EssentialScalaBookEx.Ch03
 
 object CatAgain {
 
-  case class Cat (name: String, colour: String, val food: String) {
+  case class Cat (name: String, colour: String, food: String) {
   }
 
   object ChipShop {
@@ -19,9 +19,9 @@ object CatAgain {
 
   def main(args: Array[String]): Unit = {
 
-    val os = new Cat("Oswald", "Black", "Milk")
-    val henderson = new Cat("Henderson", "Ginger", "Chips")
-    val quentin = new Cat("Quentin", "Tabby and white", "Curry")
+    val os = Cat("Oswald", "Black", "Milk")
+    val henderson = Cat("Henderson", "Ginger", "Chips")
+    val quentin = Cat("Quentin", "Tabby and white", "Curry")
 
     println(os)
     println(henderson)

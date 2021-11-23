@@ -4,19 +4,19 @@ object SimpleCounter {
 
   case class Counter(n: Int = 0){
 
+    // since every operation returns a new instance;
+    // does it matter if 'count' is a field or method?
     def count: Int = n
-
     def inc(k: Int = 1): Counter = copy(n + k)
-
     def dec(k: Int = 1): Counter = copy(n - k)
 
     def adjust(adder: Adder): Counter =
-      this.copy(adder(n))
+      copy(adder(n))
 
   }
 
   class Adder(amount: Int) {
-    def apply(in: Int) = in + amount
+    def apply(in: Int): Int = in + amount
   }
 
   def main(args: Array[String]): Unit = {

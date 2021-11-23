@@ -27,8 +27,8 @@ object DirectorialDebut {
       if (d1.yearOfBirth <= d2.yearOfBirth) d1 else d2
   }
 
-  case class Film (name: String, val yearOfRelease: Int,
-              imdbRating: Double, val director: Director) {
+  case class Film (name: String, yearOfRelease: Int,
+              imdbRating: Double, director: Director) {
 
     def directorAge: Int = yearOfRelease - director.yearOfBirth
     def isDirectedBy(aDirector: Director) = director == aDirector

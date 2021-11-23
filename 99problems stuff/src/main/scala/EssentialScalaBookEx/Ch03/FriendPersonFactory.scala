@@ -9,6 +9,8 @@ object FriendPersonFactory {
   object Person {
     def apply(name: String): Person = {
       val wholeName = name.split(" ")
+      // what would I used to account for the instance where there
+      // are not two parts? Option?
       new Person(wholeName(0), wholeName(1))
     }
   }
