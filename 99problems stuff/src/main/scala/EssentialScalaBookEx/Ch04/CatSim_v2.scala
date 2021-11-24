@@ -1,5 +1,8 @@
 package EssentialScalaBookEx.Ch04
 
+
+// TODO: What is the cake pattern? Why was I told to avoid it?
+
 object CatSim_v2 {
 
   trait Feline {

@@ -18,14 +18,13 @@ object P13 {
       }
     }
     // used None because I couldn't figure out how to kick off the recursion generically
-    // TODO so now, among other things I have to figure out how to get the real value out
     val temp = doEncDir(l, (0, None), List.empty[(Int, Option[A])]).reverse
     println(temp)
     temp.map(x => (x._1, x._2.get ))
   }
 
   def encodeDirect_v02[A](l: List[A]): List[(Int,A)] = {
-    def doEncDir(list: List[A], tupAcc: (Int, Option[A]) = (0, None), acc: List[(Int, Option[A])]): List[(Int, Option[A])] = {
+    def doEncDir(list: List[A], tupAcc: (Int, Option[A]), acc: List[(Int, Option[A])]): List[(Int, Option[A])] = {
       //      println(s"$list ------ $acc")
       list match {
         case Nil => acc

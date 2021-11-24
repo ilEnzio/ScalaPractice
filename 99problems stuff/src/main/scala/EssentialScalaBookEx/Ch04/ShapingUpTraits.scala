@@ -8,7 +8,7 @@ object ShapingUpTraits {
     def area: Double
     def color: Color
   }
-// how do I arrange a file?  should all traits go together?
+// TODO how do I arrange a file?  should all traits go together?
 
 //
 //  Write a sealed trait Color to make our shapes more interesting.
@@ -18,13 +18,22 @@ object ShapingUpTraits {
 //  provide a means for people to produce their own custom Colors with their own RGB values;
 //  provide a means for people to tell whether any Color is “light” or “dark”.
 
+
+
+
+  // TODO: How come we use traits rather than abstract classes?
+
+  // TODO: I feel like this implementation is wrong - (putting name logic here)
+  //  but don't know why it's better to put it in Draw.apply.  Why is it better to wait
+  // the name? Maybe we want like with late binding we some how want objects to be as
+  // light as possible?
+  // section: 4.2.2.2 https://books.underscore.io/essential-scala/essential-scala.html
+
   sealed trait Color {
     def name: String = if (r + b + g >= 382) "light" else "dark"
     def r: Int
     def b: Int
     def g: Int
-
-
 }
 
   case class CustomColor(r: Int, b: Int, g: Int) extends Color
@@ -62,8 +71,6 @@ object ShapingUpTraits {
 //    override def sides: Int = 0
     override val perimeter: Double = 2 * math.Pi * radius
     override val area: Double = math.Pi * (radius * radius)
-
-
   }
 
   case class Rectangle(height: Double, width: Double, color: Color) extends Shape with Rectangular
@@ -72,6 +79,11 @@ object ShapingUpTraits {
     override val width: Double = size
     override val height: Double = size
   }
+
+  // TODO: is there a convention to refer to this object that's just performing random stuff on
+  // objects in the file/package?  This Draw object feels misplaced or somehow random.
+  // maybe it's just because it's named Draw.  Having objects have an apply method makes it hard
+  // to understand the naming convention, if there is one.
 
   object Draw{
     def apply(sh: Shape): String =
