@@ -14,9 +14,7 @@ object P12 {
     def duplicate[A](n: Int, ele: A, acc: List[A] = Nil): List[A] = {
       if (n == 0) acc else duplicate(n-1, ele, ele :: acc)
     }
-
     encL.map(x => duplicate(x._1, x._2)).flatMap(x => x)
-
   }
 
   def main(args: Array[String]): Unit = {

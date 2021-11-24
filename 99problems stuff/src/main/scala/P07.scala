@@ -8,38 +8,37 @@ object P07 {
   //  res0: List[Any] = List(1, 1, 2, 3, 5, 8)
 
 
-//  def flatten[Any](nl: List[Any]): Unit = nl match {
-//    case h :: _ if (h.isInstanceOf[List[Any]]) => println(s"${h.getClass}, got here")
-//    case Nil => println("end")
-//    case h :: t => println(h)
-//      flatten(t)
-//  }
-
-  def flattenv2[Any](l: List[List[Any]]): List[Any] =  {
-
-    def doFlat(list: List[List[Any]], acc: List[Any]): List[Any] = list match {
-      case Nil => acc
-//      case h :: Nil => h ++ R
-      case h :: t if (h.isInstanceOf[List[Any]]) => h ++ doFlat(t, acc)
-      case h :: t if (!h.isInstanceOf[List[Any]])=> doFlat(t, h ++ acc)
+  def flatten(nl: List[Any]): List[Any] = {
+    def doflat(l: List[Any], acc: List[Any]): List[Any] = {
+      println(s"$l ------ $acc")
+      l match {
+        case Nil => acc
+        case (h: List[_]) :: t => doflat(h ++ t, acc) // this step is tricky!!
+        case h :: t => doflat(t, acc ++ List(h))
+      }
     }
-
-    doFlat(l, Nil)
+    doflat(nl, Nil)
   }
 
+  //  TODO EXERCISE - def flatten([A]ls: List[List[A]]) = List[A] = ???
+
+  def otherFlatten[A](ls: List[List[A]]) : List[A] = {
+    def doFlatten(l: List[List[A]], acc: List[A]): List[A] = l match {
+      case Nil => acc
+      case h :: t => doFlatten(t, acc ++ h)
+    }
+    doFlatten(ls, Nil)
+  }
 
   def main(args: Array[String]): Unit = {
 
     val testNest = List(List(1, 1), 2, List(3, List(5, 8)))
-    val test1Nest = List(List(1, 1))
 
+    val testOther = List(List(112,2), List(5,6,7), List(89, 11, 101))
 
-    val test01 = List( 1, 3)
-    val test02 = List(4, 6)
-
-    println(test01 ++ test02)
-
-//    println(flattenv2(testNest))
+    println(testNest)
+    println(flatten(testNest))
+    println(otherFlatten(testOther))
 
 
 
