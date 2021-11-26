@@ -1,7 +1,5 @@
 package EssentialScalaBookEx.Ch04
 
-import com.sun.javafx.animation.TickCalculation
-
 object Calculator {
 
   sealed trait CalcResult
