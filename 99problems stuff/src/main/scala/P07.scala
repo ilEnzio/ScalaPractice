@@ -20,6 +20,14 @@ object P07 {
     doflat(nl, Nil)
   }
 
+//  def flatten_v2(nl: List[Any]): List[Any] = {
+//    def folder(state: List[Any], value: Any): List[Any] = value match {
+//      case x: List[_] => x ++ state
+//      case x => List(x) ++ state
+//    }
+////    nl.fold(List[Any]())(folder).reverse
+//  }
+
   //  TODO EXERCISE - def flatten([A]ls: List[List[A]]) = List[A] = ???
 
   def otherFlatten[A](ls: List[List[A]]) : List[A] = {
@@ -30,6 +38,16 @@ object P07 {
     doFlatten(ls, Nil)
   }
 
+
+  def otherFlatten_v2[A](ls: List[List[A]]) : List[A] = {
+    def folder(state: List[A], value: List[A]): List[A]= {
+        state ++ value
+    }
+    ls.foldLeft(List[A]())(folder)
+  }
+
+
+
   def main(args: Array[String]): Unit = {
 
     val testNest = List(List(1, 1), 2, List(3, List(5, 8)))
@@ -38,7 +56,10 @@ object P07 {
 
     println(testNest)
     println(flatten(testNest))
-    println(otherFlatten(testOther))
+//    println(flatten_v2(testNest))
+//    println(otherFlatten(testOther))
+//
+//    println(otherFlatten_v2(testOther))
 
 
 
