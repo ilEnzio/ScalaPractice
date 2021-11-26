@@ -1,7 +1,5 @@
 package EssentialScalaBookEx.Ch04
 
-import scala.concurrent.duration.Duration.Infinite
-
 object ShortDiv {
 
   // 4.2.2.3
