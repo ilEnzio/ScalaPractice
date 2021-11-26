@@ -38,15 +38,12 @@ object P07 {
     doFlatten(ls, Nil)
   }
 
-
   def otherFlatten_v2[A](ls: List[List[A]]) : List[A] = {
     def folder(state: List[A], value: List[A]): List[A]= {
         state ++ value
     }
     ls.foldLeft(List[A]())(folder)
   }
-
-
 
   def main(args: Array[String]): Unit = {
 

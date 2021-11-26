@@ -29,6 +29,7 @@ object P08 {
       case h:: _ => if (value == h) state else value :: state
       }
     }
+    // the list -> foldFunction -> the initial value -> the folder function
     l.foldLeft(List[A]())(folder).reverse
   }
 

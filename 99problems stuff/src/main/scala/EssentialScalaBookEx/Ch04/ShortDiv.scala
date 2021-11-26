@@ -5,7 +5,6 @@ import scala.concurrent.duration.Duration.Infinite
 object ShortDiv {
 
   // 4.2.2.3
-
   sealed trait DivisionResult{}
 
   final case class Finite(x: Int) extends DivisionResult
@@ -16,7 +15,6 @@ object ShortDiv {
       case (_, 0) => Infinite
       case _ => Finite(x/y)
     }
-
   }
 
   def main(args: Array[String]): Unit = {
