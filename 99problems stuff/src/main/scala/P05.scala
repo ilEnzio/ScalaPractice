@@ -1,5 +1,3 @@
-
-
 object P05 {
 
 //  P05 (*) Reverse a list.
