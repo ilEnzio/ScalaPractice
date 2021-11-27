@@ -9,7 +9,7 @@ object P14 {
   //  res0: List[Symbol] = List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd)
 
   val doubleIt: Symbol => List[Symbol] = x => List(x, x)
-
+// TODO.  something is wrong about my use of flatMap.
   def duplicate[A](l: List[A]): List[A] = {
     l.map(x => List(x, x)).flatMap(x => x)
   }

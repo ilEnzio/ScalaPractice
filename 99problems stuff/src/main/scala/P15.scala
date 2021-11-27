@@ -10,7 +10,7 @@ object P015 {
     def dupe[A](x: Int, ele: A, acc: List[A] = Nil): List[A] = {
       if (x == 0) acc else dupe(x-1, ele, ele :: acc)
     }
-    l.map(a => dupe(n, a) ).flatMap(x => x)
+    l.map(a => dupe(n, a)).flatMap(x => x)
   }
 
   def duplicateN_v2[A](n: Int, l: List[A]): List[A] = {
@@ -24,7 +24,7 @@ object P015 {
     //    }
     //    l.foldLeft(List[A]())(folder).reverse
     // use lambda
-    l.foldLeft(List[A]()){ case (state, value) => dupe(n, value, state)}.reverse
+    l.foldLeft(List[A]()){case (state, value) => dupe(n, value, state)}.reverse
   }
 
   def main(args: Array[String]): Unit = {

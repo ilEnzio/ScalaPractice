@@ -7,7 +7,6 @@ object P07 {
   //
   //  res0: List[Any] = List(1, 1, 2, 3, 5, 8)
 
-
   def flatten(nl: List[Any]): List[Any] = {
     def doflat(l: List[Any], acc: List[Any]): List[Any] = {
       println(s"$l ------ $acc")
@@ -19,16 +18,26 @@ object P07 {
     }
     doflat(nl, Nil)
   }
-
-//  def flatten_v2(nl: List[Any]): List[Any] = {
+  // acc, collection, folder, value
+  // (A, B) => B
+  def flatten_v2(nl: List[Any]): List[Any] = {
 //    def folder(state: List[Any], value: Any): List[Any] = value match {
-//      case x: List[_] => x ++ state
+//      case x: List[_]  => x ++ state
 //      case x => List(x) ++ state
+//
 //    }
-////    nl.fold(List[Any]())(folder).reverse
-//  }
+//    nl.foldLeft(List[Any]())(folder).reverse
+    /// TODO - Review THIS!
+    /// If there is only one case, why do I have to match it?
+    nl.foldLeft(List[Any]()){ case (state, value) =>
+      value match {
+        case h: List[_]  => flatten_v2(h) ++ state
+        case x => x :: state
+      }
+    }.reverse
+  }
 
-  //  TODO EXERCISE - def flatten([A]ls: List[List[A]]) = List[A] = ???
+  //  EXERCISE - def flatten([A]ls: List[List[A]]) = List[A] = ???
 
   def otherFlatten[A](ls: List[List[A]]) : List[A] = {
     def doFlatten(l: List[List[A]], acc: List[A]): List[A] = l match {
@@ -40,7 +49,7 @@ object P07 {
 
   def otherFlatten_v2[A](ls: List[List[A]]) : List[A] = {
     def folder(state: List[A], value: List[A]): List[A]= {
-        state ++ value
+      state ++ value
     }
     ls.foldLeft(List[A]())(folder)
   }
@@ -52,13 +61,11 @@ object P07 {
     val testOther = List(List(112,2), List(5,6,7), List(89, 11, 101))
 
     println(testNest)
-    println(flatten(testNest))
-//    println(flatten_v2(testNest))
-//    println(otherFlatten(testOther))
-//
-//    println(otherFlatten_v2(testOther))
-
-
+    //    println(flatten(testNest))
+    println(flatten_v2(testNest))
+    //    println(otherFlatten(testOther))
+    //
+    //    println(otherFlatten_v2(testOther))
 
   }
 }
