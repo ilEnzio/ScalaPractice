@@ -1,4 +1,4 @@
-object P015 {
+object P15 {
   //  P15 (**) Duplicate the elements of a list a given number of times.
   //  Example:
   //
