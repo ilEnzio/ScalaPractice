@@ -34,7 +34,6 @@ object Calculator {
           }
         case Fail(reason) => Fail(reason)
       }
-
   }
 
   def main(args: Array[String]): Unit = {
@@ -50,5 +49,4 @@ object Calculator {
     assert(Calculate./(Success(4), 0) == Fail("Division by zero"))
     assert(Calculate./(Fail("Badness"), 0) == Fail("Badness"))
   }
-
 }
