@@ -8,7 +8,6 @@ object AListOfMethods {
         case End => acc
         case Pair(_, t) => doLen(t, acc + 1)
       }
-
       doLen(this)
     }
 
@@ -17,20 +16,18 @@ object AListOfMethods {
         case End => acc
         case Pair(h, t) => doProd(t, acc * h)
       }
-
       doProd(this)
     }
 
     def double: IntList = {
       def doDouble(l: IntList, multiplier: Int, acc: IntList = End ): IntList = l match {
-      case End => acc
-      case Pair (h, t) => doDouble(t, multiplier, Pair (multiplier * h, acc))
-    }
+        case End => acc
+        case Pair(h, t) => doDouble(t, multiplier, Pair (multiplier * h, acc))
+      }
       val firstPass = doDouble(this, 2)
       doDouble(firstPass, 1)
     }
   }
-
 
 
   case object End extends IntList
