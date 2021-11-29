@@ -1,7 +1,5 @@
 package EssentialScalaBookEx.Ch04
 
-import sun.tools.tree.GreaterExpression
-
 object StopOnDime {
 
 
@@ -33,7 +31,6 @@ object StopOnDime {
       case Yellow => Red
     }
   }
-
 
   def main(args: Array[String]): Unit = {
 
