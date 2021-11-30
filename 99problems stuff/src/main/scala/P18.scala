@@ -13,6 +13,7 @@ object P18 {
 
 
   def slice[A](st: Int, e: Int, l: List[A]): List[A] = {
+    // add indexes; filter out all but the range; map indexes away
     l.zipWithIndex.filter(x => (x._2 >= st && x._2 < e)).map { case (a, _) => a }
   }
 
