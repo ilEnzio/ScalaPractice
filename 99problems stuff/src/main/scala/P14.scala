@@ -9,9 +9,9 @@ object P14 {
   //  res0: List[Symbol] = List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd)
 
   val doubleIt: Symbol => List[Symbol] = x => List(x, x)
-// TODO.  something is wrong about my use of flatMap.
+
   def duplicate[A](l: List[A]): List[A] = {
-    l.map(x => List(x, x)).flatMap(x => x)
+    l.map(x => List(x, x)).flatten
   }
 
   // use foldLeft
@@ -19,11 +19,15 @@ object P14 {
     l.foldLeft(List[A]())( (s, v) => v :: v :: s).reverse
   }
 
+  def duplicate_v3[A](l: List[A]): List[A] = {
+    l.flatMap( x => List(x, x))
+  }
+
   def main(args: Array[String]): Unit = {
     val testDupe = List('a, 'b, 'c, 'c, 'd)
 
     println(duplicate(testDupe))
-    println((duplicate_v2(testDupe)))
-
+    //    println((duplicate_v2(testDupe)))
+    println((duplicate_v3(testDupe)))
   }
 }
