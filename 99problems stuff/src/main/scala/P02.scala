@@ -23,8 +23,6 @@ object P02 {
     case _ => Some(l(l.length -2))
   }
 
-
-
   def main(args: Array[String]): Unit = {
 
     val testList = List(1, 1, 2, 3, 5, 8)

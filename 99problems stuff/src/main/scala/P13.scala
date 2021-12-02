@@ -35,6 +35,10 @@ object P13 {
     doEncDir(l, (0, None), Nil).reverse.map(x => (x._1, x._2.get))
   }
 
+  // TODO - implement without 2 accum w/ span
+
+
+
   def main(args: Array[String]): Unit = {
 
     val test01 = encodeDirect_v02(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))

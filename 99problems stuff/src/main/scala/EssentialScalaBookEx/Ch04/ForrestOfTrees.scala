@@ -4,6 +4,8 @@ object ForrestOfTrees {
 
   sealed trait Tree{
     def sum: Int
+
+//    def sum
   }
   final case class Node(left: Tree, right: Tree) extends Tree{
     override def sum: Int = {

@@ -31,18 +31,22 @@ object P17 {
 
   // try with foldLeft. YUCK!!!! Super gross...
   def split_v3[A](n: Int, l: List[A]): (List[A], List[A]) = {
-
+    // List((a, 0), (b,1), (c, 2)....))
     val t = l.zipWithIndex.foldLeft((List[A](), List[A]())) { case (state, value) =>
       println(s"$value ------ $state")
       value._2 match {
         case x if ((x: Int) < n) => (value._1 :: state._1, state._2)
         case _ => (state._1, value._1 :: state._2)
       }
+      // (List[A], x: Int) (List [A]))
+
     }
     val correct = (t._1.reverse, t._2.reverse)
     correct
   }
-  // TODO : try to short circuit map/filter
+
+  // (List[A], x), List[A])
+  //
   //  def split_v4[A](n: Int, l: List[A]): (List[A], List[A]) = {
   //
   //    val t = l.zipWithIndex.foldLeft((List[A](), List[A]())) { case (state, value) =>
@@ -58,6 +62,8 @@ object P17 {
   //    val correct = (t._1.reverse, t._2.reverse)
   //    correct
   //  }
+
+
 
   def main(args: Array[String]): Unit = {
 
