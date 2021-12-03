@@ -17,7 +17,7 @@ object Json {
     override def keyValue: (String, EJson) = kv
 
     override def toString: String = {
-// TODO: Got wrecked right here.  don't understand recursive data structures :( 
+// TODO: Got wrecked right here.  don't understand recursive data structures :(
       def doConcat(eJson: EJson, acc: String = s"\"${this.kv._1}\": ${this.kv._2}"): String = {
         if (next.isEmpty) acc
         else doConcat(next, s"$acc, \"${eJson.keyValue._1}\": ${eJson.keyValue._2}")
@@ -68,6 +68,8 @@ object Json {
 
 // a value can be a list or a EJson
 // so value would extend both list and EJson
+  // TODO - I have a new plan to model the Json as a "List" of tuples, where
+  // each tuple is [String, Json/List/SomeKindOfPrimitive?]
 
   def main(args: Array[String]): Unit = {
 
