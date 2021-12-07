@@ -1,3 +1,5 @@
+
+
 import scala.math.abs
 
 object P19 {
@@ -13,11 +15,11 @@ object P19 {
   //
   //  res1: List[Symbol] = List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i)
 
-  // TODO: negative numbers; works but...
   // came up with a modulous solution, feels janky... I go through the collection a bunch of times
   def rotate[A](n: Int, l: List[A]): List[A] = {
     // deal with negatives
-    val w = if (n < 0) abs((n % l.length) + l.length ) else n
+    val lLen = l.length
+    val w = if (n < 0) abs((n % lLen) + lLen) else n // give a comment here
 
     // plan: get a tuple of two lists with the prospective 'slices', then
     // combine the lists in the correct order
@@ -25,23 +27,28 @@ object P19 {
     // add indexes; fold to tuple of Lists, swapping the order in the tuple, then
     // reverse each list, and concatenate them.
 
-    val t = l.zipWithIndex.foldLeft(List[A](), List[A]()){ case (state, value: (A, Int)) =>
-      value._2 match {
-        case x if (x < w ) => (state._1, value._1 :: state._2)
-        case _ => (List(value._1) ++ state._1, state._2)
-      }
+    // TIL - use List.empty rather than List()
+    ///            - if all you're doing is checking the condition, you don't need a pattern match, in other
+    //               words I don't need to deconstruct.
+    //              - with tuples, consider deconstructing and naming the parts for readability
+    //              - think about how you can reuse the code , and comment stuff with maths!
+    val t = l.zipWithIndex.foldLeft(List.empty[A], List.empty[A]){ case ((unRot, rotat), (value, idx)) =>
+      if (idx < w ) (unRot, value :: rotat)
+      else (value :: unRot, rotat)
     }
-//    if (n < 0) println(abs((n % 11) + 11 )) else println(n)
+
+    //    if (n < 0) println(abs((n % 11) + 11 )) else println(n)
     t._1.reverse ++ t._2.reverse
   }
 
   def main(args: Array[String]): Unit = {
 
     val testList = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-
+    val testEmpty = List()
     println(rotate(3, testList))
     println(rotate(-2, testList))
     println(rotate(-24, testList))
     println(rotate(9, testList))
+    println(rotate(6, testEmpty))
   }
 }

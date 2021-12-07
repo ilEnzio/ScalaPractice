@@ -39,7 +39,6 @@ object P17 {
         case _ => (state._1, value._1 :: state._2)
       }
       // (List[A], x: Int) (List [A]))
-
     }
     val correct = (t._1.reverse, t._2.reverse)
     correct
