@@ -17,20 +17,22 @@ object P20 {
       else (value._1 :: state._1, state._2)
     }
   }
-// fold on the list starting from the right,
+  // fold on the list starting from the right,
   // the initial state is empty list, None, the last index;
   // as we fold if our index value equals the target index then
   // put an Option of that value into our accumulator/state, otherwise
   // put that value in the list part of our state, put nothing in the "removed" part  (cr
+
+  // FoldRight is not tail recursive!
   def removeAt_v3[A](k: Int, l: List[A]): (List[A], A) = {
-    l.foldRight(List[A](), Option.empty[A], l.length - 1){
+    l.foldRight((List.empty[A], Option.empty[A], l.length - 1)){
       case (e, (list, r, idx)) =>
         if (idx == k) (list, Some(e), idx - 1)
         else (e :: list, r, idx - 1)
     }  match {case  t => (t._1, t._2.get) } // I think there's alternate to .get?
   }
 
-// TODO: Q - is there a way to generalise over the collection structure?  maybe not because
+  // TODO: Q - is there a way to generalise over the collection structure?  maybe not because
   // I need to know how to build the structure as well? so is the cons operator implemented
   // on each collection in the the same way fold is?
 

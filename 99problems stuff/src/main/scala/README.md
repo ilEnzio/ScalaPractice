@@ -249,8 +249,8 @@ Q's
 - Ch05 - Generic List how come changing End to be generic forces
   us to change it from object to class?  Hmmm.. maybe because all Ends
   are now no longer the same?
-- EssScala Ch05 - Failed at: 
-    >Implement a generalised version of fold and rewrite 
+- EssScala Ch05 - Failed at tail rec generic fold:
+  >Implement a generalised version of fold and rewrite
   > double in terms of it. (5.2.3.1)
 
 
@@ -262,6 +262,22 @@ Q's
 -  don't model things that aren't important to model.
 - Dynamic model - you run the risk having the same information expressed
   in multiple ways
+
+### 12/08/21
+
+- [Kayak] Socket vs WebSocket vs HTTTP;
+- [Kayak] Walk through HTTP service plumping
+- [Kayak] Minor improvement to Submission log script
+- [Kayak] Begin Bash track on Exercism.io
+- Essential Scala ch05 - reimpl double using fold,
+
+Q's
+ 
+-
+
+#### TIL
+- web sockets are stateful (as oppose to http)
+- FoldRight is not tail Recrusive!  FoldLeft is Tail Recursive.
 
 
 </p>

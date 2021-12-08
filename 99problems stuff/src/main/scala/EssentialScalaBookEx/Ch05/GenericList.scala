@@ -32,7 +32,8 @@ object GenericList {
 
 
   }
-  case class End[A]() extends LList[A] // how come this can no longer be and object?
+  //  case object End extends IntList -> singleton case object can't have type or constructor parameter.
+  case class End[A]() extends LList[A] // how come this can no longer be an object?
   final case class Pair[A](head: A, tail: LList[A]) extends LList[A]
 
   def main(args: Array[String]): Unit = {
