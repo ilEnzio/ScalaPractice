@@ -276,23 +276,30 @@ Q's
 -
 
 #### TIL
-- web sockets are stateful (as oppose to http)
+- [Kayak] web sockets are stateful (as oppose to http)
 - FoldRight is not tail Recrusive!  FoldLeft is Tail Recursive.
-
+- use the appropriate parens with Tuples; the shortcut syntax has
+been deprecated
+- 
 
 ### 12/09/21
 
 - Finally completed 5.3.1 Fold using.  Was having type mismatch problems.
-- 
+- EssSca 05 - Impl generic binary and fold
+- EssSca 05 - tree to string using fold
 
 
 Q's
  
--   
+-   In tree to string 5.3.4.1 still confused hot str => str qualifies as A=>B
 
 
 #### TIL
 
+- Placeholder Syntax for scala function literals
+- Converting methods to functions; This is cool because I think
+I accidentally did this and was confused
+- 
 
 
 </p>

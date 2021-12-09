@@ -240,7 +240,7 @@ Q's
 - Essential Scala Ch04 attempt Music Model impl
 - Essential Scala Ch 05 Generic List - impl length, contains, getAtIdx
 - Essential Scala Ch05 two versions of fold: stack and tail rec
-- 
+- Ess Scala Ch05 reimpl sum, length, prod w/ custom fold
 
 Q's
 - ~~Failed on Music Model - code duplicate, etc...~~
@@ -249,6 +249,9 @@ Q's
 - Ch05 - Generic List how come changing End to be generic forces
   us to change it from object to class?  Hmmm.. maybe because all Ends
   are now no longer the same?
+- EssScala Ch05 - Failed at tail rec generic fold:
+  >Implement a generalised version of fold and rewrite
+  > double in terms of it. (5.2.3.1)
 
 
 #### TIL
@@ -259,6 +262,44 @@ Q's
 -  don't model things that aren't important to model.
 - Dynamic model - you run the risk having the same information expressed
   in multiple ways
+
+### 12/08/21
+
+- [Kayak] Socket vs WebSocket vs HTTTP;
+- [Kayak] Walk through HTTP service plumping
+- [Kayak] Minor improvement to Submission log script
+- [Kayak] Begin Bash track on Exercism.io
+- Essential Scala ch05 - reimpl double using fold,
+
+Q's
+ 
+-
+
+#### TIL
+- [Kayak] web sockets are stateful (as oppose to http)
+- FoldRight is not tail Recrusive!  FoldLeft is Tail Recursive.
+- use the appropriate parens with Tuples; the shortcut syntax has
+been deprecated
+- 
+
+### 12/09/21
+
+- Finally completed 5.3.1 Fold using.  Was having type mismatch problems.
+- EssSca 05 - Implement generic binary and fold
+- 
+
+
+Q's
+ 
+-   
+
+
+#### TIL
+
+- Placeholder Syntax for scala function literals
+- Converting methods to functions; This is cool because I think
+I accidentally did this and was confused
+- 
 
 
 </p>
