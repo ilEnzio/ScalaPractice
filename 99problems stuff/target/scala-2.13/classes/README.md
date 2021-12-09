@@ -285,13 +285,13 @@ been deprecated
 ### 12/09/21
 
 - Finally completed 5.3.1 Fold using.  Was having type mismatch problems.
-- EssSca 05 - Implement generic binary and fold
-- 
+- EssSca 05 - Impl generic binary and fold
+- EssSca 05 - tree to string using fold
 
 
 Q's
  
--   
+-   In tree to string 5.3.4.1 still confused hot str => str qualifies as A=>B
 
 
 #### TIL
