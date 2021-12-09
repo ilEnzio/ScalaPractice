@@ -280,5 +280,20 @@ Q's
 - FoldRight is not tail Recrusive!  FoldLeft is Tail Recursive.
 
 
+### 12/09/21
+
+- Finally completed 5.3.1 Fold using.  Was having type mismatch problems.
+- 
+
+
+Q's
+ 
+-   
+
+
+#### TIL
+
+
+
 </p>
 </details>
