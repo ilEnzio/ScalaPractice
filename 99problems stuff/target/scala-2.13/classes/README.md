@@ -287,19 +287,19 @@ been deprecated
 - Finally completed 5.3.1 Fold using.  Was having type mismatch problems.
 - EssSca 05 - Impl generic binary and fold
 - EssSca 05 - tree to string using fold
-
-
+- EssSca 05 - generic sum type, product type Either
+- EssSca 05 - impl fold on Maybe
 Q's
  
--   In tree to string 5.3.4.1 still confused hot str => str qualifies as A=>B
-
+- In tree to string 5.3.4.1 still confused hot str => str qualifies as A=>B
+- don't understand my solution for fold on maybe - similar to above
 
 #### TIL
 
 - Placeholder Syntax for scala function literals
 - Converting methods to functions; This is cool because I think
 I accidentally did this and was confused
-- 
+- Finally understand Either!  lol YaaTaa!
 
 
 </p>

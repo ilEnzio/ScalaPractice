@@ -3,7 +3,9 @@ package EssentialScalaBookEx.Ch05
 object GenericSumType {
 // 5.4.3.1
 
-  sealed trait Sum[A, B]
+  sealed trait Sum[A, B]{
+//    def fold
+  }
   case class Left[A,B](value: A) extends Sum[A, B]
   case class Right[A,B](value: B) extends Sum[A, B]
 
