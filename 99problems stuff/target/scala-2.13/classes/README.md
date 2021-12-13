@@ -334,7 +334,10 @@ Q's
 
 ### 12/12/21
 
--    Scala W/ Cats Ch01
+- Scala W/ Cats Ch01 - Printable Exercise 1.3
+- Essential Scala ch05 - impl map for maybe
+- Essential Scala Ch05 - use flatMap on list
+- 
 
 
 Q's
@@ -342,11 +345,17 @@ Q's
 understand why it's necessary.~~  Solved I think...
 - Does the complier search the whole project for implicits? Or 
 it knows from the import statements?
+- Don't understand part of the solution for 1.3
+> def print[A](input: A)(implicit p: Printable[A]): Unit =
+println(format(input))
+
+
 
 #### TIL
 
 - A Scala type class is represented by a trait with
 at least one type parameter.  
+- Partial Functions as in "X is a partial function from A to B"
 
 </p> 
 </details>

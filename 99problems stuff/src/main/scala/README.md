@@ -256,7 +256,7 @@ Q's
 
 #### TIL
 
-- Variatic - any number of parameters
+- Variadic - any number of parameters
 - Several shell commands and brief history of shell
   [which, chmod, #!, ]
 -  don't model things that aren't important to model.
@@ -335,6 +335,9 @@ Q's
 ### 12/12/21
 
 - Scala W/ Cats Ch01 - Printable Exercise 1.3
+- Essential Scala ch05 - impl map for maybe
+- Essential Scala Ch05 - use flatMap on list
+- Essential Scala Ch05 - impl map on Either/genericSumType
 - 
 
 
@@ -347,12 +350,15 @@ it knows from the import statements?
 > def print[A](input: A)(implicit p: Printable[A]): Unit =
 println(format(input))
 
+- confused by impl flatMap on Either - GenericSumtype
+- wrecked by 5.7 - last calculator exercise
 
 
 #### TIL
 
 - A Scala type class is represented by a trait with
 at least one type parameter.  
+- Partial Functions as in "X is a partial function from A to B"
 
 </p> 
 </details>
