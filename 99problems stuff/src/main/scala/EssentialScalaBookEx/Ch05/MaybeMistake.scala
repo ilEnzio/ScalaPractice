@@ -15,7 +15,6 @@ object MaybeMistake {
 
   def main(args: Array[String]): Unit = {
     val perhaps: Maybe[Int] = Empty[Int]
-
     val perhaps2: Maybe[Int] = Full(1)
 
     println((perhaps))

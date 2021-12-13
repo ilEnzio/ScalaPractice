@@ -279,8 +279,8 @@ Q's
 - [Kayak] web sockets are stateful (as oppose to http)
 - FoldRight is not tail Recrusive!  FoldLeft is Tail Recursive.
 - use the appropriate parens with Tuples; the shortcut syntax has
-been deprecated
-- 
+  been deprecated
+-
 
 ### 12/09/21
 
@@ -288,19 +288,65 @@ been deprecated
 - EssSca 05 - Impl generic binary and fold
 - EssSca 05 - tree to string using fold
 - EssSca 05 - generic sum type, product type Either
-- EssSca 05 - impl fold on Maybe
+- EssSca 05 - impl Maybe;  fold on Maybe
+- EssSca 05 - impl Fold on generic sum/Either
+- EssSca 05 - use Map on linkedlist
+-
+
 Q's
- 
-- In tree to string 5.3.4.1 still confused hot str => str qualifies as A=>B
-- don't understand my solution for fold on maybe - similar to above
+
+- ~~In tree to string 5.3.4.1 still confused hot str => str qualifies as A=>B~~
+- ~~don't understand my solution for fold on maybe - similar to above~~
 
 #### TIL
 
 - Placeholder Syntax for scala function literals
 - Converting methods to functions; This is cool because I think
-I accidentally did this and was confused
+  I accidentally did this and was confused
 - Finally understand Either!  lol YaaTaa!
+- instead of using None, try to use Option.empty
+
+
+
+### 12/10/21
+
+- Essential Scala Chapter 06 - pair-programmed to impl Unique
+-
+
+
+Q's
+
+
+
+#### TIL
+
+
+- The general idea is a monad represents a value in some context.
+- learned `C[A] <: Seq[A]`
 
 
 </p>
+</details>
+
+
+<details><summary>WEEK 05</summary>
+<p>
+
+### 12/12/21
+
+-    Scala W/ Cats Ch01
+
+
+Q's
+- ~~1.1.2  I undestand that they are using the implicit, but don't
+understand why it's necessary.~~  Solved I think...
+- Does the complier search the whole project for implicits? Or 
+it knows from the import statements?
+
+#### TIL
+
+- A Scala type class is represented by a trait with
+at least one type parameter.  
+
+</p> 
 </details>
