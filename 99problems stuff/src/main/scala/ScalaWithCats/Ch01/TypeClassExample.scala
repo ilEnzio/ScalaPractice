@@ -19,9 +19,7 @@ object TypeClassExample {
       w.write(value)
   }
 
-
   final case class Person(name: String, email: String)
-
 
   object JsonWriterInstances {
     implicit val stringWriter: JsonWriter[String] =
@@ -48,7 +46,7 @@ object TypeClassExample {
   // )
 
 
-
+  // count, list.head, take, toString, isEmpty
 
 
 }

@@ -1,8 +1,8 @@
 package EssentialScalaBookEx.Ch05
 
-import EssentialScalaBookEx.Ch05.MaybeMistake.Maybe
-import EssentialScalaBookEx.Ch05.MaybeMistake.Full
-import EssentialScalaBookEx.Ch05.MaybeMistake.Empty
+import EssentialScalaBookEx.Ch05.MaybeMistake.{Maybe, Full, Empty}
+//import EssentialScalaBookEx.Ch05.MaybeMistake._
+//import EssentialScalaBookEx.Ch05.MaybeMistake.*
 
 object SequencingComputations {
 
@@ -35,7 +35,7 @@ return a List[Int] containing both all the elements and their negation.
     println(list2.map{case MaybeMistake.Full(x) => if ( x % 2 == 0) Full(x) else Empty()})
     println(list2.map{(x: MaybeMistake.Maybe[Int]) => x.flatMap[Int]{ x => if ( x % 2 == 0) Full(x) else Empty()}})
 
-//    list.map(maybe => maybe.flatMap[Int] { x => if (x % 2 == 0) Full(x) else Empty() })
+    //    list.map(maybe => maybe.flatMap[Int] { x => if (x % 2 == 0) Full(x) else Empty() })
   }
 
 }

@@ -4,7 +4,6 @@ object PrintableExercise {
 
   sealed trait Printable[A] {
     def format(value: A): String
-
   }
 
   object PrintableInstances {
@@ -23,7 +22,7 @@ object PrintableExercise {
       printable.format(value)
 
     def print[A](value: A)(implicit printable: Printable[A]): Unit =
-      println(printable.format(value))  /// ??? Don't understand their solution complete
+      println(format(value))
   }
 
   def main(args: Array[String]): Unit = {

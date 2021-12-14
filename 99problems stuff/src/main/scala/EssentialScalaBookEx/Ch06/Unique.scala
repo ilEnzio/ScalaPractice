@@ -1,8 +1,5 @@
 package EssentialScalaBookEx.Ch06
 
-import scala.collection.SeqFactory
-
-
 object Unique {
 
   // plan 1 - drop into set
@@ -20,40 +17,19 @@ object Unique {
 
   def onlyUniqueFrom[A](l: Seq[A]): Seq[A] = {
 
-    l.foldLeft(Seq.empty[A]) { (state, value) =>
+    l.foldLeft(Seq.empty[A]){ (state, value) =>
       if (state.contains(value)) state
       else value +: state
       // b +: mid :+ e
     }
   }
 
-
-  // Seniors Solutions
-  def unique[A](xs: Seq[A]): Seq[A] = {
-    xs.foldLeft(Seq.empty[A]) { (acc, x) =>
-      if (acc.contains(x)) acc
-      else x +: acc
-    }
-  }
-
-//  def unique2[A, C[A] <: Seq[A]](xs: C[A])(implicit C: SeqFactory[C]): C[A] = {
-//    xs.foldLeft(C.empty[A]) { (acc, x) =>
-//      if (acc.contains(x)) acc
-//      else  x +: acc
-//    }
-//  }
-
-  def scan[A](xs: Seq[A]): Seq[Seq[A]] = {
-    xs.scanLeft(Seq.empty[A]) { (acc, x) =>
-      if (acc.contains(x)) acc
-      else x +: acc
-    }
-  }
-
   def main(args: Array[String]): Unit = {
 
-    val test01 = Seq(2, 3, 7, 6, 2, 7)
+    val test01 = Seq(2, 3, 7, 6, 2, 7 )
     println(onlyUniqueFrom(test01))
+
+
 
   }
 

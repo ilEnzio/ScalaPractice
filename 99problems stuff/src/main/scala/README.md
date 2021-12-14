@@ -7,6 +7,7 @@ A place to store code from the onboarding process
 - **99 Problems:** https://github.com/Banno/wiki/blob/master/_learning/scala/module/99problems.md
 - **Scala with Cats** https://drive.google.com/drive/search?q=scala
 - **Scala Standard Library 2.13.3** https://www.scala-lang.org/api/2.13.3/index.html
+- **Scala Wikibook** https://en.wikibooks.org/wiki/Scala
 
 
 ## Progress Log
@@ -338,27 +339,49 @@ Q's
 - Essential Scala ch05 - impl map for maybe
 - Essential Scala Ch05 - use flatMap on list
 - Essential Scala Ch05 - impl map on Either/genericSumType
-- 
+-
 
 
 Q's
 - ~~1.1.2  I undestand that they are using the implicit, but don't
-understand why it's necessary.~~  Solved I think...
-- Does the complier search the whole project for implicits? Or 
-it knows from the import statements?
-- Don't understand part of the solution for 1.3
+  understand why it's necessary.~~  Solved I think...
+- ~~Does the complier search the whole project for implicits? Or
+  it knows from the import statements?~~  
+  A: Put implicits in companion objects, for now and everything should be fine.
+
+- ~~Don't understand part of the solution for 1.3~~
 > def print[A](input: A)(implicit p: Printable[A]): Unit =
 println(format(input))
 
 - confused by impl flatMap on Either - GenericSumtype
 - wrecked by 5.7 - last calculator exercise
+- ~~(from SequencingComputations file) What is the correct way to import?~~
+  A: ._ ; .* ; .{<object>, <object>, ...}
 
 
 #### TIL
 
 - A Scala type class is represented by a trait with
-at least one type parameter.  
+  at least one type parameter.
 - Partial Functions as in "X is a partial function from A to B"
+
+
+
+### 12/13/21
+
+- Essential Scala Ch06 animals exercise
+- Essential Scala Ch06 So-called "Directors" IntraMovieDB exercise
+
+
+Q's
+
+-
+
+#### TIL
+
+- _ Underscore is kind of a default wildcard
+
+
 
 </p> 
 </details>
