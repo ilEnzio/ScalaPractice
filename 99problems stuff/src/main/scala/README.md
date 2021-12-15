@@ -383,5 +383,29 @@ Q's
 
 
 
+
+### 12/14/21
+
+- Ess Scala Cha06, override toString function on Dir after Sally's
+  suggestion
+- Ess Scala Ch06 separate functions from display
+- Ess Scala 6.2.7 Heroes of Silver Screen
+
+
+Q's
+
+- On director function display functions; What's a strategy for making a nicer
+  api?
+- my film announcement is janky as heck because i used foldLeft
+- 
+
+#### TIL
+
+- Idiomatic way to write empty Seq is Seq.empty
+
+
+
+
+
 </p> 
 </details>

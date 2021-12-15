@@ -8,11 +8,19 @@ object IntraMovieDB {
                    imdbRating: Double)
 
   sealed trait FilmMaker
+
   case class Director(
                        firstName: String,
                        lastName: String,
                        yearOfBirth: Int,
-                       films: Seq[Film])
+                       films: Seq[Film]) {
+
+    override def toString: String = {
+      val firstFilm = this.films(0).name
+      val filmography = films.drop(1).foldLeft(s"$firstFilm"){(state, value) => s"$state, ${value.name}"}
+      s"$lastName, $firstName; DOB: $yearOfBirth, Filmography: $filmography"
+    }
+  }
 
 
   val memento           = new Film("Memento", 2000, 8.5)
@@ -45,17 +53,27 @@ object IntraMovieDB {
   val directors = Seq(eastwood, mcTiernan, nolan, someGuy)
 
   // TODO: Write your code here!
-  def numberOfFilms(n: Int): Seq[String] = {
+  def numberOfFilms(n: Int): (String, Seq[Director]) = {
     directors.filter(_.films.size > n).map(_.lastName)
+    val header = s"Filmmakers with more than $n films: "
+    (header, directors.filter(_.films.size > n))
   }
 
-  def bornIn(year: Int): Director = {
-    directors.find(_.yearOfBirth < year).getOrElse(Director("Nobody", "McNoone", 0, Nil))
+  def bornBefore(year: Int): (String, Seq[Director]) = {
+    val header = s"A Filmmaker born before $year:"
+    (header, Seq(directors.find(_.yearOfBirth < year).getOrElse(Director("Nobody", "McNoone", 0, Nil))))
   }
 
-  def oldTimers(year: Int, n: Int): Seq[String] = {
-    directors.filter(x => x.films.size > n && x.yearOfBirth < year).map(_.lastName)
+  def oldTimers(year: Int, n: Int): (String, Seq[Director]) = {
+    val header = s"A filmmaker born before $year  - with a back catalog of size: $n : "
+    (header, directors.filter(x => x.films.size > n && x.yearOfBirth < year))
+  }
 
+  // wasn;t able to generalize it to a nice api
+  def formatIMDBFunction(filmFunc: Int => (String, Seq[Director]), n: Int): Unit = {
+    val result = filmFunc(n)
+    println(result._1)
+    result._2.foreach(x => println(x))
   }
   // I like their solution better but I think it's less performant on large lists
   //def directorBornBeforeWithBackCatalogOfSize(year: Int, numberOfFilms: Int): Seq[Director] = {
@@ -83,11 +101,50 @@ object IntraMovieDB {
 
   def main(args: Array[String]): Unit = {
 
-    println(numberOfFilms(3))
-    println(bornIn(1984))
+    //    println(numberOfFilms(3))
+    //    numberOfFilms(3)
+
+    formatIMDBFunction (numberOfFilms, 3)
+
+    //    println(bornIn(1984))
+    formatIMDBFunction(bornBefore, 1984)
+
     println(oldTimers(1960, 2))
+
     println(sortDirectors())
     println((sortDirectors(false)))
+
+    // nolan to list of his films
+    println(s"Overrated films: ${nolan.films.map{x => x.name}}")
+
+
+    // all films by all directors
+    println(directors.flatMap(x => x.films).map(_.name))
+
+    // earliest mcTiernan
+    println(mcTiernan.films.map(_.yearOfRelease).min)
+
+
+    //all films sorted by extremely ridiculous metric
+    println(directors.flatMap(x => (x.films)
+      .map(x => (x.name, x.imdbRating)))
+      .sortWith((x,y) => x._2 > y._2))
+
+    // find the average of score of all films
+    println(directors.flatMap(_.films)
+      .foldLeft(0.0, 0){case (state, value) =>
+        (value.imdbRating + state._1, 1 + state._2)}
+      match { case (total, length) => total/length} )
+
+    // print announcement ... Janky as heck!!
+    directors.foldLeft(""){case (_, value) =>
+      value.films.foreach(x => println(s"Tonight only! ${x.name.toUpperCase()} by " +
+        s"${value.firstName.toUpperCase} ${value.lastName.toUpperCase}!"))
+      ""
+    }
+
+    println(directors.map(x => x.films.map(_.yearOfRelease).minOption))
+
 
   }
 

@@ -37,13 +37,13 @@ object GenericSumType {
     Right[Int, String]("foo").value
     // res10: String = foo
 
-    val sum: Sum[Int, String] = Right("foo")
+    val sum: Sum[Int, String] = Success("foo")
     // sum: sum.Sum[Int,String] = Right(foo)
 
-    sum match {
-      case Left(x) => x.toString
-      case Right(x) => x
-    }
+//    sum match {
+//      case Left(x) => x.toString
+//      case Right(x) => x
+//    }
     // res11: String = foo
 
   }
