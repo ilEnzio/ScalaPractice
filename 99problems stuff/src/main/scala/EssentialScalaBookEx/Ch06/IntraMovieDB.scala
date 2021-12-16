@@ -20,6 +20,9 @@ object IntraMovieDB {
       val filmography = films.drop(1).foldLeft(s"$firstFilm"){(state, value) => s"$state, ${value.name}"}
       s"$lastName, $firstName; DOB: $yearOfBirth, Filmography: $filmography"
     }
+
+    def getFilms(): Seq[String] = films.map(_.name)
+
   }
 
 
@@ -53,8 +56,24 @@ object IntraMovieDB {
   val directors = Seq(eastwood, mcTiernan, nolan, someGuy)
 
   // TODO: Write your code here!
+
+  // TODO: Experiment with formatting/currying
+  // sigs -  2 -> seq[dir], int  => seq[dir]
+  //         1 -> seq[dir], int, int => seq[dir]
+  //         1 -> seq[dir], bool => seq[dir]
+  //         2 -> seq[dir] => seq[Film]
+  //         1 -> seq[dir] => Int
+  //         1 -> seq[dir] => Unit
+
+
+  //  sealed trait IMDBFunc
+  //    def transform
+  //  case class SingleDirector extends IMDBFunc
+  //  case class DirectorCollection extends IMDBFunc
+
+
   def numberOfFilms(n: Int): (String, Seq[Director]) = {
-    directors.filter(_.films.size > n).map(_.lastName)
+    directors.filter(_.films.size > n).map(_.lastName) // TODO "collect" - filter/map
     val header = s"Filmmakers with more than $n films: "
     (header, directors.filter(_.films.size > n))
   }
@@ -110,6 +129,11 @@ object IntraMovieDB {
     formatIMDBFunction(bornBefore, 1984)
 
     println(oldTimers(1960, 2))
+    // how could I take an filmFunc then change it's shape to make what the formatFunc expects
+    // thing that changes :
+    //  whether the function is working on a Director or Seq[Dir]
+    //  is the number of integers
+    //      this might be currying // variadic blahblah
 
     println(sortDirectors())
     println((sortDirectors(false)))
@@ -119,7 +143,7 @@ object IntraMovieDB {
 
 
     // all films by all directors
-    println(directors.flatMap(x => x.films).map(_.name))
+    println(directors.flatMap(x => x.films).map(_.name)) // this is quadratic
 
     // earliest mcTiernan
     println(mcTiernan.films.map(_.yearOfRelease).min)
@@ -134,7 +158,7 @@ object IntraMovieDB {
     println(directors.flatMap(_.films)
       .foldLeft(0.0, 0){case (state, value) =>
         (value.imdbRating + state._1, 1 + state._2)}
-      match { case (total, length) => total/length} )
+    match { case (total, length) => total/length} )
 
     // print announcement ... Janky as heck!!
     directors.foldLeft(""){case (_, value) =>

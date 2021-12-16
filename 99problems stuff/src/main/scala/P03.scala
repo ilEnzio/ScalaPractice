@@ -35,7 +35,7 @@ object P03 {
       case _ if (k < 0) => None
       case Nil => None
       case list if (k == 0) => list.headOption
-      case _ :: t => getKth_v3(k - 1, t)
+      case _ :: t => getKth_v3(k - 1, t) //
     }
   }
 

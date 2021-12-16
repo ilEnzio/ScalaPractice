@@ -395,9 +395,9 @@ Q's
 Q's
 
 - On director function display functions; What's a strategy for making a nicer
-  api?
+  api? my first idea is making a "formatter" HOF ,  "adapter" HOF that prepares a function for the "formatter",
 - my film announcement is janky as heck because i used foldLeft
-- 
+-
 
 #### TIL
 
@@ -406,6 +406,21 @@ Q's
 
 
 
+### 12/15/21
+
+- EssSca Ch06 - FoldLeft
+- Map
+- Reverse
+- Minimum
+
+Q's
+
+-
+
+#### TIL
+
+- [Senior 1-1: Ross] enter verbose/"debug mode" with bash `set -x`
+- [Senior 1-1: Ross] how to fail fast within a script `set -e`
 
 </p> 
 </details>

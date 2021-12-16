@@ -9,8 +9,6 @@ object ContravariantPosition {
     }
   }
 
-
-
   case class Fail[A,B](value: A) extends Sum[A, B]
   case class Success[A,B](value: B) extends Sum[A, B]
 
