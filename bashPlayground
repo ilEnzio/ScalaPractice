@@ -3,13 +3,18 @@
 
 
 
-set -e
-set -x
+# set -e
+# set -x
 
 greetfunc()
 {
     echo "Hello, Erle"
+    #echo $?
     false
+    if [ $? = 0 ]
+        then echo "Success happens"
+        else echo "Other stuff..."
+    fi
     echo "The last command failed"
     false
     #echo "Fail again!"
