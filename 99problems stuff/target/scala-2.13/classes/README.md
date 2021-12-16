@@ -404,8 +404,6 @@ Q's
 - Idiomatic way to write empty Seq is Seq.empty
 
 
-
-
 ### 12/15/21
 
 - EssSca Ch06 - FoldLeft
@@ -421,6 +419,20 @@ Q's
 
 - [Senior 1-1: Ross] enter verbose/"debug mode" with bash `set -x`
 - [Senior 1-1: Ross] how to fail fast within a script `set -e`
+
+
+### 12/16/21
+
+- EssSca Ch06 - rempl some IMDB w/ collect
+
+Q's 
+
+-
+
+#### TIL 
+
+-  
+
 
 </p> 
 </details>

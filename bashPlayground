@@ -1,0 +1,28 @@
+#!/bin/zsh
+
+
+
+
+set -e
+set -x
+
+greetfunc()
+{
+    echo "Hello, Erle"
+    false
+    echo "The last command failed"
+    false
+    #echo "Fail again!"
+}
+
+testOutfunc()
+{
+    echo "How will I be named?"
+    # false
+    echo "...if I get this far?"
+
+}
+
+
+greetfunc
+testOutfunc
