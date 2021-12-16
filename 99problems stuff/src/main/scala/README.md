@@ -423,11 +423,15 @@ Q's
 
 ### 12/16/21
 
-- EssSca Ch06 - rempl some IMDB w/ collect
+- EssSca Ch06 - reimpl some IMDB w/ collect
 - [Senior 1-1: Ross] - Shell Scripting: conditional blocks, `[` test command,
+- EssSca Ch06 - reimpl foldLeft using var/foreach
+
+
+
 Q's 
 
--
+- 
 
 #### TIL 
 
