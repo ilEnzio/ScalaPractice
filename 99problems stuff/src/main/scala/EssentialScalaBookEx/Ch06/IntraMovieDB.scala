@@ -73,9 +73,14 @@ object IntraMovieDB {
 
 
   def numberOfFilms(n: Int): (String, Seq[Director]) = {
-    directors.filter(_.films.size > n).map(_.lastName) // TODO "collect" - filter/map
+//    directors.filter(_.films.size > n).map(_.lastName)
+
     val header = s"Filmmakers with more than $n films: "
-    (header, directors.filter(_.films.size > n))
+    val nFilmsOrMore = directors.collect({
+      case x: Director if (x.films.size > n) => x})
+
+//    (header, directors.filter(_.films.size > n))
+    (header, nFilmsOrMore)
   }
 
   def bornBefore(year: Int): (String, Seq[Director]) = {
@@ -123,7 +128,7 @@ object IntraMovieDB {
     //    println(numberOfFilms(3))
     //    numberOfFilms(3)
 
-    formatIMDBFunction (numberOfFilms, 3)
+    formatIMDBFunction (numberOfFilms, 2)
 
     //    println(bornIn(1984))
     formatIMDBFunction(bornBefore, 1984)
@@ -147,7 +152,6 @@ object IntraMovieDB {
 
     // earliest mcTiernan
     println(mcTiernan.films.map(_.yearOfRelease).min)
-
 
     //all films sorted by extremely ridiculous metric
     println(directors.flatMap(x => (x.films)
