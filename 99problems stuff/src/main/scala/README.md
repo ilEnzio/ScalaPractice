@@ -425,17 +425,24 @@ Q's
 
 - EssSca Ch06 - reimpl some IMDB w/ collect
 - [Senior 1-1: Ross] - Shell Scripting: conditional blocks, `[` test command,
+  subshells, function syntax, spellcheck (like a linter)
+- [Senior 1-1: Ross] - Scala
 - EssSca Ch06 - reimpl foldLeft using var/foreach
+- EssSca Ch-6 - reimpl IMDB w/ better formatting function
+- EssSca Ch06 - impl nolan films using for comp
+- EssSca Ch06 - reimpl sort films by rating w/ for comp
+- EssSca Ch06 - reimpl announce films w/ for comp
+- EssSca Ch06 - impl option adding with for comp and flatmap-map; w/ 3 parameters
 
 
+Q's
 
-Q's 
+- with the announcement exercise, I'm a little shaky on the for comp syntax
+-
 
-- 
+#### TIL
 
-#### TIL 
-
--  
+-
 
 
 </p> 
