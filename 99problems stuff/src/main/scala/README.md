@@ -475,11 +475,11 @@ Q's
 ### 12/20/21
 
 - Essential Scala Ch06 - short Div;
--
+- Essential Scala Ch06 - SimpleCalculator
 
 Q's
 
--
+- basically I need to reread this whole section
 
 
 #### TIL
