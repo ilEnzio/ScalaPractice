@@ -330,7 +330,7 @@ Q's
 </details>
 
 
-<details><summary>WEEK 05</summary>
+<details><summary> WEEK 05 </summary>
 <p>
 
 ### 12/12/21
@@ -343,6 +343,7 @@ Q's
 
 
 Q's
+
 - ~~1.1.2  I undestand that they are using the implicit, but don't
   understand why it's necessary.~~  Solved I think...
 - ~~Does the complier search the whole project for implicits? Or
@@ -355,8 +356,11 @@ println(format(input))
 
 - confused by impl flatMap on Either - GenericSumtype
 - wrecked by 5.7 - last calculator exercise
+
 - ~~(from SequencingComputations file) What is the correct way to import?~~
-  A: ._ ; .* ; .{<object>, <object>, ...}
+- `A: ._ ; .* ; .{<object>, <object>, ...}`
+
+
 
 
 #### TIL
@@ -423,16 +427,71 @@ Q's
 
 ### 12/16/21
 
-- EssSca Ch06 - rempl some IMDB w/ collect
+- EssSca Ch06 - reimpl some IMDB w/ collect
 - [Senior 1-1: Ross] - Shell Scripting: conditional blocks, `[` test command,
-Q's 
+  subshells, function syntax, spellcheck (like a linter)
+- [Senior 1-1: Ross] - Scala
+- EssSca Ch06 - reimpl foldLeft using var/foreach
+- EssSca Ch-6 - reimpl IMDB w/ better formatting function
+- EssSca Ch06 - impl nolan films using for comp
+- EssSca Ch06 - reimpl sort films by rating w/ for comp
+- EssSca Ch06 - reimpl announce films w/ for comp
+- EssSca Ch06 - impl option adding with for comp and flatmap-map; w/ 3 parameters
+
+
+Q's
+
+- with the announcement exercise, I'm a little shaky on the for comp syntax
+-
+
+#### TIL
 
 -
 
-#### TIL 
+### 12/17/21
 
--  
+- [Senior 1-1: Andrew] - Variance - Covariance/Contravariance use case; relate to currying
+-
+
+Q's
+
+-
 
 
-</p> 
+#### TIL
+
+- `{}` after yield are not a part of the expression
+- scala format - plugin that rewrites the code to a "standard" style
+  > https://scalameta.org/scalafmt/
+- if the right side of the function is a single expression
+- loose rule not to mix for comp and flatmap syntax
+</p>
 </details>
+
+
+<details><summary>WEEK 06</summary>
+<p>
+
+### 12/20/21
+
+- Essential Scala Ch06 - short Div;
+-
+
+Q's
+
+-
+
+
+#### TIL
+
+-
+
+
+</p>
+</details>
+
+
+
+
+
+

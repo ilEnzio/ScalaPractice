@@ -7,7 +7,7 @@ object IntraMovieDB {
                    yearOfRelease: Int,
                    imdbRating: Double)
 
-  sealed trait FilmMaker
+  //  sealed trait FilmMaker
 
   case class Director(
                        firstName: String,
@@ -65,23 +65,43 @@ object IntraMovieDB {
   //         1 -> seq[dir] => Int
   //         1 -> seq[dir] => Unit
 
+  // 1 - reformat functions such that seq[Dir] is on the outside parameter list
+
 
   //  sealed trait IMDBFunc
   //    def transform
   //  case class SingleDirector extends IMDBFunc
   //  case class DirectorCollection extends IMDBFunc
 
+  // Ross example code
+  sealed trait ImdbFunc {
+    type Formatted // abstract type member - we need to provide the type
+  }
+  trait SingleDirectorFunction extends ImdbFunc {
+    type Formatted = Director => Unit
+    def apply(d: Director): (String, Seq[Director])
+  }
+  trait DirectorCollectionFunction extends ImdbFunc {
+    type Formatted = Seq[Director] => Unit
+    def apply(ds: Seq[Director]): (String, Seq[Director])
+  }
+
 
   def numberOfFilms(n: Int): (String, Seq[Director]) = {
-//    directors.filter(_.films.size > n).map(_.lastName)
-
+    directors.filter(_.films.size > n).map(_.lastName) // TODO "collect" - filter/map
     val header = s"Filmmakers with more than $n films: "
-    val nFilmsOrMore = directors.collect({
-      case x: Director if (x.films.size > n) => x})
-
-//    (header, directors.filter(_.films.size > n))
-    (header, nFilmsOrMore)
+    (header, directors.filter(_.films.size > n))
   }
+
+
+  def numberOfFilms_v2(n: Int)(dirs: Seq[Director]): (String, Seq[Director]) = {
+    directors.filter(_.films.size > n).map(_.lastName) //
+    val header = s"Filmmakers with more than $n films: "
+    (header, directors.filter(_.films.size > n))
+  }
+
+  //
+
 
   def bornBefore(year: Int): (String, Seq[Director]) = {
     val header = s"A Filmmaker born before $year:"
@@ -94,11 +114,30 @@ object IntraMovieDB {
   }
 
   // wasn;t able to generalize it to a nice api
+  // they idea
   def formatIMDBFunction(filmFunc: Int => (String, Seq[Director]), n: Int): Unit = {
     val result = filmFunc(n)
     println(result._1)
     result._2.foreach(x => println(x))
   }
+
+  // before I wasn't separating the formatting
+  // TODO come up with some intermediate values also
+  // TODO maybe use StringWriter - mutable string operation
+  // TODO look at .mkString -> seq._2.mkString("\n")
+  // seq._1 + "\n" + seq._2.mkString("\n")
+  // s”${seq.1}\n${seq._2.mkString(“\n”)}”
+  // seq._2.mkString(seq._1, "\n", "\n")
+
+  def formatIMDBResult(seq: (String, Seq[Director])): String = {
+    s"${seq._1} \n ${seq._2.foldLeft(""){(state, value) => s"$value \n $state" }}" // string interpolation nested in a loop is quadratic
+  }
+
+  // experiment
+  //  def formatIMDBFunction_v2(imdbFunc: ImdbFunc): imdbFunc.Formatted = imdbFunc match {
+  //    case x: SingleDirectorFunction => {v : Director => println(x(v)) }
+  //  }
+
   // I like their solution better but I think it's less performant on large lists
   //def directorBornBeforeWithBackCatalogOfSize(year: Int, numberOfFilms: Int): Seq[Director] = {
   //  val byAge   = directors.filter(_.yearOfBirth < year)
@@ -128,7 +167,9 @@ object IntraMovieDB {
     //    println(numberOfFilms(3))
     //    numberOfFilms(3)
 
-    formatIMDBFunction (numberOfFilms, 2)
+    formatIMDBFunction (numberOfFilms, 3)
+
+    //    numberOfFilms_v3(3)(directors)
 
     //    println(bornIn(1984))
     formatIMDBFunction(bornBefore, 1984)
@@ -146,17 +187,56 @@ object IntraMovieDB {
     // nolan to list of his films
     println(s"Overrated films: ${nolan.films.map{x => x.name}}")
 
+    // nolan films w/o using map
+    print("Overrated films w/o map:")
+    println(
+      for { film <- nolan.films }
+        yield film.name  // yield has to return a single value; {} after yield are not a part of the expression
+    )
 
-    // all films by all directors
-    println(directors.flatMap(x => x.films).map(_.name)) // this is quadratic
+    println(
+      for { film <- nolan.films}
+        yield {
+          val name = film.name // use case for statements - in functional programming are often a matter of convenience
+          val count = name.size
+          count
+        } // yield has to return a single value
+    )
+
+    // expression  - the entire thing returns a value
+
+    // block expression - do whatever is in the block; return last value; like a list of expressions
+    //
+
+    // statements - (in general) usually effectful; don't return a value; purpose not for value reason
+    val a = 1 // statement
+
+    // Cinephile - all films by all directors
+    println(directors.flatMap(_.films.map(_.name))) // this is quadratic
+    // w/o map
+    val allFilms =
+      for {
+        director <- directors
+        film <- director.films
+      } yield film.name
+
+    println(allFilms)
 
     // earliest mcTiernan
     println(mcTiernan.films.map(_.yearOfRelease).min)
 
-    //all films sorted by extremely ridiculous metric
+    //High Score Table - all films sorted by extremely ridiculous metric
     println(directors.flatMap(x => (x.films)
       .map(x => (x.name, x.imdbRating)))
       .sortWith((x,y) => x._2 > y._2))
+
+    val allRatings = {
+      for {
+        director <- directors
+        film <- director.films
+      } yield {(film.name, film.imdbRating)}
+    }.sortWith((x, y) => x._2 > y._2)
+    println(allRatings)
 
     // find the average of score of all films
     println(directors.flatMap(_.films)
@@ -170,6 +250,14 @@ object IntraMovieDB {
         s"${value.firstName.toUpperCase} ${value.lastName.toUpperCase}!"))
       ""
     }
+
+    // announcement with for comp
+    for {
+      director <- directors
+      film <- director.films
+
+    }  println(s"Tonight only! ${film.name.toUpperCase} by ${director.firstName} ${director.lastName}!")
+
 
     println(directors.map(x => x.films.map(_.yearOfRelease).minOption))
 
