@@ -1,14 +1,13 @@
 package EssentialScalaBookEx.Ch06
-import scala.util.Try
 
 object ASimpleCalculator {
 
-// TODO basically I need to reread this whole section
+  // TODO basically I need to reread this whole section
 
   def calculator(a: String, op: String, b: String): Unit = {
 
-    val oper: Int => Int => Option[Int] = op match {
-      case "+" => x => y => Some(x + y)
+    val oper: Int => Int => Option[Int] = op match {  // TODO Not necessary to curry; repeating the x, y
+      case "+" => x => y => Some(x + y)  //
       case "-" => x => y => Some(x - y)
       case "*" => x => y => Some(x * y)
       case "/" => x => y => shortDiv(x, y) // didn't understand I could use this
@@ -27,44 +26,31 @@ object ASimpleCalculator {
     }
   }
 
+  /// book solution
+  def readInt(str: String): Option[Int] =
+    if(str matches "-?\\d+") Some(str.toInt) else None
 
-//  (op, aa, bb) match {
-//    case ("/", _, 0) => println("Gen Err Message")
-//    case _ => println(oper(aa)(bb))
-//  }
+  def shortDiv(a: Int, b: Int): Option[Int] =
+    if (b == 0) None else Some(a/b)
 
+  def calculator2(operand1: String, operator: String, operand2: String): Unit = {
+    val result = for {
+      a   <- readInt(operand1)
+      b   <- readInt(operand2)
+      ans <- operator match {
+        case "+" => Some(a + b)
+        case "-" => Some(a - b)
+        case "*" => Some(a * b)
+        case "/" => shortDiv(a, b)
+        case _   => None
+      }
+    } yield ans
 
-/// book solution
-def readInt(str: String): Option[Int] =
-  if(str matches "-?\\d+") Some(str.toInt) else None
-
-def shortDiv(a: Int, b: Int): Option[Int] =
-  if (b == 0) None else Some(a/b)
-
-def calculator2(operand1: String, operator: String, operand2: String): Unit = {
-  val result = for {
-    a   <- readInt(operand1)
-    b   <- readInt(operand2)
-    ans <- operator match {
-      case "+" => Some(a + b)
-      case "-" => Some(a - b)
-      case "*" => Some(a * b)
-      case "/" => shortDiv(a, b)
-      case _   => None
+    result match {
+      case Some(number) => println(s"The answer is $number!")
+      case None         => println(s"Error calculating $operand1 $operator $operand2")
     }
-  } yield ans
-
-  result match {
-    case Some(number) => println(s"The answer is $number!")
-    case None         => println(s"Error calculating $operand1 $operator $operand2")
   }
-}
-
-
-
-
-
-
 
   def main(args: Array[String]): Unit = {
 

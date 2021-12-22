@@ -487,10 +487,25 @@ Q's
 -
 
 
+### 12/21/21
+
+- ScalaTron Tutorial
+- [Team Kayak] - Kafka4s AutoOffsetReset stuff
+- [Senior 1-1 - Ross] - Shell Scripting, Scala - Unit vs Void; IO
+
+
+Q's
+
+-
+
+
+#### TIL
+
+- Don't tolerate warnings.
+
+
 </p>
 </details>
-
-
 
 
 
