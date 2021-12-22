@@ -1,0 +1,5 @@
+package ScalaTron
+
+object ReferenceBot {
+
+}
