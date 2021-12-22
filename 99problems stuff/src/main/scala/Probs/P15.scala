@@ -1,3 +1,5 @@
+package Probs
+
 object P15 {
   //  P15 (**) Duplicate the elements of a list a given number of times.
   //  Example:
@@ -8,15 +10,16 @@ object P15 {
 
   def duplicateN[A](n: Int, l: List[A]): List[A] = {
     def dupe[A](x: Int, ele: A, acc: List[A] = Nil): List[A] = {
-      if (x == 0) acc else dupe(x-1, ele, ele :: acc)
+      if (x == 0) acc else dupe(x - 1, ele, ele :: acc)
     }
+
     l.map(a => dupe(n, a)).flatMap(x => x)
   }
 
   def duplicateN_v2[A](n: Int, l: List[A]): List[A] = {
 
     def dupe[A](x: Int, ele: A, acc: List[A] = Nil): List[A] = {
-      if (x == 0) acc else dupe(x-1, ele, ele :: acc)
+      if (x == 0) acc else dupe(x - 1, ele, ele :: acc)
     }
 
     //    def folder(state: List[A], value: A): List[A] = {
@@ -24,7 +27,7 @@ object P15 {
     //    }
     //    l.foldLeft(List[A]())(folder).reverse
     // use lambda
-    l.foldLeft(List[A]()){case (state, value) => dupe(n, value, state)}.reverse
+    l.foldLeft(List[A]()) { case (state, value) => dupe(n, value, state) }.reverse
   }
 
   def main(args: Array[String]): Unit = {

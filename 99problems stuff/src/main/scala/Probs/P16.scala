@@ -1,3 +1,5 @@
+package Probs
+
 object P16 {
   // https://docs.banno.com/learning/scala/module/99problems/#p16--drop-every-nth-element-from-a-list
   //  P16 (**) Drop every Nth element from a list.
@@ -16,6 +18,7 @@ object P16 {
         case h :: t => doDrop(t, idx + 1, h :: acc)
       }
     }
+
     doDrop(l)
 
   }

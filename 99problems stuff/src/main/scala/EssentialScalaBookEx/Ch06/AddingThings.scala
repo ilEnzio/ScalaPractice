@@ -13,9 +13,8 @@ object AddingThings {
     }
   }
 
-  def addOptions_v2(a: Option[Int], b: Option[Int]): Option[Int] = {
+  def addOptions_v2(a: Option[Int], b: Option[Int]): Option[Int] =
     a.flatMap(x => b.map(y => x + y ))
-  }
 
   def addOptions(a: Option[Int], b: Option[Int], c: Option[Int]): Option[Int] = {
     for {
@@ -25,9 +24,8 @@ object AddingThings {
     } yield aa + bb + cc
   }
 
-  def addOptions_v2(a: Option[Int], b: Option[Int], c: Option[Int]): Option[Int] = {
+  def addOptions_v2(a: Option[Int], b: Option[Int], c: Option[Int]): Option[Int] =
     c.flatMap(z => a.flatMap(x => b.map(y => x + y + z)))
-  }
 
 
   def main(args: Array[String]): Unit = {

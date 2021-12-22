@@ -1,3 +1,5 @@
+package Probs
+
 object P08 {
   //  P08 (**) Eliminate consecutive duplicates of list elements.
   //    If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
@@ -10,21 +12,22 @@ object P08 {
 
   // this is similar to fold; under normal circumstance I should use fold
   def compress[A](l: List[A]): List[A] = {
-    def doCompress(list: List[A], acc: List[A] = Nil): List [A] = list match {
+    def doCompress(list: List[A], acc: List[A] = Nil): List[A] = list match {
       case Nil => acc
-      case h :: s :: t  if (h == s) => doCompress(h :: t, acc)
-      case h :: t  => doCompress(t, h :: acc)
+      case h :: s :: t if (h == s) => doCompress(h :: t, acc)
+      case h :: t => doCompress(t, h :: acc)
     }
+
     doCompress(l).reverse
   }
 
   // TODO: use fold
-  def compress_v2 [A](l: List[A]): List[A] = {
-    def folder(state: List[A], value: A) : List[A] = {
+  def compress_v2[A](l: List[A]): List[A] = {
+    def folder(state: List[A], value: A): List[A] = {
       println(s"State: $state, Value: $value")
       state match {
-      case Nil => value :: state
-      case h:: _ => if (value == h) state else value :: state
+        case Nil => value :: state
+        case h :: _ => if (value == h) state else value :: state
       }
     }
     // the list -> foldFunction -> the initial value -> the folder function

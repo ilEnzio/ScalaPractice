@@ -504,6 +504,20 @@ Q's
 - Don't tolerate warnings.
 
 
+### 12/22/21
+
+- Essential Scala Book Ch06 AddingAllthings ++
+- 
+
+Q's
+
+- What kinda self-respecting set has an index?  Cmon Scala!
+-
+
+#### TIL
+
+- 
+
 </p>
 </details>
 

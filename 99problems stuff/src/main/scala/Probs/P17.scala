@@ -1,3 +1,5 @@
+package Probs
+
 object P17 {
   //  P17 (*) Split a list into two parts.
   //    The length of the first part is given. Use a Tuple for your result.
@@ -26,6 +28,7 @@ object P17 {
       case h :: t if (h._2 < n) => doSplit(t, (h :: acc._1, acc._2))
       case x => (acc._1.unzip._1.reverse, x.unzip._1)
     }
+
     doSplit(l.zipWithIndex, (List[(A, Int)](), List[(A, Int)]()))
   }
 
@@ -61,7 +64,6 @@ object P17 {
   //    val correct = (t._1.reverse, t._2.reverse)
   //    correct
   //  }
-
 
 
   def main(args: Array[String]): Unit = {

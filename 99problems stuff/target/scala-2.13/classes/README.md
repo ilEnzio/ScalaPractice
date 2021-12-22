@@ -475,7 +475,24 @@ Q's
 ### 12/20/21
 
 - Essential Scala Ch06 - short Div;
+- Essential Scala Ch06 - SimpleCalculator
+
+Q's
+
+- basically I need to reread this whole section
+
+
+#### TIL
+
 -
+
+
+### 12/21/21
+
+- ScalaTron Tutorial
+- [Team Kayak] - Kafka4s AutoOffsetReset stuff
+- [Senior 1-1 - Ross] - Shell Scripting, Scala - Unit vs Void; IO
+
 
 Q's
 
@@ -484,13 +501,11 @@ Q's
 
 #### TIL
 
--
+- Don't tolerate warnings.
 
 
 </p>
 </details>
-
-
 
 
 

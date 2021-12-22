@@ -1,3 +1,5 @@
+package Probs
+
 object P01 {
 
   //  P01 (*) Find the last element of a list.
@@ -16,7 +18,6 @@ object P01 {
     case List(x) => Some(x)
     case _ :: xs => findLast(xs)
   }
-
 
 
   def main(args: Array[String]): Unit = {

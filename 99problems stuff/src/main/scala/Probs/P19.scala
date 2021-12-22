@@ -1,4 +1,4 @@
-
+package Probs
 
 import scala.math.abs
 
@@ -32,8 +32,8 @@ object P19 {
     //               words I don't need to deconstruct.
     //              - with tuples, consider deconstructing and naming the parts for readability
     //              - think about how you can reuse the code , and comment stuff with maths!
-    val t = l.zipWithIndex.foldLeft(List.empty[A], List.empty[A]){ case ((unRot, rotat), (value, idx)) =>
-      if (idx < w ) (unRot, value :: rotat)
+    val t = l.zipWithIndex.foldLeft(List.empty[A], List.empty[A]) { case ((unRot, rotat), (value, idx)) =>
+      if (idx < w) (unRot, value :: rotat)
       else (value :: unRot, rotat)
     }
 

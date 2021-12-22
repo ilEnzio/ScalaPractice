@@ -1,3 +1,5 @@
+package Probs
+
 object P20 {
 
 
@@ -12,7 +14,7 @@ object P20 {
 
   // does work because list is reversed! could use foldRight.
   def removeAt[A](k: Int, l: List[A]): (List[A], Option[A]) = {
-    l.zipWithIndex.foldLeft(List[A](), None: Option[A]){ case (state, value) =>
+    l.zipWithIndex.foldLeft(List[A](), None: Option[A]) { case (state, value) =>
       if (value._2 == k) (state._1, Some(value._1))
       else (value._1 :: state._1, state._2)
     }
@@ -25,11 +27,13 @@ object P20 {
 
   // FoldRight is not tail recursive!
   def removeAt_v3[A](k: Int, l: List[A]): (List[A], A) = {
-    l.foldRight((List.empty[A], Option.empty[A], l.length - 1)){
+    l.foldRight((List.empty[A], Option.empty[A], l.length - 1)) {
       case (e, (list, r, idx)) =>
         if (idx == k) (list, Some(e), idx - 1)
         else (e :: list, r, idx - 1)
-    }  match {case  t => (t._1, t._2.get) } // I think there's alternate to .get?
+    } match {
+      case t => (t._1, t._2.get)
+    } // I think there's alternate to .get?
   }
 
   // TODO: Q - is there a way to generalise over the collection structure?  maybe not because
@@ -37,11 +41,13 @@ object P20 {
   // on each collection in the the same way fold is?
 
   def removeAt_v4[A](k: Int, l: Seq[A]): (Seq[A], A) = {
-    l.foldRight(List[A](), Option.empty[A], l.length - 1){
+    l.foldRight(List[A](), Option.empty[A], l.length - 1) {
       case (e, (list, r, idx)) =>
         if (idx == k) (list, Some(e), idx - 1)
         else (e +: list, r, idx - 1) // Does +: operator knows how to operate an any collection?
-    }  match {case  t => (t._1, t._2.get) }
+    } match {
+      case t => (t._1, t._2.get)
+    }
   }
 
   def main(args: Array[String]): Unit = {

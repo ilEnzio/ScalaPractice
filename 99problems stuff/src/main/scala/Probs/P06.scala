@@ -1,4 +1,6 @@
-import P05.revList
+package Probs
+
+import Probs.P05.revList
 
 object P06 {
   //
@@ -15,13 +17,15 @@ object P06 {
 
   def isPalindrome[A](l: List[A]): Boolean = {
     def validIdxPos(a: Int, b: Int): Boolean = a <= b
-    def doIsPal(beg: Int = 0, end: Int = l.length - 1 ): Boolean =
+
+    def doIsPal(beg: Int = 0, end: Int = l.length - 1): Boolean =
       l match {
-        case _ if (l.length <= 1)  => true
+        case _ if (l.length <= 1) => true
         case _ if (!validIdxPos(beg, end)) => true
-        case _ if (l (beg) != l(end)) => false
-        case _ => doIsPal( beg + 1, end -1)
+        case _ if (l(beg) != l(end)) => false
+        case _ => doIsPal(beg + 1, end - 1)
       }
+
     doIsPal()
   }
 
@@ -32,10 +36,12 @@ object P06 {
   // I think I could do a v3 using a vector
   def isPalindrome_v3[A](l: List[A]): Boolean = {
     val vl = l.toVector
+
     def doIsPal[A](v: Vector[A]): Boolean =
       if (v.length <= 1) true
       else if (v.head != v.last) false
       else doIsPal(v.drop(1).dropRight(1))
+
     doIsPal(vl)
   }
 
@@ -45,7 +51,7 @@ object P06 {
     val testEmpty = List()
     val test1Ele = List(33)
     val test2EleNotPal = List(2, 5)
-    val test2EleIsPal = List(2,2)
+    val test2EleIsPal = List(2, 2)
 
     // v1 tests
     println(isPalindrome(testList))

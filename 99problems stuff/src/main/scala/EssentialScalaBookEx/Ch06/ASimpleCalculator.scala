@@ -26,6 +26,29 @@ object ASimpleCalculator {
     }
   }
 
+  def calculator_v3(a: String, op: String, b: String): Unit = {
+//    (a.toIntOption).flatMap((x:String) => b.flatMap(y => op.map(z => z(x)(y))))
+//    println(a.toIntOption)
+    val oper: Int => Int => Option[Int] = op match {
+      case "+" => x => y => Some(x + y)  //
+      case "-" => x => y => Some(x - y)
+      case "*" => x => y => Some(x * y)
+      case "/" => x => y => shortDiv(x, y) // didn't understand I could use this
+      case _ => _ => _ => None
+    }
+
+    val res = a.toIntOption.flatMap(x =>
+      b.toIntOption.map(y =>
+        oper(x)(y)))
+
+    res match {
+      case Some(x) => println(x)
+      case None => println(s"Error $a $op $b")
+    }
+  }
+
+
+
   /// book solution
   def readInt(str: String): Option[Int] =
     if(str matches "-?\\d+") Some(str.toInt) else None
@@ -54,10 +77,17 @@ object ASimpleCalculator {
 
   def main(args: Array[String]): Unit = {
 
-    calculator("32", "/", "3")
-    calculator("Erle", "/", "3")
-    calculator("10", "/", "5")
-    calculator("10", "/", "0")
+//    calculator("32", "/", "3")
+//    calculator("Erle", "/", "3")
+//    calculator("10", "/", "5")
+//    calculator("10", "/", "0")
+  calculator_v3("3", "2", "2")
+        calculator_v3("32", "/", "3")
+        calculator_v3("Erle", "/", "3")
+        calculator_v3("10", "/", "0")
+        calculator_v3("10", "/", "5")
+
+
 
 
   }

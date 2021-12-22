@@ -1,3 +1,5 @@
+package Probs
+
 object P09 {
 
   //  P09 (**) Pack consecutive duplicates of list elements into sublists.
@@ -23,9 +25,10 @@ object P09 {
       // code smells - implicit 'importance' to head
       // code smell - duplicated code
       // you should be using acc as the state, but here you are using list as the state
-      case h :: s :: t if (h == s) => doPack(h::t, s :: subAcc, acc)
-      case h :: t => doPack(t, Nil, (h::subAcc) :: acc)
+      case h :: s :: t if (h == s) => doPack(h :: t, s :: subAcc, acc)
+      case h :: t => doPack(t, Nil, (h :: subAcc) :: acc)
     }
+
     doPack(l, Nil, Nil).reverse
   }
 
@@ -37,19 +40,20 @@ object P09 {
       // code smells - implicit 'importance' to head
       // code smell - duplicated code
       // TODO: try tupling (or nested pattern match) - when sub acc is non empty do one thing, when empty do another
-      case h :: s :: t if (h == s) => doPack(h::t, s :: subAcc, acc)
-      case h :: t => doPack(t, Nil, (h::subAcc) :: acc)
+      case h :: s :: t if (h == s) => doPack(h :: t, s :: subAcc, acc)
+      case h :: t => doPack(t, Nil, (h :: subAcc) :: acc)
     }
+
     doPack(l, Nil, Nil).reverse
   }
 
-    def pack_v3[A](l: List[A]): List[List[A]] = {
-      l.foldLeft(List[List[A]](), Option.empty[A]){ case ((acc, ele), v) =>
-//        println(s"$v -->-->------ $acc")
-        if (Some(v) == ele) ((v::acc.head) :: acc.tail, Some(v))
-        else (List(v) :: acc, Some(v))
-      }._1.reverse
-    }
+  def pack_v3[A](l: List[A]): List[List[A]] = {
+    l.foldLeft(List[List[A]](), Option.empty[A]) { case ((acc, ele), v) =>
+      //        println(s"$v -->-->------ $acc")
+      if (Some(v) == ele) ((v :: acc.head) :: acc.tail, Some(v))
+      else (List(v) :: acc, Some(v))
+    }._1.reverse
+  }
 
   def main(args: Array[String]): Unit = {
 

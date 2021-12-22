@@ -1,26 +1,28 @@
+package Probs
+
 object P02 {
 
 
-//  P02 (*) Find the last but one element of a list.
-//  Example:
-//
-//    scala> penultimate(List(1, 1, 2, 3, 5, 8))
-//
-//  res0: Option[Int] = Some(5)
+  //  P02 (*) Find the last but one element of a list.
+  //  Example:
+  //
+  //    scala> penultimate(List(1, 1, 2, 3, 5, 8))
+  //
+  //  res0: Option[Int] = Some(5)
 
   def findPenultimate[A](l: List[A]): Option[A] = l match {
-  case Nil => None
-  case List(_) => None
-  case h :: _ :: Nil => Some(h)
-  case _ :: t => findPenultimate(t)
-}
+    case Nil => None
+    case List(_) => None
+    case h :: _ :: Nil => Some(h)
+    case _ :: t => findPenultimate(t)
+  }
 
   // not as good a solution; the indexing does traverse the entire list
 
   def findPenultimate_v2[A](l: List[A]): Option[A] = l match {
     case x if (x == List()) => None
     case List(_) => None
-    case _ => Some(l(l.length -2))
+    case _ => Some(l(l.length - 2))
   }
 
   def main(args: Array[String]): Unit = {
@@ -28,7 +30,7 @@ object P02 {
     val testList = List(1, 1, 2, 3, 5, 8)
     val test1ele = List(1)
     val testEmpty = List()
-    val test2elem = List(2,3)
+    val test2elem = List(2, 3)
 
     println(findPenultimate(testList))
     println(findPenultimate(test1ele))

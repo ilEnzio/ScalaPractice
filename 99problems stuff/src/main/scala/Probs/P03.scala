@@ -1,3 +1,5 @@
+package Probs
+
 import scala.annotation.tailrec
 
 object P03 {
@@ -11,7 +13,7 @@ object P03 {
   //
   //  res0: Option[Int] = Some(2)
 
-  def getKth[A](k: Int ,l: List[A]): Option[A] =  {
+  def getKth[A](k: Int, l: List[A]): Option[A] = {
     val validInput = k >= 0 && k < l.length - 1 // if I run this on the something other than a list, may throw exception
     if (validInput) Some(l(k)) else None
   }
@@ -19,12 +21,13 @@ object P03 {
   def getKth_v2[A](k: Int, l: List[A]): Option[A] = {
     val validInput = k >= 0 && k < l.length - 1
 
-    def doGetKth( l: List[A], acc: Int = 0): Option[A] =
+    def doGetKth(l: List[A], acc: Int = 0): Option[A] =
       l match {
         case Nil => None
         case h :: _ if (k == acc) => Some(h)
         case _ :: t => doGetKth(t, acc + 1)
       }
+
     if (validInput) doGetKth(l) else None
   }
 
@@ -50,12 +53,12 @@ object P03 {
     println(getKth(-1, testList))
 
     // test for v 2
-    assert(getKth_v2(2, testList) == Some(2) )
+    assert(getKth_v2(2, testList) == Some(2))
     assert(getKth_v2(2, testEmpty) == None)
     assert(getKth_v2(2, test1ele) == None)
     assert(getKth_v2(-1, testList) == None)
 
-    assert(getKth_v3(2, testList) == Some(2) )
+    assert(getKth_v3(2, testList) == Some(2))
     assert(getKth_v3(2, testEmpty) == None)
     assert(getKth_v3(2, test1ele) == None)
     assert(getKth_v3(-1, testList) == None)

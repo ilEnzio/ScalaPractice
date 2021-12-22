@@ -1,3 +1,5 @@
+package Probs
+
 object P14 {
 
   //
@@ -16,7 +18,7 @@ object P14 {
 
   // use foldLeft
   def duplicate_v2[A](l: List[A]): List[A] = {
-    l.foldRight(List[A]())( (v, s) => v :: v :: s)
+    l.foldRight(List[A]())((v, s) => v :: v :: s)
   }
 
   def duplicate_v3[A](l: List[A]): List[A] = {
@@ -30,7 +32,9 @@ object P14 {
     for {
       x <- l
       out <- List(x, x)
-    } yield {out }
+    } yield {
+      out
+    }
 
   }
 

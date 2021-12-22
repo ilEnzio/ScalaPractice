@@ -1,3 +1,5 @@
+package Probs
+
 object P18 {
   //
   //  P18 (**) Extract a slice from a list.
@@ -16,7 +18,7 @@ object P18 {
   }
 
   def slice_v2[A](st: Int, end: Int, l: List[A]): List[A] = {
-    l.foldRight(List.empty[A], l.length - 1){ case (v , (s, idx)) =>
+    l.foldRight(List.empty[A], l.length - 1) { case (v, (s, idx)) =>
       if (idx >= st && idx < end) (v :: s, idx - 1)
       else (s, idx - 1)
     }._1
@@ -24,7 +26,7 @@ object P18 {
 
   def main(args: Array[String]): Unit = {
 
-    val testList =  List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
+    val testList = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
 
     println(slice(3, 7, testList))
     println(slice_v2(3, 7, testList))
