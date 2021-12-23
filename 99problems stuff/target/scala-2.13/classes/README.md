@@ -504,6 +504,23 @@ Q's
 - Don't tolerate warnings.
 
 
+### 12/22/21
+
+- EssScala Chapter 06 - Favorites
+- EsSc06 union of sets
+- EsSC06 union of maps
+
+
+Q's
+
+- Struggling with Big O of Union of Maps solutions.  What is the
+Big O of the big solution vs my solution?
+- 
+
+
+#### TIL
+
+
 </p>
 </details>
 
