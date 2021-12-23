@@ -515,7 +515,9 @@ Q's
 
 - Struggling with Big O of Union of Maps solutions.  What is the
 Big O of the big solution vs my solution?
-- 
+- Random Words - I think my solution was stuck in OO style thinking; 
+maybe I should default to thinking of maps as pattern matching functions
+- Trackback `.get `on a list unsafe; `.get` on a map safe?
 
 
 #### TIL
