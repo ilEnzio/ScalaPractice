@@ -506,17 +506,18 @@ Q's
 
 ### 12/22/21
 
-- Essential Scala Book Ch06 AddingAllthings ++
-- 
+- EssScala Chapter 06 - Favorites
+- EsSc06 union of sets
+- EsSC06 union of maps
+
 
 Q's
 
-- What kinda self-respecting set has an index?  Cmon Scala!
 -
+
 
 #### TIL
 
-- 
 
 </p>
 </details>
