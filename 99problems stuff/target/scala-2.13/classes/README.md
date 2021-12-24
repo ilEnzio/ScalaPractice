@@ -518,7 +518,9 @@ Big O of the big solution vs my solution?
 - Random Words - I think my solution was stuck in OO style thinking; 
 maybe I should default to thinking of maps as pattern matching functions
 - Trackback `.get `on a list unsafe; `.get` on a map safe?
-
+- Essential Sca Ch06 Probabilities. mental block.  Just not sure what
+they are asking...
+- sa - really stuck on flatMap
 
 #### TIL
 
