@@ -529,5 +529,28 @@ they are asking...
 </details>
 
 
+<details><summary>WEEK 07</summary>
+<p>
+
+### 12/27/21
+
+- EssScala Ch06 - Prob - CatSmellsFood
+- 
+
+
+Q's
+
+- My cat function is just kinda hanging on top level.
+Where should it be? 
+
+#### TIL
+
+-
+
+
+</p>
+</details>
+
+
 
 
