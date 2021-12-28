@@ -5,6 +5,7 @@ import ScalaTron.ReferenceBot.ControlFunction
 
 object MiscFunctions {
 
+  import util.Random
 
   class ControlFunctionFactory {
     def create = new Bot().respond _
@@ -20,14 +21,24 @@ object MiscFunctions {
 
       if (opcode=="React") {
         val nameSeg = display(paramMap("time").toInt)
-        nameSeg
+        val moveSeg = Mover()
+        nameSeg +"|" + moveSeg
       }
       else ""
     }
 
     def display(time: Int): String = {
-      if (time % 30 == 0) name = name.toggle
+      if (time % 60 == 0) name = name.toggle
       name.getName()
+    }
+  }
+
+  object Mover {
+    def apply(): String = {
+      val rnd = new Random()
+      val dx = rnd.nextInt(3)-1
+      val dy = rnd.nextInt(3)-1
+      "Move(direction=" + dx + ":" + dy + ")"
     }
   }
 
