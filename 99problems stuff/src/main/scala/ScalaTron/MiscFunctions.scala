@@ -2,10 +2,8 @@ package ScalaTron
 
 import ScalaTron.ReferenceBot.ControlFunction
 
-object MiscFunctions {
 
-  //  def stroll() = {
-  //    val dir: List[Int] = [1, ]
+object MiscFunctions {
 
 
   class ControlFunctionFactory {
@@ -14,30 +12,43 @@ object MiscFunctions {
 
   class Bot {
     var name: NameDisplay = User
+
     def respond(input: String) = {
-      val counter = Stats().increment
-      if (counter % 30 == 0) {
-        name = name.toggle
-        name.getName()
-      } else name.getName()
+      val parseResult = parse(input)
+      val opcode = parseResult._1
+      val paramMap = parseResult._2
+
+      if (opcode=="React") {
+        val nameSeg = display(paramMap("time").toInt)
+        nameSeg
+      }
+      else ""
     }
-  }
 
-  class Stats {
-    def increment =  Stats.getCount()
-  }
+    def parse(command: String) = {
+      def splitParam(param: String) = {
+        val segments = param.split('=')
+        if( segments.length != 2 )
+          throw new IllegalStateException("invalid key/value pair: " + param)
+        (segments(0),segments(1))
+      }
+      val segments = command.split('(')
+      if( segments.length != 2 )
+        throw new IllegalStateException("invalid command: " + command)
+      val params = segments(1).dropRight(1).split(',')
+      val keyValuePairs = params.map(splitParam).toMap
+      (segments(0), keyValuePairs)
+    }
 
-  object Stats{
-    private var counter:Int = 0
-    def apply() = {
-      counter += 1
-      new Stats }
-    def getCount() = counter
+    def display(time: Int): String = {
+      if (time % 30 == 0) name = name.toggle
+      name.getName()
+    }
   }
 
   sealed trait NameDisplay {
     def getName(): String = this match {
-      case Nick => "Status(text=m0n10dAlm16ht33!)"
+      case Nick => "Status(text=m0n10dAlm16ht4!)"
       case User => "Status(text=Erle's Bot)"
     }
 
@@ -48,7 +59,8 @@ object MiscFunctions {
   }
 
   final case object Nick extends NameDisplay{}
-  final case object User extends NameDisplay {}
+  final case object User extends NameDisplay{}
+
 
 //
 //object CommandParser{
