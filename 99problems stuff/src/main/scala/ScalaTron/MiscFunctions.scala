@@ -14,7 +14,7 @@ object MiscFunctions {
     var name: NameDisplay = User
 
     def respond(input: String) = {
-      val parseResult = parse(input)
+      val parseResult = CommandParser(input)
       val opcode = parseResult._1
       val paramMap = parseResult._2
 
@@ -25,26 +25,29 @@ object MiscFunctions {
       else ""
     }
 
-    def parse(command: String) = {
-      def splitParam(param: String) = {
-        val segments = param.split('=')
-        if( segments.length != 2 )
-          throw new IllegalStateException("invalid key/value pair: " + param)
-        (segments(0),segments(1))
-      }
-      val segments = command.split('(')
-      if( segments.length != 2 )
-        throw new IllegalStateException("invalid command: " + command)
-      val params = segments(1).dropRight(1).split(',')
-      val keyValuePairs = params.map(splitParam).toMap
-      (segments(0), keyValuePairs)
-    }
-
     def display(time: Int): String = {
       if (time % 30 == 0) name = name.toggle
       name.getName()
     }
   }
+
+  object CommandParser {
+    def apply(command: String) = {
+      def splitParam(param: String) = {
+        val segments = param.split('=')
+        if (segments.length != 2)
+          throw new IllegalStateException("invalid key/value pair: " + param)
+        (segments(0), segments(1))
+      }
+
+      val segments = command.split('(')
+      if (segments.length != 2)
+        throw new IllegalStateException("invalid command: " + command)
+      val params = segments(1).dropRight(1).split(',')
+      val keyValuePairs = params.map(splitParam).toMap
+      (segments(0), keyValuePairs)
+      }
+    }
 
   sealed trait NameDisplay {
     def getName(): String = this match {
