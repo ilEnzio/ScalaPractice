@@ -13,20 +13,20 @@ object MiscFunctions {
   }
 
   class Bot {
-    var name: NameDisplay = Nick
+    var name: NameDisplay = User
     def respond(input: String) = {
-      val test = Stats().increment
-      if (test % 100 == 0)  name = name.toggle
-      else name
-      name.getName()
+      val counter = Stats().increment
+      if (counter % 30 == 0) {
+        name = name.toggle
+        name.getName()
+      } else name.getName()
     }
   }
 
   class Stats {
     def increment =  Stats.getCount()
-    def getStatus = "Status(text=Erle's Bot)"
-    def getNick = "Status(text=m0n10dAlm16ht33!)"
   }
+
   object Stats{
     private var counter:Int = 0
     def apply() = {
@@ -36,7 +36,10 @@ object MiscFunctions {
   }
 
   sealed trait NameDisplay {
-    def getName(): String
+    def getName(): String = this match {
+      case Nick => "Status(text=m0n10dAlm16ht33!)"
+      case User => "Status(text=Erle's Bot)"
+    }
 
     def toggle: NameDisplay = this match {
       case Nick => User
@@ -44,49 +47,33 @@ object MiscFunctions {
     }
   }
 
-  final case object Nick extends NameDisplay{
-    override def getName() = "Status(text=m0n10dAlm16ht33!)"
-  }
+  final case object Nick extends NameDisplay{}
+  final case object User extends NameDisplay {}
 
-  final case object User extends NameDisplay {
-    override def getName(): String = "Status(text=Erle's Bot)"
-  }
-
-
-object CommandParser{
-    def apply(command: String) = {
-      def splitParam(param: String) = {
-        val segments = param.split('=')
-        if( segments.length != 2)
-          throw new IllegalStateException(
-            "invalid key/value pair: " + param)
-        (segments(0), segments(1))
-      }
-
-      val segments = command.split('(')
-      if (segments.length != 2 )
-        throw new IllegalStateException(
-          "invalid command: " + command )
-
-      val params = segments(1).dropRight(1).split(',')
-      val keyValuePairs = params.map( splitParam ).toMap
-      (segments(0), keyValuePairs)
-    }
-  }
+//
+//object CommandParser{
+//    def apply(command: String) = {
+//      def splitParam(param: String) = {
+//        val segments = param.split('=')
+//        if( segments.length != 2)
+//          throw new IllegalStateException(
+//            "invalid key/value pair: " + param)
+//        (segments(0), segments(1))
+//      }
+//
+//      val segments = command.split('(')
+//      if (segments.length != 2 )
+//        throw new IllegalStateException(
+//          "invalid command: " + command )
+//
+//      val params = segments(1).dropRight(1).split(',')
+//      val keyValuePairs = params.map( splitParam ).toMap
+//      (segments(0), keyValuePairs)
+//    }
+//  }
 
 //  class ControlFunction(val initState: Stats = Stats(0)) {
 
-    //  def respond(in: String, s: Stats) = {
-    //    val state = Stats(s.num)
-    //    val output = "Status(text=" + state.num + ")"
-    //    output
-    //  }
-
-    //  def respond(input: String) = {
-    //    val tokens = input.split('(')
-    //    if(tokens(0)=="React") {"Move(direction=1:0)"}
-    //    else { ""}
-    //  }
     //def respond(input: String) = {
     //  val tokens = input.split('(')
     //  val opcode = tokens(0)
