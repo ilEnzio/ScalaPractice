@@ -18,6 +18,9 @@ object CatSmells {
 //    Implement this model and answer the question: if the cat comes to harass me what
 //  is the probability my food is producing delicious smells (and therefore is ready to eat.)
 
+//
+
+
   sealed trait Food
   case object Raw extends Food
   case object Cooked extends Food
