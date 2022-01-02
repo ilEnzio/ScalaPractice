@@ -13,25 +13,36 @@ object MiscFunctions {
 
   class Bot {
     var name: NameDisplay = User
+    val rnd = new Random()
 
-    def respond(input: String) = {
+    def respond(input: String): String = {
       val parseResult = CommandParser(input)
       val opcode = parseResult._1
       val paramMap = parseResult._2
 
-      if (opcode=="React") {
+      if (opcode == "React") {
         val nameSeg = display(paramMap("time").toInt)
         val moveSeg = Mover()
-        nameSeg +"|" + moveSeg
-      }
-      else ""
+        val generation = paramMap("generation").toInt
+        if (generation == 0) {
+          if (paramMap("energy").toInt >= 100 && rnd.nextDouble() < 0.05) {
+            val dx = rnd.nextInt(3) - 1
+            val dy = rnd.nextInt(3) - 1
+            val direction = dx + ":" + dy
+            val spawnBot: String = "Spawn(direction=" + direction + ",energy=100,heading=" + direction + ")"
+             spawnBot
+          } else nameSeg + "|" + moveSeg
+        } else {
+          val heading = paramMap("heading")
+          "Move(direction=" + heading + ")"
+        }
+      } else ""
     }
-
     def display(time: Int): String = {
       if (time % 60 == 0) name = name.toggle
       name.getName()
+      }
     }
-  }
 
   object Mover {
     def apply(): String = {
@@ -72,8 +83,8 @@ object MiscFunctions {
     }
   }
 
-  final case object Nick extends NameDisplay{}
-  final case object User extends NameDisplay{}
+  final case object Nick extends NameDisplay
+  final case object User extends NameDisplay
 
 
 //
