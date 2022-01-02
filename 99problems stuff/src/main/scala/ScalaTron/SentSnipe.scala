@@ -15,10 +15,11 @@ object SentSnipe {
 
     def respond(input: String): String = {
       val parseResult: (String, Map[String, String]) = CommandParser(input)
-      val opcode: String  = parseResult._1
-      val paramMap: Map[String, String]  = parseResult._2
+      val opcode: String = parseResult._1
+      val paramMap: Map[String, String] = parseResult._2
 
       def inputAsXYOrElse(key: String, fallback: XY) = paramMap.get(key).map(s => XY(s)).getOrElse(fallback)
+
       def offsetToMaster = inputAsXYOrElse("master", XY.Zero)
 
       def miniControlSys(): String = {
@@ -30,7 +31,7 @@ object SentSnipe {
         "Move(direction=" + heading + ")"
       }
 
-      def masterControlSys(): String =  ???
+      def masterControlSys(): String = ???
 
       def display(time: Int): String = {
         if (time % 60 == 0) name = name.toggle
@@ -39,26 +40,26 @@ object SentSnipe {
 
       opcode match {
         case "React" =>
-        val nameSeg = display(paramMap("time").toInt)
-        val moveSeg = Mover()
+          val nameSeg = display(paramMap("time").toInt)
+          val moveSeg = Mover()
 
-        val gen = Generation(paramMap("generation").toInt)
+          val gen = Generation(paramMap("generation").toInt)
 
-        val energy = EnergyLevel(paramMap("energy").toInt)
+          val energy = EnergyLevel(paramMap("energy").toInt)
 
-        val goAction = (gen, energy) match {
-          case (Master, MediumEnergy)  =>
-            val miniHeading = XY.Up
-            val heading = XY.random(rnd)
-            val spawnBot: String = "Spawn(direction=" + miniHeading + ",energy=300,heading=" + miniHeading + ")"
-            spawnBot
-          case (Master, LowEnergy) => nameSeg + "|" + moveSeg // moving the masterBot
-          case (Gen1Mini, _) =>  miniControlSys()
-        }
-        goAction
-        case _ =>  ""
+          val goAction = (gen, energy) match {
+            case (Master, MediumEnergy) =>
+              val miniHeading = XY.Up
+              val spawnBot: String = "Spawn(direction=" + miniHeading + ",energy=300,heading=" + miniHeading + ")"
+              spawnBot + "|" + moveSeg
+            case (Master, LowEnergy) => nameSeg + "|" + moveSeg // moving the masterBot
+            case (Gen1Mini, _) => miniControlSys()
+          }
+          goAction
+        case _ => ""
+      }
+
     }
-
   }
 
   sealed trait EnergyLevel
@@ -182,7 +183,6 @@ object SentSnipe {
     val botStatus = testbot.create("test")
     println(botStatus)
   }
-
 
 
 }
