@@ -40,7 +40,17 @@ object SentSnipe {
         val curOffset = offsetToMaster.negate
         val desiredOffset = inputAsXYOrElse("offset", XY(0, -4))
         val heading = ((desiredOffset - curOffset).signum)
-        "Move(direction=" + heading + ")"
+        def zorgInRange: Boolean = viewString.contains('b')
+
+        if (zorgInRange) {
+            val view = new View(viewString)
+            val nearB = view.offsetToNearest('b').get
+            val center = view.center
+            val disNearestB = center.distanceTo(nearB)
+          if (disNearestB < 8.0) "Explode(size=6)"
+          else "Move(direction=" + heading + ")"
+        }
+        else "Move(direction=" + heading + ")"
       }
 
       def masterControlSys(): String = {
@@ -60,7 +70,7 @@ object SentSnipe {
           val energy = EnergyLevel(paramMap("energy").toInt)
 
           val goAction = (gen, energy) match {
-            //TODO HighEnergy
+            case (Master, HighEnergy) => masterControlSys()// TODO high energy
             case (Master, MediumEnergy) => masterControlSys()
 
             case (Master, LowEnergy) => nameSeg + "|" + moveSeg // moving the masterBot
@@ -75,8 +85,34 @@ object SentSnipe {
 
   case class View(cells: String) {
     def apply(index: Int) = cells.charAt(index)
-  }
 
+    val size = math.sqrt(cells.length).toInt
+    val center = XY(size / 2, size / 2)
+
+    def indexFromAbsPos(absPos: XY) = absPos.x + absPos.y * size
+
+    def absPosFromIndex(index: Int) = XY(index % size, index / size)
+
+    def absPosFromRelPos(relPos: XY) = relPos + center
+
+    def cellAtAbsPos(absPos: XY) = cells.charAt(indexFromAbsPos(absPos))
+
+    def indexFromRelPos(relPos: XY) = indexFromAbsPos(absPosFromRelPos(relPos))
+
+    def relPosFromAbsPos(absPos: XY) = absPos - center
+
+    def relPosFromIndex(index: Int) = relPosFromAbsPos(absPosFromIndex(index))
+
+    def cellAtRelPos(relPos: XY) = cells.charAt(indexFromRelPos(relPos))
+
+    def offsetToNearest(c: Char) = {
+      val relativePositions = cells.view.zipWithIndex.filter(_._1 == c)
+        .map(p => relPosFromIndex(p._2))
+      if (relativePositions.isEmpty) None
+      else Some(relativePositions.minBy(_.length))
+
+    }
+  }
 
 
 
