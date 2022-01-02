@@ -17,9 +17,10 @@ object SentSnipe {
       val parseResult: (String, Map[String, String]) = CommandParser(input)
       val opcode: String = parseResult._1
       val paramMap: Map[String, String] = parseResult._2
+//      val strXY = paramMap.getOrElse("lastDir", "01")
+//      val lastDir = XY(strXY(0).toInt, strXY(1).toInt)
 
       val viewString:String = paramMap("view")
-
 
       def inputAsXYOrElse(key: String, fallback: XY) = paramMap.get(key).map(s => XY(s)).getOrElse(fallback)
 
@@ -30,24 +31,24 @@ object SentSnipe {
         name.getName()
       }
 
-
       val nameSeg = display(paramMap("time").toInt)
-      val moveSeg = Mover()
+      val moveSeg = Mover(View(viewString))
+
 
       def miniControlSys(): String = {
         //          val headingStr = paramMap("heading")
         //          val heading = XY(headingStr)
         val curOffset = offsetToMaster.negate
-        val desiredOffset = inputAsXYOrElse("offset", XY(0, -4))
+        val desiredOffset = inputAsXYOrElse("offset", XY(0, 4))
         val heading = ((desiredOffset - curOffset).signum)
         def zorgInRange: Boolean = viewString.contains('b')
 
         if (zorgInRange) {
-            val view = new View(viewString)
-            val nearB = view.offsetToNearest('b').get
-            val center = view.center
-            val disNearestB = center.distanceTo(nearB)
-          if (disNearestB < 8.0) "Explode(size=6)"
+          val view = View(viewString)
+          val nearB = view.offsetToNearest('b').get
+          val center = view.center
+          val disNearestB = center.distanceTo(nearB)
+          if (disNearestB < 20.0) "Explode(size=6)"
           else "Move(direction=" + heading + ")"
         }
         else "Move(direction=" + heading + ")"
@@ -56,11 +57,10 @@ object SentSnipe {
       def masterControlSys(): String = {
         val hasSentinel = viewString.contains('S')
         val miniHeading = XY.Up
-        val spawnBot: String = "Spawn(direction=" + miniHeading + ",energy=300,heading=" + miniHeading + ")"
+        val spawnBot: String = "Spawn(direction=" + miniHeading + ",energy=100,heading=" + miniHeading + ")"
         if (hasSentinel) moveSeg
         else spawnBot + "|" + moveSeg
       }
-
 
 
       opcode match {
@@ -72,7 +72,6 @@ object SentSnipe {
           val goAction = (gen, energy) match {
             case (Master, HighEnergy) => masterControlSys()// TODO high energy
             case (Master, MediumEnergy) => masterControlSys()
-
             case (Master, LowEnergy) => nameSeg + "|" + moveSeg // moving the masterBot
             case (Gen1Mini, _) => miniControlSys()
           }
@@ -182,19 +181,52 @@ object SentSnipe {
     val LeftDown = XY(-1, 1)
     val Down =XY(0,1)
     val DownRight = XY( 1, 1)
-
-
-
   }
 
-
   object Mover {
-    def apply(): String = {
+    def apply(v: View): String = {
       val rnd = new Random()
-      val dx = rnd.nextInt(3)-1
-      val dy = rnd.nextInt(3)-1
-      "Move(direction=" + dx + ":" + dy + ")"
+      def dx = rnd.nextInt(3)-1
+      def dy = rnd.nextInt(3)-1
+//      var lastDir = dir
+      v.offsetToNearest('P') match {
+        case Some(offset) =>
+          val unitOffset = offset.signum
+          avoidDanger(v, unitOffset)._1
+//          "Move(direction=" + unitOffset + ")"
+        case None => v.offsetToNearest('B') match {
+        case Some(offset) =>
+        val unitOffset = offset.signum
+          avoidDanger(v, unitOffset)._1
+//        "Move(direction=" + unitOffset + ")"
+        case None =>
+
+//          temp._1 //+ "|" + "Set(lastDir=" + lastDir.x.toString + lastDir.y.toString + ")"
+          "Move(direction=" + dx + ":" + dy + ")"
+        }
+      }
     }
+
+    def avoidDanger(v: View, h: XY): (String, XY) = {
+      val targetCel = v(v.indexFromRelPos(h))
+      val isDangerous = targetCel == 'W' || targetCel == 'b'||
+          v(v.indexFromRelPos(h)) == 'p'
+      if (isDangerous) {
+        val newHeading = h match {
+          case XY(1, 0) => XY(1, -1)
+          case XY(1, -1) => XY(0, -1)
+          case XY(0, -1) => XY(-1, -1)
+          case XY(-1, -1) => XY(-1,0)
+          case XY(-1, 0) => XY(-1, 1)
+          case XY(-1, 1) => XY(0, 1)
+          case XY(0, 1) => XY(1, 1)
+          case XY(1, 1) => XY(1, 0)
+        }
+        (avoidDanger(v, newHeading ))
+      }
+      else ("Move(direction=" + h + ")", h)
+    }
+
   }
 
   object CommandParser {
@@ -229,7 +261,6 @@ object SentSnipe {
 
   final case object Nick extends NameDisplay
   final case object User extends NameDisplay
-
 
 
   def main(args: Array[String]): Unit = {
