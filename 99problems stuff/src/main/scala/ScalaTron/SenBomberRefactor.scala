@@ -43,11 +43,8 @@ object SenBomberRefactor {
           val view = View(viewString)
           val nearB = view.offsetToNearest('b').get
           val nearM = view.offsetToNearest('m').getOrElse(XY(15,15))
-          val center = view.center
-//          val disNearestB = center.distanceTo(nearB)
-//          val disNearestM = center.distanceTo(nearM)
-//          if (disNearestB < 10.0 || disNearestM < 10) "Explode(size=10)"
-          if (nearB.length < 4.0 || nearM.length < 4.0) "Explode(size=6)"
+          val nearS = view.offsetToNearest('s').getOrElse(XY(15,15))
+          if (nearB.length < 4.0 || nearM.length < 4.0 || nearS.length < 4.0) "Explode(size=6)"
           else "Move(direction=" + heading + ")"
         }
         else "Move(direction=" + heading + ")"
@@ -201,7 +198,7 @@ object SenBomberRefactor {
 
     def avoidDanger(v: View, h: XY): (String, XY) = {
       val targetCel = v(v.indexFromRelPos(h))
-      val isDangerous = targetCel == 'W' || targetCel == 'b'||
+      val isDangerous = targetCel == 'W' || targetCel == 'b'|| targetCel == 's'
         v(v.indexFromRelPos(h)) == 'p'
       if (isDangerous) {
         val newHeading = h match {
