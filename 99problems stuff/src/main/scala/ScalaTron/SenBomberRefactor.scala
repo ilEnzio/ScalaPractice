@@ -1,9 +1,8 @@
 package ScalaTron
 
-object SentSnipe {
+object SenBomberRefactor {
 
 
-  import util.Random
 
   class ControlFunctionFactory {
     def create = new Bot().respond _
@@ -11,7 +10,6 @@ object SentSnipe {
 
   class Bot {
     var name: NameDisplay = User
-    val rnd = new Random()
 
     def respond(input: String): String = {
       val parseResult: (String, Map[String, String]) = CommandParser(input)
@@ -44,11 +42,12 @@ object SentSnipe {
         if (zorgInRange) {
           val view = View(viewString)
           val nearB = view.offsetToNearest('b').get
-          val nearM = view.offsetToNearest('m').get
+          val nearM = view.offsetToNearest('m').getOrElse(XY(15,15))
           val center = view.center
-          val disNearestB = center.distanceTo(nearB)
-          val disNearestM = center.distanceTo(nearM)
-          if (disNearestB < 10.0 || disNearestM < 10) "Explode(size=10)"
+//          val disNearestB = center.distanceTo(nearB)
+//          val disNearestM = center.distanceTo(nearM)
+//          if (disNearestB < 10.0 || disNearestM < 10) "Explode(size=10)"
+          if (nearB.length < 4.0 || nearM.length < 4.0) "Explode(size=6)"
           else "Move(direction=" + heading + ")"
         }
         else "Move(direction=" + heading + ")"
@@ -59,7 +58,10 @@ object SentSnipe {
         val miniHeading = XY.Up
         val spawnBot: String = "Spawn(direction=" + miniHeading + ",energy=300,heading=" + miniHeading + ")"
         if (hasSentinel) moveSeg
-        else spawnBot + "|" + moveSeg
+        else {
+          name = Boom
+          spawnBot + "|" + moveSeg + "|" + name.getName()
+        }
       }
 
       opcode match {
@@ -115,8 +117,8 @@ object SentSnipe {
   sealed trait EnergyLevel
   object EnergyLevel{
     def apply(energy: Int): EnergyLevel = energy match {
-      case x if(x <= 2000) => LowEnergy
-      case x if(x > 2000 && x < 3000) => MediumEnergy
+      case x if(x <= 1500) => LowEnergy
+      case x if(x > 1500 && x < 3000) => MediumEnergy
       case _ => HighEnergy
     }
   }
@@ -166,7 +168,6 @@ object SentSnipe {
       val xy = s.split(':').map(_.toInt)
       XY(xy(0), xy(1))
     }
-    def random(rnd: Random) = XY(rnd.nextInt(3)-1, rnd.nextInt(3)-1)
 
     val Zero = XY(0,0)
     val One = XY(1,1)
@@ -182,22 +183,18 @@ object SentSnipe {
 
   object Mover {
     def apply(v: View, lastdir: XY): String = {
-      val rnd = new Random()
-      def dx = rnd.nextInt(3)-1
-      def dy = rnd.nextInt(3)-1
-
-      v.offsetToNearest('P') match {
+      v.offsetToNearest('B') match {
         case Some(offset) =>
           val unitOffset = offset.signum
           avoidDanger(v, unitOffset)._1
-        case None => v.offsetToNearest('B') match {
-        case Some(offset) =>
-        val unitOffset = offset.signum
-          avoidDanger(v, unitOffset)._1
-        case None =>
+        case None => v.offsetToNearest('P') match {
+          case Some(offset) =>
+            val unitOffset = offset.signum
+            avoidDanger(v, unitOffset)._1
+          case None =>
 
-          val result = avoidDanger(v, lastdir)
-          result._1 + "|" + "Set(lastDir=" + result._2 + ")"
+            val result = avoidDanger(v, lastdir)
+            result._1 + "|" + "Set(lastDir=" + result._2 + ")"
         }
       }
     }
@@ -205,7 +202,7 @@ object SentSnipe {
     def avoidDanger(v: View, h: XY): (String, XY) = {
       val targetCel = v(v.indexFromRelPos(h))
       val isDangerous = targetCel == 'W' || targetCel == 'b'||
-          v(v.indexFromRelPos(h)) == 'p'
+        v(v.indexFromRelPos(h)) == 'p'
       if (isDangerous) {
         val newHeading = h match {
           case XY(1, 0) => XY(1, -1)
@@ -246,7 +243,7 @@ object SentSnipe {
     def getName(): String = this match {
       case Nick => "Status(text=m0n10dAlm16ht4!)"
       case User => "Status(text=Erle's Bot)"
-      case User => "Status(text=Boom-Shaka-Scala!"
+      case Boom => "Status(text=Boom-Shaka-Scala!"
     }
 
     def toggle: NameDisplay = this match {
@@ -259,13 +256,6 @@ object SentSnipe {
   final case object Nick extends NameDisplay
   final case object User extends NameDisplay
   final case object Boom extends NameDisplay
-
-
-  def main(args: Array[String]): Unit = {
-    val testbot = new ControlFunctionFactory
-    val botStatus = testbot.create("test")
-    println(botStatus)
-  }
 
 
 }
