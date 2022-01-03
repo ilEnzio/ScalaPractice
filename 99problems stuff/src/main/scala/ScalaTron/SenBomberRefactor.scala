@@ -205,14 +205,14 @@ object SenBomberRefactor {
         v(v.indexFromRelPos(h)) == 'p'
       if (isDangerous) {
         val newHeading = h match {
-          case XY(1, 0) => XY(1, -1)
-          case XY(1, -1) => XY(0, -1)
-          case XY(0, -1) => XY(-1, -1)
-          case XY(-1, -1) => XY(-1,0)
-          case XY(-1, 0) => XY(-1, 1)
-          case XY(-1, 1) => XY(0, 1)
-          case XY(0, 1) => XY(1, 1)
-          case XY(1, 1) => XY(1, 0)
+          case XY.Right => XY.RightUp
+          case XY.RightUp => XY.Up
+          case XY.Up => XY.UpLeft
+          case XY.UpLeft => XY.Left
+          case XY.Left => XY.LeftDown
+          case XY.LeftDown => XY.Down
+          case XY.Down => XY.DownRight
+          case XY.DownRight => XY.Right
         }
         (avoidDanger(v, newHeading ))
       }
