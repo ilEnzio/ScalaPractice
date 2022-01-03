@@ -17,8 +17,8 @@ object SentSnipe {
       val parseResult: (String, Map[String, String]) = CommandParser(input)
       val opcode: String = parseResult._1
       val paramMap: Map[String, String] = parseResult._2
-//      val strXY = paramMap.getOrElse("lastDir", "01")
-//      val lastDir = XY(strXY(0).toInt, strXY(1).toInt)
+      var lastDirStr:String = paramMap.getOrElse("lastDir", "0:1")
+      val lastDir: XY = XY(lastDirStr)
 
       val viewString:String = paramMap("view")
 
@@ -32,7 +32,7 @@ object SentSnipe {
       }
 
       val nameSeg = display(paramMap("time").toInt)
-      val moveSeg = Mover(View(viewString))
+      val moveSeg = Mover(View(viewString), lastDir)
 
 
       def miniControlSys(): String = {
@@ -46,9 +46,11 @@ object SentSnipe {
         if (zorgInRange) {
           val view = View(viewString)
           val nearB = view.offsetToNearest('b').get
+          val nearM = view.offsetToNearest('m').get
           val center = view.center
           val disNearestB = center.distanceTo(nearB)
-          if (disNearestB < 20.0) "Explode(size=6)"
+          val disNearestM = center.distanceTo(nearM)
+          if (disNearestB < 10.0 || disNearestM < 10) "Explode(size=10)"
           else "Move(direction=" + heading + ")"
         }
         else "Move(direction=" + heading + ")"
@@ -57,7 +59,7 @@ object SentSnipe {
       def masterControlSys(): String = {
         val hasSentinel = viewString.contains('S')
         val miniHeading = XY.Up
-        val spawnBot: String = "Spawn(direction=" + miniHeading + ",energy=100,heading=" + miniHeading + ")"
+        val spawnBot: String = "Spawn(direction=" + miniHeading + ",energy=300,heading=" + miniHeading + ")"
         if (hasSentinel) moveSeg
         else spawnBot + "|" + moveSeg
       }
@@ -76,6 +78,9 @@ object SentSnipe {
             case (Gen1Mini, _) => miniControlSys()
           }
           goAction
+//          "Set(last=00)"
+//          var temp = paramMap.getOrElse("last", "00") + 1
+//          "Set(lastDir=" + lastDirStr + ")"
         case _ => ""
       }
 
@@ -118,8 +123,8 @@ object SentSnipe {
   sealed trait EnergyLevel
   object EnergyLevel{
     def apply(energy: Int): EnergyLevel = energy match {
-      case x if(x <= 400) => LowEnergy
-      case x if(x > 400 && x < 1200) => MediumEnergy
+      case x if(x <= 2000) => LowEnergy
+      case x if(x > 2000 && x < 3000) => MediumEnergy
       case _ => HighEnergy
     }
   }
@@ -184,11 +189,11 @@ object SentSnipe {
   }
 
   object Mover {
-    def apply(v: View): String = {
+    def apply(v: View, lastdir: XY): String = {
       val rnd = new Random()
       def dx = rnd.nextInt(3)-1
       def dy = rnd.nextInt(3)-1
-//      var lastDir = dir
+
       v.offsetToNearest('P') match {
         case Some(offset) =>
           val unitOffset = offset.signum
@@ -202,7 +207,11 @@ object SentSnipe {
         case None =>
 
 //          temp._1 //+ "|" + "Set(lastDir=" + lastDir.x.toString + lastDir.y.toString + ")"
-          "Move(direction=" + dx + ":" + dy + ")"
+          val result = avoidDanger(v, lastdir)
+//          val temp = result._2
+//          val lastDirStr:String = result._2.x.toString + result._2.y.toString
+          result._1 + "|" + "Set(lastDir=" + result._2 + ")"
+//          "Move(direction=" + dx + ":" + dy + ")"
         }
       }
     }
