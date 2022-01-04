@@ -37,11 +37,11 @@ object TriSent {
         val desiredOffset = paramMap("name") match {
           case "Alpha" => inputAsXYOrElse ("offset", XY(-1, 4))
           case "Beta" => inputAsXYOrElse ("offset", XY(1, -4))
-          case "Gamma" => inputAsXYOrElse ("offset", XY(-4, 1))
+          case "Gamma" => inputAsXYOrElse ("offset", XY(-4, -1))
         }
 
         val heading = ((desiredOffset - curOffset).signum)
-        def enemyInRange: Boolean = viewString.exists(List('b','m','s').contains(_))
+        def enemyInRange: Boolean = viewString.exists(x => List('b','m','s').contains(x))
         if (enemyInRange) {
           val view = View(viewString)
           val nearB = view.offsetToNearest('b').getOrElse(XY(15,15))
