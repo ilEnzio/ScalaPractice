@@ -1,6 +1,6 @@
 package ScalaTron
 
-object TriSent {
+object BoomKing {
 
 
   class ControlFunctionFactory {
@@ -18,19 +18,35 @@ object TriSent {
       val lastDir: XY = XY(lastDirStr)
 
       val viewString:String = paramMap("view")
-
+      val view = View(viewString)
       def inputAsXYOrElse(key: String, fallback: XY) = paramMap.get(key).map(s => XY(s)).getOrElse(fallback)
 
       def offsetToMaster = inputAsXYOrElse("master", XY.Zero)
 
-      def display(time: Int): String = {
-        if (time % 60 == 0) name = name.toggle
+      def display(e: EnergyLevel,time : Int): String = {
+        e match {
+          case LowEnergy => if (time % 60 == 0) name = name.toggle
+          case MediumEnergy => name = Boom
+          case HighEnergy => name = Boom
+          case MegaEnergy => name = Boom
+          case _ =>
+            if (time % 2 == 0) name = BoomKing1
+            else name = BoomKing2
+        }
         name.getName()
       }
 
-      val nameSeg = display(paramMap("time").toInt)
-      val moveSeg = Mover(View(viewString), lastDir)
       val energy = EnergyLevel(paramMap("energy").toInt)
+      val nameSeg = display(energy, paramMap("time").toInt)
+      val moveSeg = Mover(View(viewString), lastDir)
+
+      def sentinelStatus: (Boolean, Boolean, Boolean, Boolean) = {
+        val hasAlpha:Boolean = viewString(view.indexFromRelPos(XY(-1,4))) == 'S'
+        val hasBeta:Boolean = viewString(view.indexFromRelPos(XY(1,4))) == 'S'
+        val hasGamma:Boolean = viewString(view.indexFromRelPos(XY(-4,-1))) == 'S'
+        val hasDelta: Boolean = viewString(view.indexFromRelPos(XY(4,1))) == 'S'
+        (hasAlpha, hasBeta, hasGamma, hasDelta)
+      }
 
       def miniControlSys(): String = {
         val curOffset = offsetToMaster.negate
@@ -38,12 +54,13 @@ object TriSent {
           case "Alpha" => inputAsXYOrElse ("offset", XY(-1, 4))
           case "Beta" => inputAsXYOrElse ("offset", XY(1, -4))
           case "Gamma" => inputAsXYOrElse ("offset", XY(-4, -1))
+          case "Delta" => inputAsXYOrElse ("offset", XY(4, 1))
         }
 
         val heading = ((desiredOffset - curOffset).signum)
+
         def enemyInRange: Boolean = viewString.exists(x => List('b','m','s').contains(x))
         if (enemyInRange) {
-          val view = View(viewString)
           val nearB = view.offsetToNearest('b').getOrElse(XY(15,15))
           val nearM = view.offsetToNearest('m').getOrElse(XY(15,15))
           val nearS = view.offsetToNearest('s').getOrElse(XY(15,15))
@@ -54,48 +71,28 @@ object TriSent {
       }
 
       def masterControlSys(): String = {
-        val numSentinel = viewString.count(_ == 'S')
         val miniHeading = XY.Up
-        def spawnBot(x: Int): String = (energy, x) match {
-          case (MediumEnergy, 0) => "Spawn(direction=" + miniHeading + ",name=Alpha,energy=200,heading=" + miniHeading + ")"
-          case (HighEnergy, 0) => "Spawn(direction=" + miniHeading + ",name=Alpha,energy=200,heading=" + miniHeading + ")"
-          case (HighEnergy, 1) => "Spawn(direction=" + miniHeading + ",name=Beta,energy=200,heading=" + miniHeading + ")"
-          case (MegaEnergy, 0) => "Spawn(direction=" + miniHeading + ",name=Alpha,energy=200,heading=" + miniHeading + ")"
-          case (MegaEnergy, 1) => "Spawn(direction=" + miniHeading + ",name=Beta,energy=200,heading=" + miniHeading + ")"
-          case (MegaEnergy, 2) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")"
+        val sStatus = sentinelStatus
+        def spawnBot: String = (energy, sStatus) match {
+          case (MediumEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")"
+          case (HighEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")"
+          case (HighEnergy, (_,false,_,_)) => "Spawn(direction=" + XY.Up + ",name=Beta,energy=200,heading=" + XY.Up + ")"
+          case (MegaEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")"
+          case (MegaEnergy, (_,false,_,_)) => "Spawn(direction=" + XY.Up + ",name=Beta,energy=200,heading=" + XY.Up + ")"
+          case (MegaEnergy, (_,_,false,_)) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")"
+          case (BadMFerEnergy, (false,_,_,_)) => "Spawn(direction=" + miniHeading + ",name=Alpha,energy=200,heading=" + miniHeading + ")"
+          case (BadMFerEnergy, (_,false,_,_)) => "Spawn(direction=" + miniHeading + ",name=Beta,energy=200,heading=" + miniHeading + ")"
+          case (BadMFerEnergy, (_,_,false,_)) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")"
+          case (BadMFerEnergy, (_,_,_,false)) => "Spawn(direction=" + miniHeading + ",name=Delta,energy=200,heading=" + miniHeading + ")"
           case _ => ""
         }
+        spawnBot + "|" + moveSeg + "|" + nameSeg
 
-        (energy, numSentinel) match {
-          case (LowEnergy, _) => nameSeg + "|" + moveSeg
-          case (MediumEnergy, 0) => // spawn 1
-            name = Boom
-            spawnBot(0) + "|" + moveSeg + "|" + name.getName()
-          case (MediumEnergy, _) => moveSeg
-          case (HighEnergy, 0) => // spawn 2
-            name = Boom
-            spawnBot(0) + "|" + moveSeg + "|" + name.getName()
-          case (HighEnergy, 1) => // spawn 1 upper
-            name = Boom
-            spawnBot(1) + "|" + moveSeg + "|" + name.getName()
-          case (HighEnergy, _) => moveSeg
-          case (MegaEnergy, 0) => // spawn 3
-            name = Boom
-            spawnBot(0) + "|" + moveSeg + "|" + name.getName()
-          case (MegaEnergy, 1) => // spawn 1 upper
-            name = Boom
-            spawnBot(1) + "|" + moveSeg + "|" + name.getName()
-          case (MegaEnergy, 2) => // spawn 1 upper
-            name = Boom
-            spawnBot(2) + "|" + moveSeg + "|" + name.getName()
-          case (MegaEnergy, _) => moveSeg
-        }
       }
 
       opcode match {
         case "React" =>
           val gen = Generation(paramMap("generation").toInt)
-
           val goAction = (gen, energy) match {
             case (Master, MegaEnergy) => masterControlSys()// TODO high energy
             case (Master, HighEnergy) => masterControlSys()// TODO high energy
@@ -106,7 +103,6 @@ object TriSent {
           goAction
         case _ => ""
       }
-
     }
   }
 
@@ -145,15 +141,17 @@ object TriSent {
   object EnergyLevel{
     def apply(energy: Int): EnergyLevel = energy match {
       case x if(x <= 1500) => LowEnergy
-      case x if(x > 1500 && x < 3500) => MediumEnergy
-      case x if(x > 3500 && x < 5000)=> HighEnergy
-      case _ => MegaEnergy
+      case x if(x > 1500 && x <= 3500) => MediumEnergy
+      case x if(x > 3500 && x <= 5000)=> HighEnergy
+      case x if(x > 5000 && x <= 7000) => MegaEnergy
+      case _ => BadMFerEnergy
     }
   }
   final case object LowEnergy extends EnergyLevel
   final case object MediumEnergy extends EnergyLevel
   final case object HighEnergy extends EnergyLevel
   final case object MegaEnergy extends EnergyLevel
+  final case object BadMFerEnergy extends EnergyLevel
 
   sealed trait Generation
   object Generation {
@@ -272,19 +270,26 @@ object TriSent {
     def getName(): String = this match {
       case Nick => "Status(text=m0n10dAlm16ht4!)"
       case User => "Status(text=Erle's Bot)"
-      case Boom => "Status(text=Boom-Shaka-Scala!"
+      case Boom => "Status(text=Boom-Shaka-Scala?)"
+      case BoomKing1 => "Status(text=BoOm_kInG.)"
+      case BoomKing2 => "Status(text=bOoM KiNg!)"
     }
 
     def toggle: NameDisplay = this match {
       case Nick => User
       case User => Nick
-      case Boom => User
+      case _ => User
     }
+
+
   }
 
   final case object Nick extends NameDisplay
   final case object User extends NameDisplay
   final case object Boom extends NameDisplay
+  final case object BoomKing1 extends NameDisplay
+  final case object BoomKing2 extends NameDisplay
+
 
 
 
