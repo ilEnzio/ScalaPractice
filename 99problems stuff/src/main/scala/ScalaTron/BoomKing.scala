@@ -10,12 +10,14 @@ object BoomKing {
   class Bot {
     var name: NameDisplay = User
 
+
     def respond(input: String): String = {
       val parseResult: (String, Map[String, String]) = CommandParser(input)
       val opcode: String = parseResult._1
       val paramMap: Map[String, String] = parseResult._2
       val lastDirStr:String = paramMap.getOrElse("lastDir", "0:1")
       val lastDir: XY = XY(lastDirStr)
+      val lastSpawn = paramMap.getOrElse("lastSpawn", "0").toInt
 
       val viewString:String = paramMap("view")
       val view = View(viewString)
@@ -41,9 +43,40 @@ object BoomKing {
       val moveSeg = Mover(View(viewString), lastDir)
 
       def sentinelStatus: (Boolean, Boolean, Boolean, Boolean) = {
-        val hasAlpha:Boolean = viewString(view.indexFromRelPos(XY(-1,4))) == 'S'
-        val hasBeta:Boolean = viewString(view.indexFromRelPos(XY(1,4))) == 'S'
-        val hasGamma:Boolean = viewString(view.indexFromRelPos(XY(-4,-1))) == 'S'
+        val hasAlpha:Boolean = {
+          viewString(view.indexFromRelPos(XY(-1,4))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-1,3))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-1,5))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(0,3))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(0,4))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(0,5))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-2,3))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-2,4))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-2,5))) == 'S'
+        }
+
+        val hasBeta:Boolean = {
+          viewString(view.indexFromRelPos(XY(1,4))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(1,3))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(1,5))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(2,3))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(2,4))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(2,5))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(0,3))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(0,4))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(0,5))) == 'S'
+        }
+        val hasGamma:Boolean = {
+          viewString(view.indexFromRelPos(XY(-4,-1))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-4,-2))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-4,0))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-3,-1))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-3,-2))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-3,0))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-5,-1))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-5,-2))) == 'S' ||
+            viewString(view.indexFromRelPos(XY(-5,0))) == 'S'
+        }
         val hasDelta: Boolean = viewString(view.indexFromRelPos(XY(4,1))) == 'S'
         (hasAlpha, hasBeta, hasGamma, hasDelta)
       }
@@ -74,19 +107,25 @@ object BoomKing {
         val miniHeading = XY.Up
         val sStatus = sentinelStatus
         def spawnBot: String = (energy, sStatus) match {
-          case (MediumEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")"
-          case (HighEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")"
-          case (HighEnergy, (_,false,_,_)) => "Spawn(direction=" + XY.Up + ",name=Beta,energy=200,heading=" + XY.Up + ")"
-          case (MegaEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")"
-          case (MegaEnergy, (_,false,_,_)) => "Spawn(direction=" + XY.Up + ",name=Beta,energy=200,heading=" + XY.Up + ")"
-          case (MegaEnergy, (_,_,false,_)) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")"
-          case (BadMFerEnergy, (false,_,_,_)) => "Spawn(direction=" + miniHeading + ",name=Alpha,energy=200,heading=" + miniHeading + ")"
-          case (BadMFerEnergy, (_,false,_,_)) => "Spawn(direction=" + miniHeading + ",name=Beta,energy=200,heading=" + miniHeading + ")"
-          case (BadMFerEnergy, (_,_,false,_)) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")"
-          case (BadMFerEnergy, (_,_,_,false)) => "Spawn(direction=" + miniHeading + ",name=Delta,energy=200,heading=" + miniHeading + ")"
+          case (MediumEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")|"
+          case (HighEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")|"
+          case (HighEnergy, (_,false,_,_)) => "Spawn(direction=" + XY.Up + ",name=Beta,energy=200,heading=" + XY.Up + ")|"
+          case (MegaEnergy, (false,_,_,_)) => "Spawn(direction=" + XY.Down + ",name=Alpha,energy=200,heading=" + XY.Down + ")|"
+          case (MegaEnergy, (_,false,_,_)) => "Spawn(direction=" + XY.Up + ",name=Beta,energy=200,heading=" + XY.Up + ")|"
+          case (MegaEnergy, (_,_,false,_)) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")|"
+          case (BadMFerEnergy, (false,_,_,_)) => "Spawn(direction=" + miniHeading + ",name=Alpha,energy=200,heading=" + miniHeading + ")|"
+          case (BadMFerEnergy, (_,false,_,_)) => "Spawn(direction=" + miniHeading + ",name=Beta,energy=200,heading=" + miniHeading + ")|"
+          case (BadMFerEnergy, (_,_,false,_)) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")|"
+          case (BadMFerEnergy, (_,_,_,false)) => "Spawn(direction=" + miniHeading + ",name=Delta,energy=200,heading=" + miniHeading + ")|"
           case _ => ""
         }
-        spawnBot + "|" + moveSeg + "|" + nameSeg
+        val curTime = paramMap("time").toInt
+
+        if (curTime >= lastSpawn) {
+        val newSpawnTime = lastSpawn + BotConstants.spawnDelay
+          spawnBot + moveSeg + "|" + nameSeg + "|Set(lastSpawn=" + newSpawnTime + ")"
+        }
+        else moveSeg + "|" + nameSeg + "|Set(lastSpawn=" + lastSpawn + ")"
 
       }
 
@@ -94,6 +133,7 @@ object BoomKing {
         case "React" =>
           val gen = Generation(paramMap("generation").toInt)
           val goAction = (gen, energy) match {
+            case (Master, BadMFerEnergy) => masterControlSys()
             case (Master, MegaEnergy) => masterControlSys()// TODO high energy
             case (Master, HighEnergy) => masterControlSys()// TODO high energy
             case (Master, MediumEnergy) => masterControlSys()
@@ -228,7 +268,9 @@ object BoomKing {
 
     def avoidDanger(v: View, h: XY): (String, XY) = {
       val targetCel = v(v.indexFromRelPos(h))
-      val isDangerous = targetCel == 'W' || targetCel == 'b'|| targetCel == 's' || targetCel == 'p'
+      val isDangerous = targetCel == 'W' ||
+        targetCel == 'b'|| targetCel == 's' ||
+        targetCel == 'p' || targetCel == 'm'
       //        v(v.indexFromRelPos(h)) == 'p'
       if (isDangerous) {
         val newHeading = h match {
@@ -270,9 +312,9 @@ object BoomKing {
     def getName(): String = this match {
       case Nick => "Status(text=m0n10dAlm16ht4!)"
       case User => "Status(text=Erle's Bot)"
-      case Boom => "Status(text=Boom-Shaka-Scala?)"
-      case BoomKing1 => "Status(text=BoOm_kInG.)"
-      case BoomKing2 => "Status(text=bOoM KiNg!)"
+      case Boom => "Status(text=Boom-Shaka-Scala!)"
+      case BoomKing1 => "Status(text=MeAn_mUtHeR_MoNaD!)"
+      case BoomKing2 => "Status(text=mEaN mUtHeR mOnAd!)"
     }
 
     def toggle: NameDisplay = this match {
@@ -291,7 +333,9 @@ object BoomKing {
   final case object BoomKing2 extends NameDisplay
 
 
-
+  object BotConstants {
+    val spawnDelay = 15
+  }
 
 
 

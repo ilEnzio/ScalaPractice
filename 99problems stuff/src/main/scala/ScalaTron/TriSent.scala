@@ -38,6 +38,7 @@ object TriSent {
           case "Alpha" => inputAsXYOrElse ("offset", XY(-1, 4))
           case "Beta" => inputAsXYOrElse ("offset", XY(1, -4))
           case "Gamma" => inputAsXYOrElse ("offset", XY(-4, -1))
+          case "Delta" => inputAsXYOrElse ("offset", XY(4, 1))
         }
 
         val heading = ((desiredOffset - curOffset).signum)
@@ -63,6 +64,7 @@ object TriSent {
           case (MegaEnergy, 0) => "Spawn(direction=" + miniHeading + ",name=Alpha,energy=200,heading=" + miniHeading + ")"
           case (MegaEnergy, 1) => "Spawn(direction=" + miniHeading + ",name=Beta,energy=200,heading=" + miniHeading + ")"
           case (MegaEnergy, 2) => "Spawn(direction=" + miniHeading + ",name=Gamma,energy=200,heading=" + miniHeading + ")"
+          case (MegaEnergy, 3) => "Spawn(direction=" + miniHeading + ",name=Delta,energy=200,heading=" + miniHeading + ")"
           case _ => ""
         }
 
@@ -88,6 +90,9 @@ object TriSent {
           case (MegaEnergy, 2) => // spawn 1 upper
             name = Boom
             spawnBot(2) + "|" + moveSeg + "|" + name.getName()
+          case (MegaEnergy, 3) => // spawn 1 upper
+            name = Boom
+            spawnBot(3) + "|" + moveSeg + "|" + name.getName()
           case (MegaEnergy, _) => moveSeg
         }
       }
@@ -230,7 +235,7 @@ object TriSent {
 
     def avoidDanger(v: View, h: XY): (String, XY) = {
       val targetCel = v(v.indexFromRelPos(h))
-      val isDangerous = targetCel == 'W' || targetCel == 'b'|| targetCel == 's' || targetCel == 'p'
+      val isDangerous = targetCel == 'W' || targetCel == 'b'|| targetCel == 's' || targetCel == 'p' || targetCel == 'm'
       //        v(v.indexFromRelPos(h)) == 'p'
       if (isDangerous) {
         val newHeading = h match {
@@ -285,6 +290,7 @@ object TriSent {
   final case object Nick extends NameDisplay
   final case object User extends NameDisplay
   final case object Boom extends NameDisplay
+
 
 
 
