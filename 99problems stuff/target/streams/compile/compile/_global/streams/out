@@ -1,8 +1,6 @@
-[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/kellycho/Desktop/Repos/scalaTemp/ScalaPractice/99problems stuff/project/target/.sbt-compilation-infos/root-99problems-stuff-compile/.sbt-idea-lock ...[0m
-[0m[[0m[33mwarn[0m] [0m[0m/Users/kellycho/Desktop/Repos/scalaTemp/ScalaPractice/99problems stuff/src/main/scala/EssentialScalaBookEx/Ch04/ShapingUpTraits.scala:35:7: match may not be exhaustive.[0m
-[0m[[0m[33mwarn[0m] [0m[0mIt would fail on the following input: Square(_)[0m
-[0m[[0m[33mwarn[0m] [0m[0m      sh match {[0m
-[0m[[0m[33mwarn[0m] [0m[0m      ^[0m
-[0m[[0m[33mwarn[0m] [0m[0m62 deprecations (since 2.13.0); re-run with -deprecation for details[0m
-[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
-[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/kellycho/Desktop/Repos/scalaTemp/ScalaPractice/99problems stuff/project/target/.sbt-compilation-infos/root-99problems-stuff-compile/.sbt-idea-lock.[0m
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/kellycho/Desktop/Repos/scalaTemp/ScalaPractice/99problems stuff/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock ...[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/kellycho/Desktop/Repos/scalaTemp/ScalaPractice/99problems stuff/src/main/scala/ScalaWithCats/Ch01/MeetCats.scala:13:1: illegal start of simple expression[0m
+[0m[[0m[31merror[0m] [0m[0m}[0m
+[0m[[0m[31merror[0m] [0m[0m^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/kellycho/Desktop/Repos/scalaTemp/ScalaPractice/99problems stuff/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock.[0m

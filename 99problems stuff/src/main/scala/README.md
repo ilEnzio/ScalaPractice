@@ -5,7 +5,7 @@ A place to store code from the onboarding process
 - **Scala Tutorial:** https://www.scala-exercises.org/scala_tutorial/terms_and_types
 - **Essential Scala:** https://underscore.io/books/essential-scala/
 - **99 Problems:** https://github.com/Banno/wiki/blob/master/_learning/scala/module/99problems.md
-- **Scala with Cats** https://drive.google.com/drive/search?q=scala
+- **Scala with Cats** https://www.scalawithcats.com/dist/scala-with-cats.html
 - **Scala Standard Library 2.13.3** https://www.scala-lang.org/api/2.13.3/index.html
 - **Scala Wikibook** https://en.wikibooks.org/wiki/Scala
 
@@ -513,17 +513,20 @@ Q's
 
 Q's
 
-- Struggling with Big O of Union of Maps solutions.  What is the
-Big O of the big solution vs my solution?
-- Random Words - I think my solution was stuck in OO style thinking; 
-maybe I should default to thinking of maps as pattern matching functions
-- Trackback `.get `on a list unsafe; `.get` on a map safe?
+- ~~Struggling with Big O of Union of Maps solutions.  What is the
+  Big O of the big solution vs my solution?~~
+- ~~Random Words - I think my solution was stuck in OO style thinking;
+  maybe I should default to thinking of maps as pattern matching functions~~
+- ~~Trackback `.get `on Option unsafe; `.get` on a map safe?~~
 - Essential Sca Ch06 Probabilities. mental block.  Just not sure what
-they are asking...
+  they are asking...
 - sa - really stuck on flatMap
 
 #### TIL
 
+- the reason we leverage pattern matching is to check exhaustiveness
+- any lookup that doesn't return an option is suspect
+-
 
 </p>
 </details>
@@ -535,17 +538,42 @@ they are asking...
 ### 12/27/21
 
 - EssScala Ch06 - Prob - CatSmellsFood
-- 
+- ScalaTron - NameDisplay, Command Parser, Random Movement
 
 
 Q's
 
-- My cat function is just kinda hanging on top level.
-Where should it be? 
+- ~~My cat function is just kinda hanging on top level.
+  Where should it be?~~
 
 #### TIL
 
 -
+
+
+### 12/28/21
+
+- Refactor Prob18 using collect
+
+
+Q's
+
+-
+
+#### TIL
+
+-
+
+
+### 01/02/22
+
+- ScalaTron - Complete Bot - 'Boom-Shaka-Scala!!'
+-
+
+Q's
+
+-
+
 
 
 </p>
@@ -554,3 +582,61 @@ Where should it be?
 
 
 
+<details><summary>WEEK 08</summary>
+<p>
+
+### 01/03/22
+
+-
+
+Q's
+
+-
+
+
+#### TIL
+
+
+</p>
+</details>
+
+
+
+<details><summary>WEEK 09</summary>
+<p>
+
+### 01/10/22
+
+- [Team Kayak] conversations changes from consumer websocket api v1 - v2 docs
+- EssentialScala Ch07 - Ordering; implicits; type class pattern
+
+Q's
+
+-
+
+
+#### TIL
+
+
+</p>
+</details>
+
+<details><summary>WEEK 11</summary>
+<p>
+
+### 01/23/22
+
+- 
+- Scala w/ cats Chapter 1
+
+
+Q's
+
+- Scala w/ Cats - don't understand implicitly built in function
+
+
+#### TIL
+
+
+</p>
+</details>
