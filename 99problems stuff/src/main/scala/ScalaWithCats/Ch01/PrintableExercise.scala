@@ -55,7 +55,6 @@ object PrintableExercise {
 
     val erlrCat = Cat("Erle", 50, "Black")
 
-
     Printable.print(erlrCat)
 
     import PrintableSyntax._

@@ -626,13 +626,13 @@ Q's
 
 ### 01/23/22
 
-- Scala w/ Cats - don't understand implicitly built in function
--    
+- 
+- Scala w/ cats Chapter 1
 
 
 Q's
 
--
+- Scala w/ Cats - don't understand implicitly built in function
 
 
 #### TIL

@@ -632,7 +632,39 @@ Q's
 
 Q's
 
-- Scala w/ Cats - don't understand implicitly built in function
+- ~~Scala w/ Cats - don't understand implicitly built in function~~
+
+
+#### TIL
+
+
+
+### 01/27/22
+
+-
+- Scala w/ cats Chapter 1 - Complete!
+
+
+Q's
+
+- I don't quite understand how implicits are located using the Syntax notation.
+
+
+#### TIL
+
+
+
+### 01/28/22
+
+- 
+- Scala w/ cats Chapter 2 - ???
+- Function Programming in Scala Ch01 - Removing side effects
+- 
+
+
+Q's
+
+- 
 
 
 #### TIL

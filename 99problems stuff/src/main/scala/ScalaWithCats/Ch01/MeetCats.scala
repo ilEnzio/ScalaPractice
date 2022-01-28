@@ -5,6 +5,10 @@ import cats.instances.int._    // for Show
 import cats.instances.string._ // for Show
 import cats.syntax.show._ // for show
 
+//import cats._  - imports all of Cats’ type classes in one go;
+//import cats.implicits._  imports all of the standard type class
+// instances and all of the syntax in one go.
+
 object MeetCats {
 
   val showInt: Show[Int] = Show.apply[Int]
@@ -20,6 +24,17 @@ object MeetCats {
         s"${c.name} is a ${c.age} year-old ${c.color} cat."
       }
     }
+
+    // book solution, I believe used the show for string within the
+    // show for Cat:
+//    implicit val catShow: Show[Cat] = Show.show[Cat] { cat =>
+//      val name  = cat.name.show
+//      val age   = cat.age.show
+//      val color = cat.color.show
+//      s"$name is a $age year-old $color cat."
+//    }
+
+
   }
 
 
