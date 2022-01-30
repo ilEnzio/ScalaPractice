@@ -45,7 +45,6 @@ object PrintableExercise {
       def print(implicit  printable: Printable[A]): Unit =
         println(format(printable))
     }
-
   }
 
   final case class Cat(name: String, age: Int, color: String)

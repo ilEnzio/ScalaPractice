@@ -672,3 +672,27 @@ Q's
 
 </p>
 </details>
+
+<details><summary>WEEK 12</summary>
+<p>
+
+### 01/29/22
+
+
+- Function Programming in Scala Ch01 - completed
+-
+
+
+Q's
+
+-
+
+
+#### TIL
+
+- **`reduceLeft`** vs `**foldLeft** `- signature of reduce doesn't have an initial value.
+  the initial value is the first value of the collection that we are traversing;
+  also
+
+</p>
+</details>
