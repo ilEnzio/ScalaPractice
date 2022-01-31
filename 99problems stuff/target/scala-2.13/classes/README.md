@@ -632,10 +632,86 @@ Q's
 
 Q's
 
-- Scala w/ Cats - don't understand implicitly built in function
+- ~~Scala w/ Cats - don't understand implicitly built in function~~
 
 
 #### TIL
+
+
+
+### 01/27/22
+
+-
+- Scala w/ cats Chapter 1 - Complete!
+
+
+Q's
+
+- I don't quite understand how implicits are located using the Syntax notation.
+
+
+#### TIL
+
+
+
+### 01/28/22
+
+- 
+- Scala w/ cats Chapter 2 - ???
+- Function Programming in Scala Ch01 - Removing side effects
+- 
+
+
+Q's
+
+- 
+
+
+#### TIL
+
+
+</p>
+</details>
+
+<details><summary>WEEK 12</summary>
+<p>
+
+### 01/29/22
+
+
+- Function Programming in Scala Ch01 - completed
+-
+
+
+Q's
+
+-
+
+
+#### TIL
+
+- **`reduceLeft`** vs **`foldLeft`** - signature of reduce doesn't have an initial value.
+  the initial value is the first value of the collection that we are traversing;
+  also
+
+
+### 01/30/22
+
+
+- Essential Scala Ch07 - completed
+- Domain Modeling Made Function
+
+
+Q's
+
+-
+
+
+#### TIL
+
+- **`reduceLeft`** vs `**foldLeft** `- signature of reduce doesn't have an initial value.
+  the initial value is the first value of the collection that we are traversing;
+  also
 
 
 </p>

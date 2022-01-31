@@ -47,16 +47,24 @@ object PrintableExercise {
     }
   }
 
-  final case class Cat(name: String, age: Int, color: String)
+  final case class Cat(name: String, age: Int, color: String){
+//    override def toString: String = s"${name} is a ${this.age} year-old ${this.color} cat."
+  }
 
   def main(args: Array[String]): Unit = {
     import PrintableInstances._
 
     val erlrCat = Cat("Erle", 50, "Black")
+    val lilSnookie = Cat("lil snookie", 30, "coco")
 
-    Printable.print(erlrCat)
+//    println(lilSnookie.name, lilSnookie.age, lilSnookie.color)
+//    println(lilSnookie)
+
+//    Printable.print(erlrCat)
+//    Printable.print(lilSnookie) // invisible
 
     import PrintableSyntax._
-    erlrCat.print
+//    erlrCat.print
+      lilSnookie.print
   }
 }

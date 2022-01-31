@@ -690,9 +690,29 @@ Q's
 
 #### TIL
 
+- **`reduceLeft`** vs **`foldLeft`** - signature of reduce doesn't have an initial value.
+  the initial value is the first value of the collection that we are traversing;
+  also
+
+
+### 01/30/22
+
+
+- Essential Scala Ch07 - completed
+- Domain Modeling Made Function
+
+
+Q's
+
+-
+
+
+#### TIL
+
 - **`reduceLeft`** vs `**foldLeft** `- signature of reduce doesn't have an initial value.
   the initial value is the first value of the collection that we are traversing;
   also
+
 
 </p>
 </details>
