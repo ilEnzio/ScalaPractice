@@ -714,5 +714,23 @@ Q's
   also
 
 
+
+### 01/31/22
+
+
+- Functional Programming in Scala Ch02 - 2.5.1
+- Scala with Cats Chapter2 - Monoid for Booleans; 
+
+
+Q's
+
+- ~~What is `exclusive nor?`~~
+
+#### TIL
+
+- What exclusive Or and NOr are!  
+
+
+
 </p>
 </details>
