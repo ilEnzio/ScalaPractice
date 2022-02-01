@@ -720,16 +720,26 @@ Q's
 
 - Functional Programming in Scala Ch02 - 2.5.1
 - Scala with Cats Chapter2 - Monoid for Booleans; 
-
+- Domain Modeling Made Function - 
 
 Q's
 
 - ~~What is `exclusive nor?`~~
+- Ask about the concept of Value Objects vs Entities;
+  is it relevant for how we do things? 
 
 #### TIL
 
 - What exclusive Or and NOr are!  
-
+- Value Objects vs Entities (DDD)
+- Immutability causes a ripple effect in a data structure,
+  whereby changing one low-level component can force changes to
+  higher-level components tool.(DDD)
+- Important aspect of Aggregates: they are the basic unit
+  persistence.  If you want to load or save objects from a database
+  you should load or save whole aggregates.  Each DB transaction
+  should work with a single aggregate and not include multiple aggregate
+  cross aggregate boundaries.  
 
 
 </p>
