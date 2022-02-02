@@ -709,9 +709,7 @@ Q's
 
 #### TIL
 
-- **`reduceLeft`** vs `**foldLeft** `- signature of reduce doesn't have an initial value.
-  the initial value is the first value of the collection that we are traversing;
-  also
+- 
 
 
 
@@ -740,6 +738,22 @@ Q's
   you should load or save whole aggregates.  Each DB transaction
   should work with a single aggregate and not include multiple aggregate
   cross aggregate boundaries.  
+
+
+### 02/01/22
+
+
+- Lisp - Ten Commandments 1-3
+- Scala with Cats Chapter 2 - Monoid for Sets; Monoid Syntax
+- 
+
+Q's
+
+- My Monoid Syntax isn't working |+| 
+
+#### TIL
+
+- 
 
 
 </p>
