@@ -6,5 +6,10 @@
         <parameter value="-Xfatal-warnings" />
       </parameters>
     </profile>
+    <profile name="sbt 2" modules="99problems">
+      <parameters>
+        <parameter value="-Xsource:3" />
+      </parameters>
+    </profile>
   </component>
 </project>

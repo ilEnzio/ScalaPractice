@@ -17,7 +17,7 @@ object AllSetMonoids {
 
   implicit def setIntersectionSemigroup[A]: Semigroup[Set[A]] =
     new Semigroup[Set[A]] {
-      def combine(a: Set[A], b: Set[A]) =
+      def combine(a: Set[A], b: Set[A]): Set[A] =
         a intersect b
     }
 //

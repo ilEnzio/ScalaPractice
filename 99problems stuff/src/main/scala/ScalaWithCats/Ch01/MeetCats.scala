@@ -21,40 +21,41 @@ object MeetCats {
   object Cat {
     implicit val catShow: Show[Cat] = {
       Show.show[Cat] { c =>
-        s"${c.name} is a ${c.age} year-old ${c.color} cat."
+        s"${c.name} is a ${c.age} year-old ${c.color} cat." // this is using the string not show!
+        //        show"${c.name} is a ${c.age} year-old ${c.color} cat." // show interpolator
       }
     }
 
     // book solution, I believe used the show for string within the
     // show for Cat:
-//    implicit val catShow: Show[Cat] = Show.show[Cat] { cat =>
-//      val name  = cat.name.show
-//      val age   = cat.age.show
-//      val color = cat.color.show
-//      s"$name is a $age year-old $color cat."
-//    }
+    //    implicit val catShow: Show[Cat] = Show.show[Cat] { cat =>
+    //      val name  = cat.name.show
+    //      val age   = cat.age.show
+    //      val color = cat.color.show
+    //      s"$name is a $age year-old $color cat."
+    //    }
 
 
   }
 
 
-    def main(args: Array[String]): Unit = {
-      val intAsString: String =
-        showInt.show(123)
-      // intAsString: String = "123"
+  def main(args: Array[String]): Unit = {
+    val intAsString: String =
+      showInt.show(123)
+    // intAsString: String = "123"
 
-      val stringAsString: String =
-        showString.show("abc")
-      // stringAsString: String = "abc"
+    val stringAsString: String =
+      showString.show("abc")
+    // stringAsString: String = "abc"
 
-      println(intAsString)
-      println((stringAsString))
+    println(intAsString)
+    println((stringAsString))
 
-      println(124.show)
-      println("erlr".show)
-      val eCat = Cat("cool cat", 50, "black and gray")
-      println(eCat.show)
+    println(124.show)
+    println("erlr".show)
+    val eCat = Cat("cool cat", 50, "black and gray")
+    println(eCat.show)
 
-    }
+  }
 
 }

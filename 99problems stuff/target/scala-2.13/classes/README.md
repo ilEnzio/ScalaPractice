@@ -626,7 +626,7 @@ Q's
 
 ### 01/23/22
 
-- 
+-
 - Scala w/ cats Chapter 1
 
 
@@ -656,15 +656,15 @@ Q's
 
 ### 01/28/22
 
-- 
+-
 - Scala w/ cats Chapter 2 - ???
 - Function Programming in Scala Ch01 - Removing side effects
-- 
+-
 
 
 Q's
 
-- 
+-
 
 
 #### TIL
@@ -709,7 +709,7 @@ Q's
 
 #### TIL
 
-- 
+-
 
 
 
@@ -717,18 +717,18 @@ Q's
 
 
 - Functional Programming in Scala Ch02 - 2.5.1
-- Scala with Cats Chapter2 - Monoid for Booleans; 
-- Domain Modeling Made Function - 
+- Scala with Cats Chapter2 - Monoid for Booleans;
+- Domain Modeling Made Function -
 
 Q's
 
 - ~~What is `exclusive nor?`~~
 - Ask about the concept of Value Objects vs Entities;
-  is it relevant for how we do things? 
+  is it relevant for how we do things?
 
 #### TIL
 
-- What exclusive Or and NOr are!  
+- What exclusive Or and NOr are!
 - Value Objects vs Entities (DDD)
 - Immutability causes a ripple effect in a data structure,
   whereby changing one low-level component can force changes to
@@ -737,24 +737,76 @@ Q's
   persistence.  If you want to load or save objects from a database
   you should load or save whole aggregates.  Each DB transaction
   should work with a single aggregate and not include multiple aggregate
-  cross aggregate boundaries.  
+  cross aggregate boundaries.
 
 
 ### 02/01/22
 
 
 - Lisp - Ten Commandments 1-3
-- Scala with Cats Chapter 2 - Monoid for Sets; Monoid Syntax
-- 
+- Scala with Cats Chapter 2 - Complete
 
 Q's
 
-- My Monoid Syntax isn't working |+| 
+- ~~My Monoid Syntax isn't working |+|~~
+
+#### TIL
+
+-
+
+
+### 02/03/22
+
+
+- Scala with Cats Chapter 3 - 3.3
+-
+
+Q's
+
+- what does this mean?
+  >We should think of map not as an iteration pattern, but as a way of
+  sequencing computations on values ignoring some complication dictated by
+  the relevant data type
+
+#### TIL
+
+- Semantic Versioning Basics
+- Definition of Group vs SemiGroup
+
+</p>
+</details>
+
+
+<details><summary>WEEK 13</summary>
+<p>
+
+
+### 02/07/22
+
+
+- Scala with Cats Chapter 3.3 - 3.5.4 
+- 
+
+
+Q's
+
+- 3.5.3 ExecutionContext 
+>// We write this:
+>`Functor[Future]`
+
+>// The compiler expands to this first:
+`Functor[Future](futureFunctor)`
+
+>// And then to this:
+`Functor[Future](futureFunctor(executionContext))
+`
+- Functor for Tree - compare my solution with book solution
+- 3.5.4 book solution won't compile - still don't understand scope!
+- 
 
 #### TIL
 
 - 
-
 
 </p>
 </details>
