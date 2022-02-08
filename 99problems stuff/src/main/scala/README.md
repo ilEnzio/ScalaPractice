@@ -785,7 +785,7 @@ Q's
 
 
 - Scala with Cats Chapter 3.3 - 3.5.4 
-- 
+- [Kayak] Versioning In An Event Sourced System - Whoops, I did it Again
 
 
 Q's
@@ -802,11 +802,13 @@ Q's
 `
 - Functor for Tree - compare my solution with book solution
 - 3.5.4 book solution won't compile - still don't understand scope!
-- 
+- Groundfloor for Kafka or streaming
+- Groundfloor for 
 
 #### TIL
 
-- 
+- compensating actions - with full reversal append only way of updating and error
+- implication D in CRUD represents unmodeled actions
 
 </p>
 </details>
