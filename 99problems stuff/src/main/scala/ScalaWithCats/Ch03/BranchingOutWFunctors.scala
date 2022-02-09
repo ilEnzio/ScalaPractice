@@ -6,7 +6,7 @@ object BranchingOutWFunctors {
 //  Write a Functor for the following binary tree data type.
 //  Verify that the code works as expected on instances of Branch and Leaf:
   import cats.Functor
-
+  import cats.syntax.all._
 
   sealed trait Tree[+A]
 
