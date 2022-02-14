@@ -847,7 +847,8 @@ Q's
 
 
 - FP with Scala Cats vids: TypeClasses, summoner/apply, 
-  instance, read
+  instance, read,
+- Scala w/ Cats Ch04: Identity Monad, 
 
 Q's
 
