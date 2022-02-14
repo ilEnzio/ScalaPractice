@@ -836,3 +836,26 @@ Q's
 
 </p>
 </details>
+
+
+
+<details><summary>WEEK 14</summary>
+<p>
+
+
+### 02/13/22
+
+
+- FP with Scala Cats vids: TypeClasses, summoner/apply, 
+  instance, read
+
+Q's
+
+- 
+
+#### TIL
+
+- 
+
+</p>
+</details>

@@ -790,7 +790,7 @@ Q's
 
 Q's
 
-- 3.5.3 ExecutionContext 
+- ~~3.5.3 ExecutionContext~~ 
 >// We write this:
 >`Functor[Future]`
 
@@ -800,15 +800,62 @@ Q's
 >// And then to this:
 `Functor[Future](futureFunctor(executionContext))
 `
-- Functor for Tree - compare my solution with book solution
-- 3.5.4 book solution won't compile - still don't understand scope!
+- ~~Functor for Tree - compare my solution with book solution~~
+- ~~3.5.4 book solution won't compile - still don't understand scope!~~
 - Groundfloor for Kafka or streaming
-- Groundfloor for 
 
 #### TIL
 
 - compensating actions - with full reversal append only way of updating and error
 - implication D in CRUD represents unmodeled actions
+
+
+
+### 02/10/22
+
+
+- Scala with Cats Chapter 4
+- [Kayak - Andrew] Applicative, pure, ap walk through!
+- 
+
+
+Q's
+
+- 4.1 Confused about:
+  >If we think of Lists as sets of intermediate results, 
+  flatMap becomes a construct that calculates permutations
+  and combinations.
+
+
+
+#### TIL
+
+- Pure and Ap!!!  (Walk thru from Andrew!)
+
+
+
+</p>
+</details>
+
+
+
+<details><summary>WEEK 14</summary>
+<p>
+
+
+### 02/13/22
+
+
+- FP with Scala Cats vids: TypeClasses, summoner/apply, 
+  instance, read
+
+Q's
+
+- 
+
+#### TIL
+
+- 
 
 </p>
 </details>

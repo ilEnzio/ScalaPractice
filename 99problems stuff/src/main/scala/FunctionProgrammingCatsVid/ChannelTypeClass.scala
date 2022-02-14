@@ -19,9 +19,7 @@ object ChannelTypeClass {
         bb.putInt(a)
         bb.array()
       }
-
     }
-
 
     implicit object StringByteEncoder extends ByteEncoder[String] {
       override def encode(s: String): Array[Byte] = {
@@ -32,6 +30,7 @@ object ChannelTypeClass {
 
   trait Channel {
     def write[A](obj: A)(implicit enc: ByteEncoder[A]): Unit
+    // def write[A: ByteEncoder](obj: A): Unit
   }
 
   object FileChannel extends Channel {
@@ -43,15 +42,27 @@ object ChannelTypeClass {
         os.write(bytes)
         os.flush()
       }
-
     }
   }
 
+//  implicit object Rot3StringByteEncoder extends ByteEncoder[String] {
+//    override def encode(s: String): Array[Byte] =
+//      s.getBytes.map(b => (b+3).toByte)
+//  }
+
+  case class Switch (isOn: Boolean)
+  object Switch{
+    implicit object SwitchByteEncoder extends ByteEncoder[Switch] {
+      override def encode(s: Switch): Array[Byte] =
+        if (s.isOn) "1".getBytes() else "0".getBytes()
+    }
+  }
 
   def main(args: Array[String]): Unit = {
 
 //    FileChannel.write[Int](5)
-    FileChannel.write[String]("erlr's Test")
+    FileChannel.write[String]("werld Test")
+    FileChannel.write[Switch](Switch(false))
 
   }
 
