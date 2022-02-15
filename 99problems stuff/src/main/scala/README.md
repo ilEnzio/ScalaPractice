@@ -849,6 +849,7 @@ Q's
 - FP with Scala Cats vids: TypeClasses, summoner/apply, 
   instance, read,
 - Scala w/ Cats Ch04: Identity Monad, 
+- [Kayak] Pair with Keith 
 
 Q's
 
@@ -857,6 +858,22 @@ Q's
 #### TIL
 
 - 
+
+
+### 02/14/22
+
+
+
+- Scala w/ Cats Ch04: Either - methods in cats
+- 
+
+Q's
+
+-
+
+#### TIL
+
+-
 
 </p>
 </details>
