@@ -880,7 +880,7 @@ Q's
 
 
 
-- Scala w/ Cats Ch04: Eval, Writer Monad (value, written, run)
+- Scala w/ Cats Ch04: Eval, Writer Monad (value, written, run) Inc
 -
 
 Q's

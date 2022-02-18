@@ -15,8 +15,18 @@ object WriterMonadEx {
   }
 
 
+  import scala.concurrent.*
+  import scala.concurrent.ExecutionContext.Implicits.*
+  import scala.concurrent.duration.*
+
+  Await.result(Future.sequence(Vector(
+    Future(factorial(5)),
+    Future(factorial(5))
+  )), 5.seconds)
+
+
   def main(args: Array[String]): Unit = {
-    println(factorial(5))
+//    println(factorial(5))
   }
 
 
