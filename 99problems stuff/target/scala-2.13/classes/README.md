@@ -875,5 +875,25 @@ Q's
 
 -
 
+
+### 02/17/22
+
+
+
+- Scala w/ Cats Ch04: Eval, Writer Monad (value, written, run)
+-
+
+Q's
+
+- did not understand Eval.defer.  need to read in docs.
+- Writer - 4.7.2 - what good is combining logs in a writer if they are not directly
+ connected to the result?  Are we to assume in a practical example they would contain some result info? 
+
+#### TIL
+
+-
+
+
+
 </p>
 </details>
