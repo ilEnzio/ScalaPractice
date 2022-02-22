@@ -885,7 +885,7 @@ Q's
 
 Q's
 
-- did not understand Eval.defer.  need to read in docs.
+- ~~did not understand Eval.defer.  need to read in docs.~~
 - Writer - 4.7.2 - what good is combining logs in a writer if they are not directly
  connected to the result?  Are we to assume in a practical example they would contain some result info? 
 
@@ -893,6 +893,46 @@ Q's
 
 -
 
+
+
+</p>
+</details>
+
+
+<details><summary>WEEK 15</summary>
+<p>
+
+
+### 02/21/22
+
+
+
+- Scala w/ Cats Ch04: Writer Monad, Reader Monad,
+- [Kayak] Pair with Keith
+
+Q's
+
+-
+
+#### TIL
+
+- 
+
+
+### 02/22/22
+
+
+
+- Scala w/ Cats Ch04: 
+- [Kayak] Pair with Keith
+
+Q's
+
+-
+
+#### TIL
+
+-
 
 
 </p>
