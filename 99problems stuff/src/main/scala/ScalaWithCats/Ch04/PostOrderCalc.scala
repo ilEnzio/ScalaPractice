@@ -12,15 +12,6 @@ object PostOrderCalc {
 
   def evalOne(sym: String): CalcState[Int] = {
 
-
-    sym match {
-      case "+" => operator((x, y) => x + y)
-      case "-" => operator((x, y) => x - y)
-      case "*" => operator((x, y) => x * y)
-      case "/" => operator((x, y) => x / y)
-      case num => operand(num.toInt)
-    }
-
     def operator(func: (Int, Int) => Int): CalcState[Int] =
       State[List[Int], Int] {
         case b :: a :: tail =>
@@ -33,6 +24,16 @@ object PostOrderCalc {
       State[List[Int], Int] { statck =>
         (num :: statck, num)
       }
+
+    sym match {
+      case "+" => operator((x, y) => x + y)
+      case "-" => operator((x, y) => x - y)
+      case "*" => operator((x, y) => x * y)
+      case "/" => operator((x, y) => x / y)
+      case num => operand(num.toInt)
+    }
+
+
 
   }
 
