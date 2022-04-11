@@ -17,6 +17,8 @@ object P01 {
     case Nil => None
     case List(x) => Some(x)
     case _ :: xs => findLast(xs)
+    //    case h :: t =>
+    //    case Cons(h, Cons(t, Nil))
   }
 
 

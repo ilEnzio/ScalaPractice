@@ -1,5 +1,7 @@
 package ScalaWithCats.Ch04
 
+import cats.implicits._
+
 object PostOrderCalc {
 
 
@@ -32,10 +34,15 @@ object PostOrderCalc {
       case "/" => operator((x, y) => x / y)
       case num => operand(num.toInt)
     }
-
-
-
   }
+    // book solution evalAll
+    import cats.syntax.applicative._
+    def evalAll(input: List[String]): CalcState[Int] = {
+      input.foldLeft(0.pure[CalcState]) { (state, value) =>
+        state.flatMap(_ => evalOne(value))
+      }
+    }
+
 
 
 

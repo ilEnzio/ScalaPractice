@@ -937,3 +937,45 @@ Q's
 
 </p>
 </details>
+
+
+
+<details><summary>WEEK 16</summary>
+<p>
+
+
+### 02/28/22
+
+
+
+- Scala w/ Cats Ch04: Monad Review
+- 
+
+Q's
+
+-
+
+#### TIL
+
+- flatMap becomes a construct that calculates permutations and combinations.
+
+
+### 03/01/22
+
+
+
+- Functional Programming in Scala: Ch02 - Complete
+- Scala w/ Cats State Monad Review
+
+Q's
+
+-
+
+#### TIL
+
+- 
+
+
+
+</p>
+</details>

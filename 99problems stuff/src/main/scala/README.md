@@ -944,7 +944,7 @@ Q's
 <p>
 
 
-### 02/21/22
+### 02/28/22
 
 
 
@@ -958,6 +958,22 @@ Q's
 #### TIL
 
 - flatMap becomes a construct that calculates permutations and combinations.
+
+
+### 03/01/22
+
+
+
+- Functional Programming in Scala: Ch02 - Complete
+- Scala w/ Cats State Monad Review
+
+Q's
+
+-
+
+#### TIL
+
+- 
 
 
 
