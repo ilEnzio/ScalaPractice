@@ -6,6 +6,7 @@ import scala.util.Random
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global
 
+import java.util.UUID
 import java.util.UUID.randomUUID
 
 object AFunctionalGame {
@@ -36,11 +37,16 @@ object AFunctionalGame {
     //
 
 
+  // I think the "edge" of my program is actually the concept of a "round";
+  // meaning at the end of each round I need to source and display the state.
+  // Therefore it's ok to call unsafeRunSync on rounds.
+
+
   sealed trait GameEvent
 
   final case object PromptPrinted extends GameEvent
-  final case class InputCollected(id: Int, choice: String) extends GameEvent
-  final case class FlipExecuted(id: Int, result: String) extends GameEvent
+  final case class InputCollected(id: UUID, choice: String) extends GameEvent
+  final case class FlipExecuted(id: UUID, result: String) extends GameEvent
   final case class ResultGenerated(wasCorrectGuess: Boolean) extends GameEvent
   final case object ResultPrinted extends GameEvent   //
 
@@ -83,8 +89,8 @@ object AFunctionalGame {
 //    }
 //  }
 
-  def createId: IO[String] = {
-    IO(randomUUID().toString())
+  def createId: IO[UUID] = {
+    IO(randomUUID())
   }
 
 
@@ -101,14 +107,6 @@ object AFunctionalGame {
     }
   }
 
-// This is not pure though...
-//  def flipCoin: FlipExecuted = {
-//    val coinflip = for {
-//    flip <- doCoinFlip
-//    } yield flip
-//
-//    FlipExecuted(1, coinflip.unsafeRunSync())
-//  }
 
 
   // GenerateResult
@@ -151,10 +149,18 @@ object AFunctionalGame {
   //  store the e
   // match to the next command.
 
-  def handleCommand(c: GameCommand): GameEvent = c match {
-    case PrintPrompt => ???
-    case GetInput => ???
-    case ExecuteFlip => ???
+  def handleCommand(c: GameCommand): IO[GameEvent] = c match {
+    case PrintPrompt => for {
+      _ <- printPrompt
+    } yield PromptPrinted
+    case GetInput  => for {
+      id <- createId
+      choice <- getInput
+    } yield InputCollected(id, choice)
+    case ExecuteFlip => for {
+      id <- createId
+      res <- doCoinFlip
+    } yield FlipExecuted(id, res)
     case x: GenerateResult => ???
     case x: PrintResult => ???
   }
@@ -170,11 +176,17 @@ object AFunctionalGame {
   def main(args: Array[String]): Unit = {
     def mainLoop(eStore: FlipEventStore): IO[Unit] =
       for {
-        _ <- printPrompt
-        choice <- getInput
-        flipResult <- doCoinFlip
-        _ <- if (choice == "Q") {
-          println(s"$choice and $flipResult")
+        _ <- handleCommand(PrintPrompt)
+        choice <- handleCommand(GetInput)
+        flip <- handleCommand(ExecuteFlip)
+        finalChoice = choice match {
+            case x: InputCollected => x.choice
+          }
+        flipResult = flip match {
+            case x: FlipExecuted => x.result
+          }
+        _ <- if (finalChoice == "Q") {
+          println(s"$finalChoice and $flipResult")
           IO(())
         } else mainLoop(eStore)
       } yield ()

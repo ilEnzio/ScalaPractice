@@ -26,6 +26,7 @@ libraryDependencies +=
 libraryDependencies +=
   "org.typelevel" %% "cats-effect" % "3.3.8"
 
+
 scalacOptions ++= Seq(
   //  "-Xfatal-warnings",
   //  "-Ypartial-unification"
