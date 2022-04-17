@@ -9,6 +9,7 @@ import cats.effect.unsafe.implicits.global
 import java.util.UUID
 import java.util.UUID.randomUUID
 
+
 object AFunctionalGame {
   //
   //  Coin Flip: A simple FP game
@@ -41,13 +42,17 @@ object AFunctionalGame {
   // meaning at the end of each round I need to source and display the state.
   // Therefore it's ok to call unsafeRunSync on rounds.
 
+  // Round(InputCollected, FlipExecuted)
+  // GameResult - totalFlips, correctGuesses
+  // GameResult = List[Round].fold
 
   sealed trait GameEvent
 
   final case object PromptPrinted extends GameEvent
   final case class InputCollected(id: UUID, choice: String) extends GameEvent
   final case class FlipExecuted(id: UUID, result: String) extends GameEvent
-  final case class ResultGenerated(wasCorrectGuess: Boolean) extends GameEvent
+  final case class RoundGenerated(round: Round) extends GameEvent
+  final case class ResultGenerated(totalFlips: Int, correctGuesses: Int) extends GameEvent
   final case object ResultPrinted extends GameEvent   //
 
   // Game Commands
@@ -55,10 +60,21 @@ object AFunctionalGame {
   final case object PrintPrompt extends GameCommand
   final case object GetInput extends GameCommand
   final case object ExecuteFlip extends GameCommand
-  final case class GenerateResult(flips: FlipEventStore, choices: PlayerChoiceStore) extends GameCommand
+  final case class GenerateResult(rounds: RoundStore) extends GameCommand
   final case class PrintResult(state: GameState) extends GameCommand
 
   final case class GameState(result: String, total: Int, correct: Int)
+
+
+  // Round
+  final case class Round (guess: InputCollected, actual: FlipExecuted)
+
+  final case class RoundStore(store: List[Round]) {
+    def add(r: Round): RoundStore = {
+            RoundStore(r :: store)
+    }
+  }
+
 
   // PromptPlayer component??
   // I/O
@@ -77,6 +93,16 @@ object AFunctionalGame {
         case _ => "Q"
       }
     }
+  }
+
+  def generateResult(rounds: RoundStore): ResultGenerated = {
+    val (total, guesses) =  rounds.store.foldLeft((0, 0)){ case (s, v) =>
+      v.actual.result == v.guess.choice match {
+        case true =>  (s._1 + 1, s._2 + 1)
+        case false => (s._1 + 1, s._2)
+      }
+    }
+    ResultGenerated(total, guesses)
   }
 
   // TODO generate UUID's
@@ -110,9 +136,9 @@ object AFunctionalGame {
 
 
   // GenerateResult
-  def compareGuessAndResult(flip: FlipExecuted, guess: InputCollected): ResultGenerated = {
-    ResultGenerated(flip.result == guess.choice)
-  }
+//  def compareGuessAndResult(flip: FlipExecuted, guess: InputCollected): ResultGenerated = {
+//    ResultGenerated(flip.result == guess.choice)
+//  }
 
   // Print Results
   // This is where I have to fold through the message store
@@ -134,16 +160,9 @@ object AFunctionalGame {
   }
 
 
-
-
-    def formattedResult(state: GameState): String = {
-      val current = state.result match {
-        case "H" => "Heads"
-        case "T" => "Tails"
-      }
-      s"Flip was $current. #Flips: ${state.total}, #Correct: ${state.correct}"
+    def formatResult(result: ResultGenerated): String = {
+      s"#Flips: ${result.totalFlips}, #Correct: ${result.correctGuesses}"
     }
-
 
   // when an e happens
   //  store the e
@@ -161,7 +180,7 @@ object AFunctionalGame {
       id <- createId
       res <- doCoinFlip
     } yield FlipExecuted(id, res)
-    case x: GenerateResult => ???
+    case GenerateResult(x) =>  IO(generateResult(x))
     case x: PrintResult => ???
   }
 
@@ -174,24 +193,37 @@ object AFunctionalGame {
   }
 
   def main(args: Array[String]): Unit = {
-    def mainLoop(eStore: FlipEventStore): IO[Unit] =
+    def mainLoop(roundStore: RoundStore): IO[Unit] =
       for {
         _ <- handleCommand(PrintPrompt)
         choice <- handleCommand(GetInput)
         flip <- handleCommand(ExecuteFlip)
-        finalChoice = choice match {
-            case x: InputCollected => x.choice
-          }
-        flipResult = flip match {
-            case x: FlipExecuted => x.result
-          }
-        _ <- if (finalChoice == "Q") {
-          println(s"$finalChoice and $flipResult")
+//        This is weird... :(
+          playerChoice = choice match {
+              case x: InputCollected => x
+            }
+          flipResult = flip match {
+              case x: FlipExecuted => x
+            }
+        round = Round(playerChoice, flipResult)
+        newRoundStore = roundStore.add(round)
+//        _ <- IO(println(round.guess.choice, round.actual.result))
+
+        _ <- if (round.guess.choice == "Q") {
+        // handleCommand(GenerateResult(???)
+        {
+          
+          val finalResult = generateResult(newRoundStore)
+          println(formatResult(finalResult))
           IO(())
-        } else mainLoop(eStore)
+        }
+        } else {
+            val result = generateResult(newRoundStore)
+            println(formatResult(result))
+            mainLoop(newRoundStore)}
       } yield ()
 
-    mainLoop(FlipEventStore(Nil)).unsafeRunSync()
+    mainLoop(RoundStore(Nil)).unsafeRunSync()
   }
 
 }
