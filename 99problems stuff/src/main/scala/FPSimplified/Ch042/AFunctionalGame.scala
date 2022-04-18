@@ -63,9 +63,6 @@ object AFunctionalGame {
   final case class GenerateResult(rounds: RoundStore) extends GameCommand
   final case class PrintResult(result: ResultGenerated) extends GameCommand
 
-  final case class GameState(result: String, total: Int, correct: Int)
-
-
   // Round
   final case class Round (guess: InputCollected, actual: FlipExecuted)
 
@@ -76,15 +73,18 @@ object AFunctionalGame {
   }
 
 
+  // TODO - the choice type is screwing me up when it comes to folding.  I think
+  // I need a more specific type than string to fix my end of game results bug.
+  // or I could just pop the head from the Round store before I fold.
+
+
+
   // PromptPlayer component??
-  // I/O
   def printPrompt: IO[Unit] = {
     IO.delay(println("(h)eads, (t)ails, or (q)uit: "))
-  //  PromptPrinted
   }
 
   // GetInput
-  // Not pure I/O??
   def getInput: IO[String] = {
     IO.delay{
       val choice = readLine.trim.toUpperCase
@@ -97,10 +97,12 @@ object AFunctionalGame {
 
   def generateResult(rounds: RoundStore): IO[(Int, Int)] = {
     val (total, guesses) =  rounds.store.foldLeft((0, 0)){ case (s, v) =>
-      v.actual.result == v.guess.choice match {
-        case true =>  (s._1 + 1, s._2 + 1)
-        case false => (s._1 + 1, s._2)
-      }
+      if (v.guess.choice == "Q") s
+      else
+        v.actual.result == v.guess.choice match {
+          case true =>  (s._1 + 1, s._2 + 1)
+          case false => (s._1 + 1, s._2)
+        }
     }
     IO(total, guesses)
   }
@@ -217,9 +219,7 @@ object AFunctionalGame {
           case x: ResultGenerated => x
         }
         _ <- if (round.guess.choice == "Q") {
-          // handleCommand(PrintResult(currResult))
-
-          IO.delay(println(formatResult(currResult)))
+           handleCommand(PrintResult(currResult))
         } else {
           println(formatResult(currResult))
           mainLoop(newRoundStore)
