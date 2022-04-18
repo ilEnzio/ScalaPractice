@@ -11,12 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="sbt: com.olegpy:better-monadic-for_2.13:0.3.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: net.java.dev.jna:jna:5.8.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.jline:jline:3.20.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-compiler:2.13.7:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.7:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.13.7:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:cats-core_2.13:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:cats-effect-kernel_2.13:3.3.8:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:cats-effect-std_2.13:3.3.8:jar" level="project" />

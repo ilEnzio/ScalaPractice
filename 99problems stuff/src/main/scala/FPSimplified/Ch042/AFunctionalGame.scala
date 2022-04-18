@@ -95,14 +95,14 @@ object AFunctionalGame {
     }
   }
 
-  def generateResult(rounds: RoundStore): ResultGenerated = {
+  def generateResult(rounds: RoundStore): IO[(Int, Int)] = {
     val (total, guesses) =  rounds.store.foldLeft((0, 0)){ case (s, v) =>
       v.actual.result == v.guess.choice match {
         case true =>  (s._1 + 1, s._2 + 1)
         case false => (s._1 + 1, s._2)
       }
     }
-    ResultGenerated(total, guesses)
+    IO(total, guesses)
   }
 
   // TODO generate UUID's
@@ -180,7 +180,10 @@ object AFunctionalGame {
       id <- createId
       res <- doCoinFlip
     } yield FlipExecuted(id, res)
-    case GenerateResult(x) =>  IO(generateResult(x))
+    case GenerateResult(x) =>  for {
+      res <- generateResult(x)
+      (total, guesses) = res
+    } yield ResultGenerated(total, guesses)
     case x: PrintResult => ???
   }
 
@@ -198,30 +201,30 @@ object AFunctionalGame {
         _ <- handleCommand(PrintPrompt)
         choice <- handleCommand(GetInput)
         flip <- handleCommand(ExecuteFlip)
-//        This is weird... :(
-          playerChoice = choice match {
-              case x: InputCollected => x
-            }
-          flipResult = flip match {
-              case x: FlipExecuted => x
-            }
+        //        This is weird... :(
+        playerChoice = choice match {
+          case x: InputCollected => x
+        }
+        flipResult = flip match {
+          case x: FlipExecuted => x
+        }
         round = Round(playerChoice, flipResult)
         newRoundStore = roundStore.add(round)
-//        _ <- IO(println(round.guess.choice, round.actual.result))
-
-        _ <- if (round.guess.choice == "Q") {
-        // handleCommand(GenerateResult(???)
-        {
-          
-          val finalResult = generateResult(newRoundStore)
-          println(formatResult(finalResult))
-          IO(())
+        result <- handleCommand(GenerateResult(newRoundStore))
+        currResult = result match {
+          case x: ResultGenerated => x
         }
-        } else {
-            val result = generateResult(newRoundStore)
-            println(formatResult(result))
-            mainLoop(newRoundStore)}
+        _ <- if (round.guess.choice == "Q")
+          IO(println(formatResult(currResult)))
+        else {
+          println(formatResult(currResult))
+          mainLoop(newRoundStore)
+        }
       } yield ()
+
+
+
+
 
     mainLoop(RoundStore(Nil)).unsafeRunSync()
   }
