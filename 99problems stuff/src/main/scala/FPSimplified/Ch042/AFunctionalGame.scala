@@ -46,6 +46,12 @@ object AFunctionalGame {
   // GameResult - totalFlips, correctGuesses
   // GameResult = List[Round].fold
 
+  // TODO Refactor
+  //  - group the display/print stuff
+  //  - store the commands ??
+  //  - store the events ??
+
+
   sealed trait GameEvent
 
   final case object PromptPrinted extends GameEvent
@@ -77,12 +83,21 @@ object AFunctionalGame {
   // I need a more specific type than string to fix my end of game results bug.
   // or I could just pop the head from the Round store before I fold.
 
-
+final object PrintUtil{
 
   // PromptPlayer component??
-  def printPrompt: IO[Unit] = {
-    IO.delay(println("(h)eads, (t)ails, or (q)uit: "))
+  val choicePrompt: String = {
+    "(h)eads, (t)ails, or (q)uit: "
   }
+
+  def formatResult(result: ResultGenerated): String = {
+    s"#Flips: ${result.totalFlips}, #Correct: ${result.correctGuesses}"
+  }
+
+  def printItem(s: String): IO[Unit] = {
+    IO.delay(println(s))
+  }
+}
 
   // GetInput
   def getInput: IO[String] = {
@@ -160,9 +175,6 @@ object AFunctionalGame {
   }
 
 
-    def formatResult(result: ResultGenerated): String = {
-      s"#Flips: ${result.totalFlips}, #Correct: ${result.correctGuesses}"
-    }
 
   // when an e happens
   //  store the e
@@ -170,7 +182,7 @@ object AFunctionalGame {
 
   def handleCommand(c: GameCommand): IO[GameEvent] = c match {
     case PrintPrompt => for {
-      _ <- printPrompt
+      _ <- PrintUtil.printItem(PrintUtil.choicePrompt)
     } yield PromptPrinted
     case GetInput  => for {
       id <- createId
@@ -185,7 +197,7 @@ object AFunctionalGame {
       (total, guesses) = res
     } yield ResultGenerated(total, guesses)
     case PrintResult(x) => for {
-      _ <- IO.delay((println(formatResult(x))))
+      _ <- PrintUtil.printItem(PrintUtil.formatResult(x))
     } yield ResultPrinted
   }
 
@@ -211,7 +223,8 @@ object AFunctionalGame {
           case x: FlipExecuted => x
         }
         round = Round(playerChoice, flipResult)
-        newRoundStore = if (round.guess.choice == "Q") roundStore
+        newRoundStore =
+          if (round.guess.choice == "Q") roundStore
           else roundStore.add(round)
         result <- handleCommand(GenerateResult(newRoundStore))
         currResult = result match {
@@ -220,13 +233,10 @@ object AFunctionalGame {
         _ <- if (round.guess.choice == "Q") {
            handleCommand(PrintResult(currResult))
         } else {
-          println(formatResult(currResult))
+          println(PrintUtil.formatResult(currResult))
           mainLoop(newRoundStore)
         }
       } yield ()
-
-
-
 
 
     mainLoop(RoundStore(Nil)).unsafeRunSync()
