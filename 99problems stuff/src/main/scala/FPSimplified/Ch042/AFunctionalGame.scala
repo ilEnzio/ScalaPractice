@@ -97,8 +97,6 @@ object AFunctionalGame {
 
   def generateResult(rounds: RoundStore): IO[(Int, Int)] = {
     val (total, guesses) =  rounds.store.foldLeft((0, 0)){ case (s, v) =>
-      if (v.guess.choice == "Q") s
-      else
         v.actual.result == v.guess.choice match {
           case true =>  (s._1 + 1, s._2 + 1)
           case false => (s._1 + 1, s._2)
@@ -213,7 +211,8 @@ object AFunctionalGame {
           case x: FlipExecuted => x
         }
         round = Round(playerChoice, flipResult)
-        newRoundStore = roundStore.add(round)
+        newRoundStore = if (round.guess.choice == "Q") roundStore
+          else roundStore.add(round)
         result <- handleCommand(GenerateResult(newRoundStore))
         currResult = result match {
           case x: ResultGenerated => x
