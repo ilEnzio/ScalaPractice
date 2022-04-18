@@ -61,7 +61,7 @@ object AFunctionalGame {
   final case object GetInput extends GameCommand
   final case object ExecuteFlip extends GameCommand
   final case class GenerateResult(rounds: RoundStore) extends GameCommand
-  final case class PrintResult(state: GameState) extends GameCommand
+  final case class PrintResult(result: ResultGenerated) extends GameCommand
 
   final case class GameState(result: String, total: Int, correct: Int)
 
@@ -115,6 +115,7 @@ object AFunctionalGame {
 //    }
 //  }
 
+  // I forgot when to use IO.delay.... :(
   def createId: IO[UUID] = {
     IO(randomUUID())
   }
@@ -142,7 +143,6 @@ object AFunctionalGame {
 
   // Print Results
   // This is where I have to fold through the message store
-  // State Monad???
 
   // Message/Data Store - where I store state transition/events
   // Do I need a Command to interact with the EventStore?
@@ -184,7 +184,9 @@ object AFunctionalGame {
       res <- generateResult(x)
       (total, guesses) = res
     } yield ResultGenerated(total, guesses)
-    case x: PrintResult => ???
+    case PrintResult(x) => for {
+      _ <- IO.delay((println(formatResult(x))))
+    } yield ResultPrinted
   }
 
   def handleEvent(e: GameEvent, store: GameEventStore): GameCommand = e match {
@@ -214,9 +216,11 @@ object AFunctionalGame {
         currResult = result match {
           case x: ResultGenerated => x
         }
-        _ <- if (round.guess.choice == "Q")
-          IO(println(formatResult(currResult)))
-        else {
+        _ <- if (round.guess.choice == "Q") {
+          // handleCommand(PrintResult(currResult))
+
+          IO.delay(println(formatResult(currResult)))
+        } else {
           println(formatResult(currResult))
           mainLoop(newRoundStore)
         }
