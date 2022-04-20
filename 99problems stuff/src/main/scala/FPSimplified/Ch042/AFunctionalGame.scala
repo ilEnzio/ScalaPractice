@@ -42,17 +42,20 @@ object AFunctionalGame {
   // meaning at the end of each round I need to source and display the state.
   // Therefore it's ok to call unsafeRunSync on rounds.
 
-  // Round(InputCollected, FlipExecuted)
-  // GameResult - totalFlips, correctGuesses
-  // GameResult = List[Round].fold
 
   // TODO Refactor
   //  - group the display/print stuff
   //  - store the commands ??
   //  - store the events ??
 
+//  final case object Start{
+//    def startRound(commandStore: CommandStore): GameMessageStore = {
+//      commandStore.add(PrintPrompt)
+//    }
+//  }
+  sealed trait GameMessage
 
-  sealed trait GameEvent
+  sealed trait GameEvent extends GameMessage
 
   final case object PromptPrinted extends GameEvent
   final case class InputCollected(id: UUID, choice: String) extends GameEvent
@@ -62,7 +65,8 @@ object AFunctionalGame {
   final case object ResultPrinted extends GameEvent   //
 
   // Game Commands
-  sealed trait GameCommand
+  sealed trait GameCommand extends GameMessage
+
   final case object PrintPrompt extends GameCommand
   final case object GetInput extends GameCommand
   final case object ExecuteFlip extends GameCommand
@@ -78,10 +82,6 @@ object AFunctionalGame {
     }
   }
 
-
-  // TODO - the choice type is screwing me up when it comes to folding.  I think
-  // I need a more specific type than string to fix my end of game results bug.
-  // or I could just pop the head from the Round store before I fold.
 
 final object PrintUtil{
 
@@ -120,16 +120,6 @@ final object PrintUtil{
     IO(total, guesses)
   }
 
-  // TODO generate UUID's
-  // TODO This feels like two things...
-//  def collectInput: InputCollected = {
-//    val choice = getInput
-//    choice match {
-//      case x if (x == "T" || x == "H") => InputCollected(1, x)
-//      case _  => InputCollected(0, "Q")
-//    }
-//  }
-
   // I forgot when to use IO.delay.... :(
   def createId: IO[UUID] = {
     IO(randomUUID())
@@ -156,30 +146,32 @@ final object PrintUtil{
 //    ResultGenerated(flip.result == guess.choice)
 //  }
 
-  // Print Results
-  // This is where I have to fold through the message store
-
   // Message/Data Store - where I store state transition/events
   // Do I need a Command to interact with the EventStore?
+//
 
-  sealed trait GameEventStore {
-    def add(event: GameEvent): GameEventStore
-  }
-
-  final case class PlayerChoiceStore(store: List[GameEvent]) extends GameEventStore{
-    override def add(event: GameEvent): GameEventStore = this.copy(store = store :+ event)
-  }
-  final case class FlipEventStore(store: List[GameEvent]) extends GameEventStore {
-    override def add(event: GameEvent): GameEventStore = this.copy(store = store :+ event)
-
-  }
+//  sealed trait GameMessageStore {
+//    def add(message: GameMessage): GameMessageStore
+//  }
+//
+//  final case class CommandStore(store: List[GameMessage]) extends GameMessageStore {
+//    override def add(Message: GameMessage): GameMessageStore = ???
+//  }
+//  final case class PlayerChoiceStore(store: List[GameMessage]) extends GameMessageStore{
+//    override def add(event: GameMessage): GameMessageStore = this.copy(store = store :+ event)
+//  }
+//  final case class FlipEventStore(store: List[GameMessage]) extends GameMessageStore {
+//    override def add(event: GameMessage): GameMessageStore = this.copy(store = store :+ event)
+//
+//  }
 
 
 
   // when an e happens
   //  store the e
   // match to the next command.
-
+// This is "accommodating" the commands it's sent - moving them from low
+  // precision/coupling to high precision
   def handleCommand(c: GameCommand): IO[GameEvent] = c match {
     case PrintPrompt => for {
       _ <- PrintUtil.printItem(PrintUtil.choicePrompt)
@@ -200,14 +192,14 @@ final object PrintUtil{
       _ <- PrintUtil.printItem(PrintUtil.formatResult(x))
     } yield ResultPrinted
   }
-
-  def handleEvent(e: GameEvent, store: GameEventStore): GameCommand = e match {
-    case PromptPrinted => ???
-    case x: InputCollected => ???//store.add(e)
-    case x: FlipExecuted => ???//store.add(e)
-    case x: ResultGenerated => ???
-    case ResultPrinted => ???
-  }
+//
+//  def handleEvent(e: GameEvent, store: GameMessageStore): GameCommand = e match {
+//    case PromptPrinted => ???
+//    case x: InputCollected => ???//store.add(e)
+//    case x: FlipExecuted => ???//store.add(e)
+//    case x: ResultGenerated => ???
+//    case ResultPrinted => ???
+//  }
 
   def main(args: Array[String]): Unit = {
     def mainLoop(roundStore: RoundStore): IO[Unit] =
@@ -222,6 +214,7 @@ final object PrintUtil{
         flipResult = flip match {
           case x: FlipExecuted => x
         }
+        // is CreateRound an Command? w/ an associated event?
         round = Round(playerChoice, flipResult)
         newRoundStore =
           if (round.guess.choice == "Q") roundStore
